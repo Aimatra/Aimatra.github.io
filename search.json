@@ -49,11 +49,186 @@
     "text": "Vous pouvez me contacter par email : claire.borrelli@sciencespo.fr\nOu via LinkedIn / GitHub."
   },
   {
+    "objectID": "cours/acp.html#plan",
+    "href": "cours/acp.html#plan",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Plan",
+    "text": "Plan\n\nDonnées : le nuage de points pesants\nInertie\nPrincipe de l’ACP\nRésolution du problème\nComposantes principales & indicateurs\nExemple appliqué en R"
+  },
+  {
+    "objectID": "cours/acp.html#nuage-de-points-pesants",
+    "href": "cours/acp.html#nuage-de-points-pesants",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Nuage de points pesants",
+    "text": "Nuage de points pesants\nUn nuage de points pesants est un ensemble \\(N = \\{(x_i, p_i) : i = 1, \\dots, n\\}\\) où :\n\n\\(x_i \\in \\mathbb{R}^p\\) : une observation décrite par \\(p\\) variables\n\\(p_i &gt; 0\\) : le poids de l’observation \\(i\\), avec \\(\\sum_{i=1}^n p_i = 1\\)\n\n\nExemple — 3 observations dans \\(\\mathbb{R}^2\\) :\n\\[x_1 = (2,3),\\ p_1=0.4 \\qquad x_2 = (1,5),\\ p_2=0.3 \\qquad x_3 = (4,2),\\ p_3=0.3\\]"
+  },
+  {
+    "objectID": "cours/acp.html#les-matrices-d-et-x",
+    "href": "cours/acp.html#les-matrices-d-et-x",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Les matrices \\(D\\) et \\(X\\)",
+    "text": "Les matrices \\(D\\) et \\(X\\)\n\\(D\\) : matrice diagonale \\(n \\times n\\) des poids — \\(X\\) : matrice \\(n \\times p\\) des données\n\\[D = \\begin{bmatrix} 0.4 & 0 & 0 \\\\ 0 & 0.3 & 0 \\\\ 0 & 0 & 0.3 \\end{bmatrix}\n\\qquad\nX = \\begin{bmatrix} 2 & 3 \\\\ 1 & 5 \\\\ 4 & 2 \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "cours/acp.html#le-triplet-x-d-m",
+    "href": "cours/acp.html#le-triplet-x-d-m",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Le triplet \\((X, D, M)\\)",
+    "text": "Le triplet \\((X, D, M)\\)\n\n\\(X\\) : matrice des données (\\(n \\times p\\))\n\\(D\\) : matrice de poids (diagonale, \\(\\sum p_i = 1\\))\n\\(M\\) : métrique — matrice \\(p \\times p\\), symétrique définie positive, qui définit les distances entre observations\n\n\nCas courants :\n\nPoids égaux : \\(D = \\tfrac{1}{n} I_n\\)\nMétrique euclidienne : \\(M = I_p\\)\nMétrique normalisée : \\(M = \\text{diag}(1/s_1^2, \\dots, 1/s_p^2)\\) — corrige les différences d’échelle entre variables"
+  },
+  {
+    "objectID": "cours/acp.html#pourquoi-normaliser",
+    "href": "cours/acp.html#pourquoi-normaliser",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Pourquoi normaliser ?",
+    "text": "Pourquoi normaliser ?\nAvec \\(M = \\text{diag}(1/s_j^2)\\), les variables à faible variance (peu dispersées) reçoivent un poids plus fort, et inversement.\n\nPropriété clé : les distances calculées sur les données brutes avec la métrique \\(D_{1/s}\\) sont identiques aux distances calculées sur les données réduites (centrées-réduites) avec la métrique identité.\n\\(\\Rightarrow\\) normaliser une variable ou changer de métrique, c’est la même opération."
+  },
+  {
+    "objectID": "cours/acp.html#centre-de-gravité",
+    "href": "cours/acp.html#centre-de-gravité",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Centre de gravité",
+    "text": "Centre de gravité\nLe centre de gravité du nuage \\(N\\) est\n\\[g = \\sum_{i=1}^n p_i x_i\\]\nLe nuage centré a pour coordonnées \\(x_i - g\\)."
+  },
+  {
+    "objectID": "cours/acp.html#inertie-par-rapport-à-un-point-un-sous-espace",
+    "href": "cours/acp.html#inertie-par-rapport-à-un-point-un-sous-espace",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Inertie par rapport à un point / un sous-espace",
+    "text": "Inertie par rapport à un point / un sous-espace\nPar rapport à un point \\(a\\) : \\[I_a = \\sum_{i=1}^n p_i\\, d_M^2(a, x_i)\\]\nPar rapport au centre de gravité (\\(I := I_g\\)) : joue le rôle central dans les méthodes factorielles.\nPar rapport à un sous-espace affine \\(F\\) : \\[I_F = \\sum_{i=1}^n p_i\\, d_M^2(F, x_i)\\]"
+  },
+  {
+    "objectID": "cours/acp.html#théorème-de-huygens",
+    "href": "cours/acp.html#théorème-de-huygens",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Théorème de Huygens",
+    "text": "Théorème de Huygens\nPour tout sous-espace affine \\(F\\) de \\(\\mathbb{R}^p\\) :\n\\[I_F = I_{F_g} + d_M^2(a, g)\\]\noù \\(F_g\\) est le sous-espace parallèle à \\(F\\) passant par \\(g\\), et \\(a\\) la projection \\(M\\)-orthogonale de \\(g\\) sur \\(F\\).\n\nConséquence : le sous-espace parallèle à \\(F\\) d’inertie minimale est celui qui passe par le centre de gravité."
+  },
+  {
+    "objectID": "cours/acp.html#inertie-totale-expression-matricielle",
+    "href": "cours/acp.html#inertie-totale-expression-matricielle",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Inertie totale : expression matricielle",
+    "text": "Inertie totale : expression matricielle\nEn notant \\(V = X^\\top D X\\) la matrice de variances-covariances :\n\\[I = \\text{tr}(VM)\\]\nEt le nuage \\(N\\) (individus) et le nuage \\(N^*\\) (variables, tableau transposé) ont la même inertie totale."
+  },
+  {
+    "objectID": "cours/acp.html#formulation-du-problème",
+    "href": "cours/acp.html#formulation-du-problème",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Formulation du problème",
+    "text": "Formulation du problème\nL’ACP cherche une représentation approchée du nuage \\(N \\subset \\mathbb{R}^p\\) dans un sous-espace de dimension réduite \\(k &lt; p\\).\nOn cherche \\(E_k\\), sous-espace de dimension \\(k\\), qui minimise l’inertie perdue \\(I_{E_k^\\perp}\\) — ce qui équivaut, l’inertie totale étant fixe, à maximiser l’inertie expliquée \\(I_{E_k^\\perp}\\)…\n\nFormellement : \\(E_k\\) est optimal s’il maximise l’inertie expliquée parmi tous les sous-espaces de dimension \\(k\\)."
+  },
+  {
+    "objectID": "cours/acp.html#construction-séquentielle",
+    "href": "cours/acp.html#construction-séquentielle",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Construction séquentielle",
+    "text": "Construction séquentielle\nDeux lemmes permettent de construire les axes un à un :\n\nLemme d’inclusion : le sous-espace optimal de dimension \\(k\\) contient le sous-espace optimal de dimension \\(k-1\\)\nLemme de construction : chercher \\(E_k\\) optimal \\(\\supseteq E_{k-1}\\) revient à chercher une droite \\(\\Delta u_k\\), \\(M\\)-orthogonale à \\(E_{k-1}\\), qui minimise \\(I_{\\Delta u_k}\\)\n\n\\(\\Rightarrow\\) on peut construire les axes un par un, par ordre d’importance."
+  },
+  {
+    "objectID": "cours/acp.html#recherche-du-premier-axe",
+    "href": "cours/acp.html#recherche-du-premier-axe",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Recherche du premier axe",
+    "text": "Recherche du premier axe\nOn cherche \\(u_1\\) unitaire (\\(u_1^\\top M u_1 = 1\\)) qui maximise l’inertie expliquée :\n\\[u_1 = \\arg\\max_u\\ u^\\top MVMu \\quad \\text{s.c.}\\quad u^\\top Mu = 1\\]\nPar les multiplicateurs de Lagrange, on obtient :\n\\[MVMu_1 - \\lambda_1 Mu_1 = 0 \\quad\\Longleftrightarrow\\quad VMu_1 = \\lambda_1 u_1\\]\n\n\\(u_1\\) est donc un vecteur propre de \\(VM\\), associé à sa plus grande valeur propre \\(\\lambda_1\\). L’inertie expliquée par cet axe vaut \\(\\lambda_1\\)."
+  },
+  {
+    "objectID": "cours/acp.html#généralisation-les-axes-factoriels",
+    "href": "cours/acp.html#généralisation-les-axes-factoriels",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Généralisation : les axes factoriels",
+    "text": "Généralisation : les axes factoriels\nLemme 2.3.1 — Les axes \\(\\Delta u_1, \\dots, \\Delta u_p\\) sont les axes factoriels :\n\n\\(u_k\\) = vecteur propre de \\(VM = X^\\top D X M\\) associé à la \\(k\\)-ème plus grande valeur propre \\(\\lambda_k\\)\nL’inertie expliquée par \\(\\Delta u_k\\) vaut \\(\\lambda_k\\), et \\(I = \\sum_{k=1}^p \\lambda_k\\)\nLe % d’inertie expliqué par \\(E_k\\) est \\(\\dfrac{100 \\cdot (\\lambda_1 + \\dots + \\lambda_k)}{I}\\)\n\nSi \\(r = \\text{rang}(X)\\), alors \\(\\lambda_1, \\dots, \\lambda_r &gt; 0\\) et \\(\\lambda_{r+1} = \\dots = \\lambda_p = 0\\)."
+  },
+  {
+    "objectID": "cours/acp.html#composantes-principales",
+    "href": "cours/acp.html#composantes-principales",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Composantes principales",
+    "text": "Composantes principales\nLa \\(k\\)-ème composante principale \\(C_k = XMu_k\\) donne les coordonnées des \\(n\\) observations sur l’axe \\(\\Delta u_k\\).\nPropriétés : les \\(C_k\\) sont centrées, de variance \\(\\lambda_k\\), et non corrélées entre elles.\n\nFormule de reconstitution — avec \\(s &lt; r\\) composantes : \\[X \\approx \\tilde X = \\sum_{k=1}^s C_k u_k^\\top\\]"
+  },
+  {
+    "objectID": "cours/acp.html#indicateurs-de-qualité",
+    "href": "cours/acp.html#indicateurs-de-qualité",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Indicateurs de qualité",
+    "text": "Indicateurs de qualité\nQualité de représentation d’une observation sur l’axe \\(k\\) : \\[\\cos^2(i,k) = \\left(\\frac{c_{ik}}{\\|x_i\\|_M}\\right)^2\\]\nContribution d’une observation à la construction de l’axe \\(k\\) (repère les observations atypiques) : \\[\\text{ctr}(i,k) = \\frac{p_i c_{ik}^2}{\\lambda_k}\\]"
+  },
+  {
+    "objectID": "cours/acp.html#représentation-des-variables",
+    "href": "cours/acp.html#représentation-des-variables",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Représentation des variables",
+    "text": "Représentation des variables\nOn peut projeter les variables initiales sur les axes factoriels et calculer leur corrélation avec chaque composante :\n\\[\\text{cor}(j,k) = \\frac{d_{kj}}{\\|X_j\\|_D} \\in [-1, 1]\\]\nCes corrélations se visualisent sur le cercle des corrélations."
+  },
+  {
+    "objectID": "cours/acp.html#lacp-en-pratique",
+    "href": "cours/acp.html#lacp-en-pratique",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "L’ACP en pratique",
+    "text": "L’ACP en pratique\n\nDescription des données\nStatistiques descriptives univariées et bivariées\nChoix des éléments actifs et de la métrique\nChoix du nombre d’axes (% d’inertie expliquée)\nInterprétation des axes (sens, observations bien représentées, atypiques)\nConclusion"
+  },
+  {
+    "objectID": "cours/acp.html#le-jeu-de-données-swiss",
+    "href": "cours/acp.html#le-jeu-de-données-swiss",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Le jeu de données : swiss",
+    "text": "Le jeu de données : swiss\nIndicateurs socio-économiques et de fécondité pour 47 provinces francophones de Suisse (1888) — inclus nativement dans R.\n\ndata(swiss)\nstr(swiss)\n\n'data.frame':   47 obs. of  6 variables:\n $ Fertility       : num  80.2 83.1 92.5 85.8 76.9 76.1 83.8 92.4 82.4 82.9 ...\n $ Agriculture     : num  17 45.1 39.7 36.5 43.5 35.3 70.2 67.8 53.3 45.2 ...\n $ Examination     : int  15 6 5 12 17 9 16 14 12 16 ...\n $ Education       : int  12 9 5 7 15 7 7 8 7 13 ...\n $ Catholic        : num  9.96 84.84 93.4 33.77 5.16 ...\n $ Infant.Mortality: num  22.2 22.2 20.2 20.3 20.6 26.6 23.6 24.9 21 24.4 ..."
+  },
+  {
+    "objectID": "cours/acp.html#statistiques-descriptives",
+    "href": "cours/acp.html#statistiques-descriptives",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Statistiques descriptives",
+    "text": "Statistiques descriptives\n\nsummary(swiss)\n\n   Fertility      Agriculture     Examination      Education    \n Min.   :35.00   Min.   : 1.20   Min.   : 3.00   Min.   : 1.00  \n 1st Qu.:64.70   1st Qu.:35.90   1st Qu.:12.00   1st Qu.: 6.00  \n Median :70.40   Median :54.10   Median :16.00   Median : 8.00  \n Mean   :70.14   Mean   :50.66   Mean   :16.49   Mean   :10.98  \n 3rd Qu.:78.45   3rd Qu.:67.65   3rd Qu.:22.00   3rd Qu.:12.00  \n Max.   :92.50   Max.   :89.70   Max.   :37.00   Max.   :53.00  \n    Catholic       Infant.Mortality\n Min.   :  2.150   Min.   :10.80   \n 1st Qu.:  5.195   1st Qu.:18.15   \n Median : 15.140   Median :20.00   \n Mean   : 41.144   Mean   :19.94   \n 3rd Qu.: 93.125   3rd Qu.:21.70   \n Max.   :100.000   Max.   :26.60"
+  },
+  {
+    "objectID": "cours/acp.html#calcul-de-lacp-données-centrées-réduites",
+    "href": "cours/acp.html#calcul-de-lacp-données-centrées-réduites",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Calcul de l’ACP (données centrées-réduites)",
+    "text": "Calcul de l’ACP (données centrées-réduites)\n\nacp &lt;- prcomp(swiss, scale. = TRUE)\nsummary(acp)\n\nImportance of components:\n                          PC1    PC2    PC3     PC4     PC5     PC6\nStandard deviation     1.7888 1.0901 0.9207 0.66252 0.45225 0.34765\nProportion of Variance 0.5333 0.1981 0.1413 0.07315 0.03409 0.02014\nCumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000\n\n\nIci, la métrique \\(M = \\text{diag}(1/s_j^2)\\) correspond à scale. = TRUE (normalisation des variables)."
+  },
+  {
+    "objectID": "cours/acp.html#éboulis-des-valeurs-propres",
+    "href": "cours/acp.html#éboulis-des-valeurs-propres",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Éboulis des valeurs propres",
+    "text": "Éboulis des valeurs propres\n\nlibrary(ggplot2)\nlambda &lt;- acp$sdev^2\ndf_eb &lt;- data.frame(axe = factor(1:length(lambda)), inertie = 100*lambda/sum(lambda))\nggplot(df_eb, aes(axe, inertie)) +\n  geom_col(fill = \"#2c7fb8\") +\n  labs(x = \"Axe factoriel\", y = \"% d'inertie expliquée\", title = \"Éboulis des valeurs propres\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "cours/acp.html#nuage-des-individus-δu₁-δu₂",
+    "href": "cours/acp.html#nuage-des-individus-δu₁-δu₂",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Nuage des individus (Δu₁, Δu₂)",
+    "text": "Nuage des individus (Δu₁, Δu₂)\n\ndf_ind &lt;- data.frame(acp$x, province = rownames(swiss))\nggplot(df_ind, aes(PC1, PC2, label = province)) +\n  geom_point(color = \"#2c7fb8\") +\n  geom_text(size = 2.5, vjust = -0.7) +\n  labs(x = \"Composante 1\", y = \"Composante 2\", title = \"Provinces suisses dans le premier plan factoriel\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "cours/acp.html#cercle-des-corrélations",
+    "href": "cours/acp.html#cercle-des-corrélations",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Cercle des corrélations",
+    "text": "Cercle des corrélations\n\ncor_var &lt;- as.data.frame(cor(swiss, acp$x[, 1:2]))\ncor_var$variable &lt;- rownames(cor_var)\ntheta &lt;- seq(0, 2*pi, length.out = 100)\ncercle &lt;- data.frame(x = cos(theta), y = sin(theta))\n\nggplot() +\n  geom_path(data = cercle, aes(x, y), color = \"grey70\") +\n  geom_segment(data = cor_var, aes(x = 0, y = 0, xend = PC1, yend = PC2),\n               arrow = arrow(length = unit(0.2, \"cm\")), color = \"#e34a33\") +\n  geom_text(data = cor_var, aes(PC1, PC2, label = variable), vjust = -0.5, size = 3) +\n  coord_equal() +\n  labs(x = \"Composante 1\", y = \"Composante 2\", title = \"Cercle des corrélations\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "cours/acp.html#interprétation",
+    "href": "cours/acp.html#interprétation",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Interprétation",
+    "text": "Interprétation\n\nAxe 1 : oppose les provinces à forte fécondité / agriculture aux provinces plus éduquées et urbanisées\nAxe 2 : structuré par la pratique religieuse (Catholic) et la mortalité infantile\nLes provinces proches sur le graphique ont des profils socio-économiques similaires\nVérifier le % d’inertie expliquée par les 2 premiers axes avant d’interpréter (summary(acp))"
+  },
+  {
+    "objectID": "cours/acp.html#conclusion",
+    "href": "cours/acp.html#conclusion",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nL’ACP transforme des variables corrélées en composantes non corrélées, ordonnées par inertie expliquée\nLe choix de la métrique (normalisation) change fondamentalement les résultats\nToujours interpréter avec les indicateurs de qualité (cos², contribution) plutôt que le graphique seul"
+  },
+  {
     "objectID": "cours.html",
     "href": "cours.html",
     "title": "Cours",
     "section": "",
-    "text": "Notes et supports issus de mes cours à l’ENSAI et à Sciences Po.\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nExemple : nom du cours\n\n\nAug 2, 2026\n\n\nCourte description du cours et de ce que couvre la note.\n\n\n\n\n\n\nNo matching items"
+    "text": "Notes et supports issus de mes cours à l’ENSAI et à Sciences Po.\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nExemple : nom du cours\n\n\nAug 2, 2026\n\n\nCourte description du cours et de ce que couvre la note.\n\n\n\n\n\n\nAnalyse en Composantes Principales (ACP)\n\n\nDec 17, 2023\n\n\nCours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "datavis/exemple-datavis.html",

@@ -20,7 +20,8 @@
   {
     "listing": "/cours.html",
     "items": [
-      "/cours/exemple-cours.html"
+      "/cours/exemple-cours.html",
+      "/cours/acp.html"
     ]
   }
 ]
