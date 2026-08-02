@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Claire Borrelli",
+    "section": "",
+    "text": "Bonjour ! Je suis étudiante ingénieure à l’ENSAI (école de statistique) et je réalise en parallèle un master de recherche en économie à Sciences Po.\nCe site rassemble mes cours, mes exposés et quelques dataviz réalisées en R et en Python. Nouveau contenu ajouté régulièrement.\nVersion anglaise disponible ici."
+  },
+  {
+    "objectID": "exposes.html",
+    "href": "exposes.html",
+    "title": "Exposés",
+    "section": "",
+    "text": "Présentations réalisées dans le cadre de mes études.\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nExemple : titre de l’exposé\n\n\nAug 2, 2026\n\n\nContexte de l’exposé (cours concerné, date, co-auteurs éventuels).\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "datavis.html",
+    "href": "datavis.html",
+    "title": "Datavis",
+    "section": "",
+    "text": "Quelques visualisations de données réalisées en R (ggplot2, plotly) et en Python.\n\n\n\n\n\n\n\n\n\n\n\nExemple : titre de la datavis\n\n\nUne phrase sur la donnée utilisée et l’idée du graphique.\n\n\n\nAug 2, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "CV",
+    "section": "",
+    "text": "CV en français (PDF)\nCV in English (PDF)"
+  },
+  {
+    "objectID": "cours/exemple-cours.html",
+    "href": "cours/exemple-cours.html",
+    "title": "Exemple : nom du cours",
+    "section": "",
+    "text": "Contenu du cours ici. Tu peux inclure du code R ou Python exécutable directement :\n\nsummary(cars)"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "Vous pouvez me contacter par email : claire.borrelli@sciencespo.fr\nOu via LinkedIn / GitHub."
+  },
+  {
+    "objectID": "cours.html",
+    "href": "cours.html",
+    "title": "Cours",
+    "section": "",
+    "text": "Notes et supports issus de mes cours à l’ENSAI et à Sciences Po.\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nExemple : nom du cours\n\n\nAug 2, 2026\n\n\nCourte description du cours et de ce que couvre la note.\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "datavis/exemple-datavis.html",
+    "href": "datavis/exemple-datavis.html",
+    "title": "Exemple : titre de la datavis",
+    "section": "",
+    "text": "library(ggplot2)\nggplot(mtcars, aes(wt, mpg)) + geom_point()"
+  },
+  {
+    "objectID": "exposes/exemple-expose.html",
+    "href": "exposes/exemple-expose.html",
+    "title": "Exemple : titre de l’exposé",
+    "section": "",
+    "text": "Résumé de l’exposé, slides ou document associé en lien ici."
+  },
+  {
+    "objectID": "index-en.html",
+    "href": "index-en.html",
+    "title": "Claire Borrelli",
+    "section": "",
+    "text": "Hello! I am an engineering student at ENSAI (French national school of statistics), and I am simultaneously pursuing a Research Master’s in Economics at Sciences Po.\nThis website gathers my coursework, presentations, and a few data visualizations built in R and Python. New material is added regularly.\nVersion française disponible ici."
+  }
+]
