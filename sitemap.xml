@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://Aimatra.github.io/projets.html</loc>
+    <lastmod>2026-08-02T14:42:54.000Z</lastmod>
+  </url>
+  <url>
     <loc>https://Aimatra.github.io/index.html</loc>
     <lastmod>2026-08-02T13:59:25.413Z</lastmod>
   </url>
@@ -39,5 +43,9 @@
   <url>
     <loc>https://Aimatra.github.io/index-en.html</loc>
     <lastmod>2026-08-02T13:59:25.413Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Aimatra.github.io/projets/projet-signatures-ctdna.html</loc>
+    <lastmod>2026-08-02T14:42:54.000Z</lastmod>
   </url>
 </urlset>

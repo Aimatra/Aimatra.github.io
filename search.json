@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "projets.html",
+    "href": "projets.html",
+    "title": "Projets",
+    "section": "",
+    "text": "Projets académiques plus longs (statistique, économie, data science).\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nThéorie des signatures en cancérologie\n\n\nMar 31, 2025\n\n\nProjet de statistique 2A (ENSAI) : détection de tumeurs malignes à partir de l’ADN tumoral circulant (ctDNA), via la théorie des signatures.\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Claire Borrelli",
@@ -68,5 +75,40 @@
     "title": "Claire Borrelli",
     "section": "",
     "text": "Hello! I am an engineering student at ENSAI (French national school of statistics), and I am simultaneously pursuing a Research Master’s in Economics at Sciences Po.\nThis website gathers my coursework, presentations, and a few data visualizations built in R and Python. New material is added regularly.\nVersion française disponible ici."
+  },
+  {
+    "objectID": "projets/projet-signatures-ctdna.html",
+    "href": "projets/projet-signatures-ctdna.html",
+    "title": "Théorie des signatures en cancérologie",
+    "section": "",
+    "text": "Projet de statistique de 2ème année à l’ENSAI, réalisé avec Merlin Debeve, Ting Huang, Antoine Montzamir et Paulin Lemoine, sous la direction de Stéphane Chrétien (laboratoire ERIC, Université Lyon 2).\nL’objectif : identifier, à partir du taux d’ADN tumoral circulant (ctDNA) mesuré par prises de sang, si une tumeur est bénigne ou maligne — un enjeu de détection précoce du cancer, non invasive et peu coûteuse."
+  },
+  {
+    "objectID": "projets/projet-signatures-ctdna.html#contexte",
+    "href": "projets/projet-signatures-ctdna.html#contexte",
+    "title": "Théorie des signatures en cancérologie",
+    "section": "",
+    "text": "Projet de statistique de 2ème année à l’ENSAI, réalisé avec Merlin Debeve, Ting Huang, Antoine Montzamir et Paulin Lemoine, sous la direction de Stéphane Chrétien (laboratoire ERIC, Université Lyon 2).\nL’objectif : identifier, à partir du taux d’ADN tumoral circulant (ctDNA) mesuré par prises de sang, si une tumeur est bénigne ou maligne — un enjeu de détection précoce du cancer, non invasive et peu coûteuse."
+  },
+  {
+    "objectID": "projets/projet-signatures-ctdna.html#démarche",
+    "href": "projets/projet-signatures-ctdna.html#démarche",
+    "title": "Théorie des signatures en cancérologie",
+    "section": "Démarche",
+    "text": "Démarche\n\nModélisation des données : simulation de trajectoires de ctDNA par un processus de naissance et de mort (Birth-and-Death Process), calibré sur des taux de natalité/mortalité cellulaire issus de la littérature, avec gestion des données censurées (imputation par MICE).\nThéorie des signatures : encodage des trajectoires (vues comme des chemins) en une série de statistiques (signature de Chen/Lyons), permettant de capturer la dynamique temporelle au-delà d’une simple comparaison de niveaux.\nClassification : test fondé sur l’aire de Lévy avec contrôle du taux de faux positifs (procédure de Benjamini-Hochberg), comparé à des classifieurs SVM et GAM."
+  },
+  {
+    "objectID": "projets/projet-signatures-ctdna.html#résultat-principal",
+    "href": "projets/projet-signatures-ctdna.html#résultat-principal",
+    "title": "Théorie des signatures en cancérologie",
+    "section": "Résultat principal",
+    "text": "Résultat principal\nLa comparaison naïve des niveaux moyens de ctDNA ne suffit pas à distinguer tumeurs bénignes et malignes (chevauchement des distributions). L’approche par signature, en exploitant la forme de la trajectoire plutôt que son seul niveau, améliore nettement la classification, avec un contrôle explicite du taux de fausses découvertes."
+  },
+  {
+    "objectID": "projets/projet-signatures-ctdna.html#document-complet",
+    "href": "projets/projet-signatures-ctdna.html#document-complet",
+    "title": "Théorie des signatures en cancérologie",
+    "section": "Document complet",
+    "text": "Document complet\nTélécharger le rapport (PDF)"
   }
 ]
