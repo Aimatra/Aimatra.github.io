@@ -10,6 +10,8 @@ website:
         href: index.qmd
       - text: "Cours"
         href: cours.qmd
+      - text: "Projets"
+        href: projets.qmd
       - text: "Exposés"
         href: exposes.qmd
       - text: "Datavis"

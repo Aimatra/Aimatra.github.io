@@ -1,0 +1,10 @@
+---
+title: "Projets"
+listing:
+  contents: projets
+  type: table
+  sort: "date desc"
+  fields: [title, date, description]
+---
+
+Projets académiques plus longs (statistique, économie, data science).

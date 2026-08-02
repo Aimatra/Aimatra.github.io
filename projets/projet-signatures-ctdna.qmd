@@ -1,0 +1,26 @@
+---
+title: "Théorie des signatures en cancérologie"
+date: 2025-03-31
+description: "Projet de statistique 2A (ENSAI) : détection de tumeurs malignes à partir de l'ADN tumoral circulant (ctDNA), via la théorie des signatures."
+categories: [statistiques, oncologie, classification]
+---
+
+## Contexte
+
+Projet de statistique de 2ème année à l'ENSAI, réalisé avec Merlin Debeve, Ting Huang, Antoine Montzamir et Paulin Lemoine, sous la direction de Stéphane Chrétien (laboratoire ERIC, Université Lyon 2).
+
+L'objectif : identifier, à partir du taux d'ADN tumoral circulant (ctDNA) mesuré par prises de sang, si une tumeur est bénigne ou maligne — un enjeu de détection précoce du cancer, non invasive et peu coûteuse.
+
+## Démarche
+
+- **Modélisation des données** : simulation de trajectoires de ctDNA par un processus de naissance et de mort (Birth-and-Death Process), calibré sur des taux de natalité/mortalité cellulaire issus de la littérature, avec gestion des données censurées (imputation par MICE).
+- **Théorie des signatures** : encodage des trajectoires (vues comme des chemins) en une série de statistiques (signature de Chen/Lyons), permettant de capturer la dynamique temporelle au-delà d'une simple comparaison de niveaux.
+- **Classification** : test fondé sur l'aire de Lévy avec contrôle du taux de faux positifs (procédure de Benjamini-Hochberg), comparé à des classifieurs SVM et GAM.
+
+## Résultat principal
+
+La comparaison naïve des niveaux moyens de ctDNA ne suffit pas à distinguer tumeurs bénignes et malignes (chevauchement des distributions). L'approche par signature, en exploitant la forme de la trajectoire plutôt que son seul niveau, améliore nettement la classification, avec un contrôle explicite du taux de fausses découvertes.
+
+## Document complet
+
+[Télécharger le rapport (PDF)](/resources/projets/signatures-ctdna.pdf)
