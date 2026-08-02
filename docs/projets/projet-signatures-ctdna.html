@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-03-31">
+<meta name="description" content="Projet de statistique 2A (ENSAI) : détection de tumeurs malignes à partir de l’ADN tumoral circulant (ctDNA), via la théorie des signatures.">
 
-<title>Datavis – Claire Borrelli</title>
+<title>Théorie des signatures en cancérologie – Claire Borrelli</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,25 +31,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,67 +75,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-date','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -145,7 +87,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Claire Borrelli</span>
     </a>
   </div>
@@ -156,37 +98,37 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cours.html"> 
+    <a class="nav-link" href="../cours.html"> 
 <span class="menu-text">Cours</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projets.html"> 
+    <a class="nav-link" href="../projets.html"> 
 <span class="menu-text">Projets</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./exposes.html"> 
+    <a class="nav-link" href="../exposes.html"> 
 <span class="menu-text">Exposés</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./datavis.html" aria-current="page"> 
+    <a class="nav-link" href="../datavis.html"> 
 <span class="menu-text">Datavis</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link" href="../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./contact.html"> 
+    <a class="nav-link" href="../contact.html"> 
 <span class="menu-text">Contact</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index-en.html"> 
+    <a class="nav-link" href="../index-en.html"> 
 <span class="menu-text">EN</span></a>
   </li>  
 </ul>
@@ -216,14 +158,30 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Datavis</h1>
-</div>
+<h1 class="title">Théorie des signatures en cancérologie</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistiques</div>
+    <div class="quarto-category">oncologie</div>
+    <div class="quarto-category">classification</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Projet de statistique 2A (ENSAI) : détection de tumeurs malignes à partir de l’ADN tumoral circulant (ctDNA), via la théorie des signatures.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 31, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -233,34 +191,31 @@ window.Quarto = {
 </header>
 
 
-<p>Quelques visualisations de données réalisées en R (ggplot2, plotly) et en Python.</p>
+<section id="contexte" class="level2">
+<h2 class="anchored" data-anchor-id="contexte">Contexte</h2>
+<p>Projet de statistique de 2ème année à l’ENSAI, réalisé avec Merlin Debeve, Ting Huang, Antoine Montzamir et Paulin Lemoine, sous la direction de Stéphane Chrétien (laboratoire ERIC, Université Lyon 2).</p>
+<p>L’objectif : identifier, à partir du taux d’ADN tumoral circulant (ctDNA) mesuré par prises de sang, si une tumeur est bénigne ou maligne — un enjeu de détection précoce du cancer, non invasive et peu coûteuse.</p>
+</section>
+<section id="démarche" class="level2">
+<h2 class="anchored" data-anchor-id="démarche">Démarche</h2>
+<ul>
+<li><strong>Modélisation des données</strong> : simulation de trajectoires de ctDNA par un processus de naissance et de mort (Birth-and-Death Process), calibré sur des taux de natalité/mortalité cellulaire issus de la littérature, avec gestion des données censurées (imputation par MICE).</li>
+<li><strong>Théorie des signatures</strong> : encodage des trajectoires (vues comme des chemins) en une série de statistiques (signature de Chen/Lyons), permettant de capturer la dynamique temporelle au-delà d’une simple comparaison de niveaux.</li>
+<li><strong>Classification</strong> : test fondé sur l’aire de Lévy avec contrôle du taux de faux positifs (procédure de Benjamini-Hochberg), comparé à des classifieurs SVM et GAM.</li>
+</ul>
+</section>
+<section id="résultat-principal" class="level2">
+<h2 class="anchored" data-anchor-id="résultat-principal">Résultat principal</h2>
+<p>La comparaison naïve des niveaux moyens de ctDNA ne suffit pas à distinguer tumeurs bénignes et malignes (chevauchement des distributions). L’approche par signature, en exploitant la forme de la trajectoire plutôt que son seul niveau, améliore nettement la classification, avec un contrôle explicite du taux de fausses découvertes.</p>
+</section>
+<section id="document-complet" class="level2">
+<h2 class="anchored" data-anchor-id="document-complet">Document complet</h2>
+<p><a href="../resources/projets/signatures-ctdna.pdf">Télécharger le rapport (PDF)</a></p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="Z2dwbG90Mg==" data-listing-date-sort="1785621600000" data-listing-file-modified-sort="1785679165411" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
-<a href="./datavis/exemple-datavis.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Exemple : titre de la datavis
-</h5>
-<div class="card-text listing-description delink">
-<p>Une phrase sur la donnée utilisée et l’idée du graphique.</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Aug 2, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
