@@ -1,0 +1,20 @@
+[
+  {
+    "listing": "/exposes.html",
+    "items": [
+      "/exposes/exemple-expose.html"
+    ]
+  },
+  {
+    "listing": "/datavis.html",
+    "items": [
+      "/datavis/exemple-datavis.html"
+    ]
+  },
+  {
+    "listing": "/cours.html",
+    "items": [
+      "/cours/exemple-cours.html"
+    ]
+  }
+]
