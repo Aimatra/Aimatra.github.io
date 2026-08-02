@@ -1,0 +1,6 @@
+---
+title: "CV"
+---
+
+- [CV en français (PDF)](resources/cv/CV_fr.pdf)
+- [CV in English (PDF)](resources/cv/CV_en.pdf)

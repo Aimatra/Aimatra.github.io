@@ -1,0 +1,13 @@
+---
+title: "Exemple : nom du cours"
+date: 2026-08-02
+description: "Courte description du cours et de ce que couvre la note."
+categories: [statistiques]
+---
+
+Contenu du cours ici. Tu peux inclure du code R ou Python exécutable directement :
+
+```{r}
+#| eval: false
+summary(cars)
+```

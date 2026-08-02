@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Claire Borrelli"
+  navbar:
+    left:
+      - text: "Accueil"
+        href: index.qmd
+      - text: "Cours"
+        href: cours.qmd
+      - text: "Exposés"
+        href: exposes.qmd
+      - text: "Datavis"
+        href: datavis.qmd
+      - text: "CV"
+        href: cv.qmd
+      - text: "Contact"
+        href: contact.qmd
+    right:
+      - text: "EN"
+        href: index-en.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Code source
+            href: https://github.com/TON-PSEUDO/TON-PSEUDO.github.io
+  page-footer:
+    center: "© Claire Borrelli"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: false

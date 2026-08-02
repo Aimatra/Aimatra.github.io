@@ -1,0 +1,10 @@
+---
+title: "Cours"
+listing:
+  contents: cours
+  type: table
+  sort: "date desc"
+  fields: [title, date, description]
+---
+
+Notes et supports issus de mes cours à l'ENSAI et à Sciences Po.

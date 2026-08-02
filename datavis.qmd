@@ -1,0 +1,10 @@
+---
+title: "Datavis"
+listing:
+  contents: datavis
+  type: grid
+  sort: "date desc"
+  fields: [title, date, description]
+---
+
+Quelques visualisations de données réalisées en R (ggplot2, plotly) et en Python.

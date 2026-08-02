@@ -1,0 +1,19 @@
+---
+title: "Claire Borrelli"
+about:
+  template: jolla
+  image: resources/photo.jpg
+  links:
+    - icon: github
+      href: https://github.com/TON-PSEUDO
+    - icon: linkedin
+      href: https://www.linkedin.com/in/TON-PROFIL
+    - icon: envelope
+      href: mailto:claire.borrelli@sciencespo.fr
+---
+
+Hello! I am an engineering student at ENSAI (French national school of statistics), and I am simultaneously pursuing a Research Master's in Economics at Sciences Po.
+
+This website gathers my coursework, presentations, and a few data visualizations built in R and Python. New material is added regularly.
+
+Version française disponible [ici](index.qmd).

@@ -1,0 +1,10 @@
+---
+title: "Exposés"
+listing:
+  contents: exposes
+  type: table
+  sort: "date desc"
+  fields: [title, date, description]
+---
+
+Présentations réalisées dans le cadre de mes études.

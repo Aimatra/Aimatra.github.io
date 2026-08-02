@@ -1,0 +1,12 @@
+---
+title: "Exemple : titre de la datavis"
+date: 2026-08-02
+description: "Une phrase sur la donnée utilisée et l'idée du graphique."
+categories: [ggplot2]
+---
+
+```{r}
+#| eval: false
+library(ggplot2)
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+```
