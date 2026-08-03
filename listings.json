@@ -20,7 +20,6 @@
   {
     "listing": "/cours.html",
     "items": [
-      "/cours/exemple-cours.html",
       "/cours/acp.html",
       "/cours/algo-structures-donnees.html",
       "/cours/algo-analyse-recursive.html",

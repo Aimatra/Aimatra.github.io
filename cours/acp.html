@@ -222,6 +222,7 @@ Claire Borrelli
 <li><a href="#/résolution-du-problème" id="/toc-résolution-du-problème">4. Résolution du problème</a></li>
 <li><a href="#/composantes-principales-indicateurs" id="/toc-composantes-principales-indicateurs">5. Composantes principales &amp; indicateurs</a></li>
 <li><a href="#/exemple-appliqué-en-r" id="/toc-exemple-appliqué-en-r">6. Exemple appliqué en R</a></li>
+<li><a href="#/visualiser-lacp-en-animation" id="/toc-visualiser-lacp-en-animation">7. Visualiser l’ACP en animation</a></li>
 </ul>
 </nav>
 </section>
@@ -234,6 +235,7 @@ Claire Borrelli
 <li>Résolution du problème</li>
 <li>Composantes principales &amp; indicateurs</li>
 <li>Exemple appliqué en R</li>
+<li>Visualiser l’ACP en animation</li>
 </ol>
 </section>
 <section>
@@ -509,6 +511,48 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <li>Les provinces proches sur le graphique ont des profils socio-économiques similaires</li>
 <li>Vérifier le % d’inertie expliquée par les 2 premiers axes avant d’interpréter (<code>summary(acp)</code>)</li>
 </ul>
+</section></section>
+<section>
+<section id="visualiser-lacp-en-animation" class="title-slide slide level1 center">
+<h1>7. Visualiser l’ACP en animation</h1>
+
+</section>
+<section id="lintuition-derrière-la-recherche-du-premier-axe" class="slide level2">
+<h2>L’intuition derrière la recherche du premier axe</h2>
+<p>Retour sur la toute première étape de la résolution (partie 4) : on cherche l’axe qui <strong>maximise l’inertie expliquée</strong> — c’est-à-dire la variance du nuage projeté dessus.</p>
+<p>L’animation ci-dessous (réalisée avec <a href="https://www.manim.community/">Manim</a>, la bibliothèque créée par Grant Sanderson pour 3Blue1Brown) montre :</p>
+<ol type="1">
+<li>un axe qui <strong>tourne</strong> autour du nuage de points</li>
+<li>la variance expliquée qui <strong>monte et descend</strong> selon l’orientation de l’axe</li>
+<li>l’axe se <strong>stabilise</strong> sur la direction de variance maximale : le premier axe principal</li>
+<li>le second axe, <strong>orthogonal</strong> au premier, puis la projection des points</li>
+</ol>
+</section>
+<section id="la-vidéo" class="slide level2">
+<h2>La vidéo</h2>
+<video controls="" width="100%">
+<source src="../resources/manim/acp_projection.mp4" type="video/mp4">
+<p>Ta visionneuse ne supporte pas la balise vidéo — ouvre directement le fichier acp_projection.mp4. </p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Cette vidéo doit être générée une fois, en local, avec le script <code>resources/manim/acp_projection.py</code> (voir la slide suivante), puis placée dans <code>resources/manim/acp_projection.mp4</code> pour s’afficher ici.</p>
+</div>
+</div>
+</div>
+</video></section>
+<section id="comment-générer-la-vidéo" class="slide level2">
+<h2>Comment générer la vidéo</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a aria-label="1"></a><span class="ex">pip</span> install manim          <span class="co"># une seule fois — nécessite aussi FFmpeg installé</span></span>
+<span id="cb10-2"><a aria-label="2"></a><span class="bu">cd</span> resources/manim</span>
+<span id="cb10-3"><a aria-label="3"></a><span class="ex">manim</span> <span class="at">-pqh</span> acp_projection.py ACPProjection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le fichier rendu se trouve dans <code>media/videos/acp_projection/1080p60/ACPProjection.mp4</code> — il suffit de le copier vers <code>resources/manim/acp_projection.mp4</code> pour qu’il s’affiche sur cette slide.</p>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
@@ -516,6 +560,7 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <li>L’ACP transforme des variables corrélées en composantes non corrélées, ordonnées par inertie expliquée</li>
 <li>Le choix de la métrique (normalisation) change fondamentalement les résultats</li>
 <li>Toujours interpréter avec les indicateurs de qualité (cos², contribution) plutôt que le graphique seul</li>
+<li>Une animation peut rendre visible ce que l’algèbre linéaire décrit : la recherche d’une direction de variance maximale</li>
 </ul>
 
 
