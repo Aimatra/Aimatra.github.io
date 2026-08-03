@@ -10,8 +10,8 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Claire Borrelli">
-  <meta name="dcterms.date" content="2023-10-01">
-  <title>Claire Borrelli – Algorithmique : tri et complexité</title>
+  <meta name="dcterms.date" content="2023-11-21">
+  <title>Claire Borrelli – Algorithmique : analyser un algorithme récursif</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -200,8 +200,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Algorithmique : tri et complexité</h1>
-  <p class="subtitle">Notions de base — algorithmes, problèmes, complexité</p>
+  <h1 class="title">Algorithmique : analyser un algorithme récursif</h1>
+  <p class="subtitle">Relations de récurrence, arbre de récursion, théorème général</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -211,208 +211,157 @@ Claire Borrelli
 </div>
 </div>
 
-  <p class="date">2023-10-01</p>
+  <p class="date">2023-11-21</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Table of contents</h2>
 <ul>
-<li><a href="#/algorithme-problème-instance" id="/toc-algorithme-problème-instance">1. Algorithme, problème, instance</a></li>
-<li><a href="#/le-problème-du-tri" id="/toc-le-problème-du-tri">2. Le problème du tri</a></li>
-<li><a href="#/mesurer-la-complexité" id="/toc-mesurer-la-complexité">3. Mesurer la complexité</a></li>
-<li><a href="#/notation-asymptotique" id="/toc-notation-asymptotique">4. Notation asymptotique</a></li>
-<li><a href="#/comparaison-empirique" id="/toc-comparaison-empirique">5. Comparaison empirique</a></li>
+<li><a href="#/poser-une-relation-de-récurrence" id="/toc-poser-une-relation-de-récurrence">1. Poser une relation de récurrence</a></li>
+<li><a href="#/la-méthode-de-larbre-de-récursion" id="/toc-la-méthode-de-larbre-de-récursion">2. La méthode de l’arbre de récursion</a></li>
+<li><a href="#/la-méthode-de-substitution" id="/toc-la-méthode-de-substitution">3. La méthode de substitution</a></li>
+<li><a href="#/le-théorème-général-master-theorem" id="/toc-le-théorème-général-master-theorem">4. Le théorème général (Master Theorem)</a></li>
+<li><a href="#/vérification-empirique" id="/toc-vérification-empirique">5. Vérification empirique</a></li>
 </ul>
 </nav>
 </section>
 <section id="plan" class="slide level2">
 <h2>Plan</h2>
 <ol type="1">
-<li>Qu’est-ce qu’un algorithme ?</li>
-<li>Le problème du tri, trois solutions</li>
-<li>Mesurer la complexité d’un algorithme</li>
-<li>Notation asymptotique</li>
-<li>Comparaison empirique en Python</li>
+<li>Poser une relation de récurrence</li>
+<li>Méthode de l’arbre de récursion</li>
+<li>Méthode de substitution</li>
+<li>Le théorème général (Master Theorem)</li>
+<li>Vérification empirique en Python</li>
 </ol>
 </section>
 <section>
-<section id="algorithme-problème-instance" class="title-slide slide level1 center">
-<h1>1. Algorithme, problème, instance</h1>
+<section id="poser-une-relation-de-récurrence" class="title-slide slide level1 center">
+<h1>1. Poser une relation de récurrence</h1>
 
 </section>
-<section id="algorithme" class="slide level2">
-<h2>Algorithme</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Un <strong>algorithme</strong> est une procédure bien définie qui prend une entrée, la transforme par une suite d’étapes précises, et produit une sortie.</p>
-</div>
-</div>
-</div>
-<p>Un <strong>problème</strong> décrit <em>ce qu’on veut</em> (la relation entre entrée et sortie attendue), sans dire <em>comment</em> l’obtenir.</p>
-<p>Une <strong>instance</strong> est un cas particulier du problème, avec une entrée concrète.</p>
-<div class="fragment">
-<p><strong>Exemple</strong> — Problème : trier une liste de nombres. Instance : trier <code>[5, 3, 8, 2]</code>.</p>
-</div>
-</section>
-<section id="un-problème-peut-avoir-plusieurs-algorithmes" class="slide level2">
-<h2>Un problème peut avoir plusieurs algorithmes</h2>
-<p>Pour un même problème, plusieurs algorithmes peuvent exister — avec des performances très différentes.</p>
-<p>C’est exactement le cas du <strong>problème du tri</strong>, qu’on va utiliser comme fil rouge pour introduire la notion de complexité.</p>
-</section></section>
-<section>
-<section id="le-problème-du-tri" class="title-slide slide level1 center">
-<h1>2. Le problème du tri</h1>
-
-</section>
-<section id="formalisation" class="slide level2">
-<h2>Formalisation</h2>
-<ul>
-<li><strong>Entrée</strong> : une séquence de nombres <span class="math inline">\(s = [a_1, \dots, a_n]\)</span></li>
-<li><strong>Sortie</strong> : une permutation <span class="math inline">\([a'_1, \dots, a'_n]\)</span> de <span class="math inline">\(s\)</span> telle que <span class="math inline">\(a'_1 \le a'_2 \le \dots \le a'_n\)</span></li>
-</ul>
-<p>On va comparer trois algorithmes classiques pour résoudre ce problème.</p>
-</section>
-<section id="algorithme-1-le-tri-à-bulles" class="slide level2">
-<h2>Algorithme 1 : le tri à bulles</h2>
-<p><strong>Idée</strong> : parcourir la liste, comparer chaque paire d’éléments voisins, les échanger s’ils sont dans le mauvais ordre. Répéter jusqu’à ce que la liste soit triée — à chaque passage, le plus grand élément restant “remonte” à sa place, comme une bulle.</p>
-<div id="bcfc1af9" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="kw">def</span> tri_bulles(liste):</span>
-<span id="cb1-2"><a aria-label="2"></a>    liste <span class="op">=</span> liste.copy()</span>
-<span id="cb1-3"><a aria-label="3"></a>    n <span class="op">=</span> <span class="bu">len</span>(liste)</span>
-<span id="cb1-4"><a aria-label="4"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
-<span id="cb1-5"><a aria-label="5"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> i <span class="op">-</span> <span class="dv">1</span>):</span>
-<span id="cb1-6"><a aria-label="6"></a>            <span class="cf">if</span> liste[j] <span class="op">&gt;</span> liste[j <span class="op">+</span> <span class="dv">1</span>]:</span>
-<span id="cb1-7"><a aria-label="7"></a>                liste[j], liste[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> liste[j <span class="op">+</span> <span class="dv">1</span>], liste[j]</span>
-<span id="cb1-8"><a aria-label="8"></a>    <span class="cf">return</span> liste</span>
-<span id="cb1-9"><a aria-label="9"></a></span>
-<span id="cb1-10"><a aria-label="10"></a>tri_bulles([<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exemple-fil-rouge-le-tri-fusion" class="slide level2">
+<h2>Exemple fil rouge : le tri fusion</h2>
+<p>Le <strong>tri fusion</strong> (merge sort) divise la liste en deux moitiés, trie chaque moitié récursivement, puis fusionne les deux résultats triés.</p>
+<div id="198901b6" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="kw">def</span> fusionner(gauche, droite):</span>
+<span id="cb1-2"><a aria-label="2"></a>    resultat <span class="op">=</span> []</span>
+<span id="cb1-3"><a aria-label="3"></a>    i <span class="op">=</span> j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-4"><a aria-label="4"></a>    <span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(gauche) <span class="kw">and</span> j <span class="op">&lt;</span> <span class="bu">len</span>(droite):</span>
+<span id="cb1-5"><a aria-label="5"></a>        <span class="cf">if</span> gauche[i] <span class="op">&lt;=</span> droite[j]:</span>
+<span id="cb1-6"><a aria-label="6"></a>            resultat.append(gauche[i])<span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-7"><a aria-label="7"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-8"><a aria-label="8"></a>            resultat.append(droite[j])<span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a aria-label="9"></a>    <span class="cf">return</span> resultat <span class="op">+</span> gauche[i:] <span class="op">+</span> droite[j:]</span>
+<span id="cb1-10"><a aria-label="10"></a></span>
+<span id="cb1-11"><a aria-label="11"></a><span class="kw">def</span> tri_fusion(liste):</span>
+<span id="cb1-12"><a aria-label="12"></a>    <span class="cf">if</span> <span class="bu">len</span>(liste) <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb1-13"><a aria-label="13"></a>        <span class="cf">return</span> liste</span>
+<span id="cb1-14"><a aria-label="14"></a>    milieu <span class="op">=</span> <span class="bu">len</span>(liste) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb1-15"><a aria-label="15"></a>    gauche <span class="op">=</span> tri_fusion(liste[:milieu])</span>
+<span id="cb1-16"><a aria-label="16"></a>    droite <span class="op">=</span> tri_fusion(liste[milieu:])</span>
+<span id="cb1-17"><a aria-label="17"></a>    <span class="cf">return</span> fusionner(gauche, droite)</span>
+<span id="cb1-18"><a aria-label="18"></a></span>
+<span id="cb1-19"><a aria-label="19"></a>tri_fusion([<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>[1, 2, 3, 5, 8, 9]</code></pre>
 </div>
 </div>
 </section>
-<section id="algorithme-2-le-tri-par-insertion" class="slide level2">
-<h2>Algorithme 2 : le tri par insertion</h2>
-<p><strong>Idée</strong> : construire la liste triée progressivement, en insérant chaque nouvel élément à la bonne place parmi ceux déjà triés — comme on trierait des cartes à jouer dans sa main.</p>
-<div id="fc30e62e" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="kw">def</span> tri_insertion(liste):</span>
-<span id="cb3-2"><a aria-label="2"></a>    liste <span class="op">=</span> liste.copy()</span>
-<span id="cb3-3"><a aria-label="3"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(liste)):</span>
-<span id="cb3-4"><a aria-label="4"></a>        cle <span class="op">=</span> liste[i]</span>
-<span id="cb3-5"><a aria-label="5"></a>        j <span class="op">=</span> i <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb3-6"><a aria-label="6"></a>        <span class="cf">while</span> j <span class="op">&gt;=</span> <span class="dv">0</span> <span class="kw">and</span> liste[j] <span class="op">&gt;</span> cle:</span>
-<span id="cb3-7"><a aria-label="7"></a>            liste[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> liste[j]</span>
-<span id="cb3-8"><a aria-label="8"></a>            j <span class="op">-=</span> <span class="dv">1</span></span>
-<span id="cb3-9"><a aria-label="9"></a>        liste[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> cle</span>
-<span id="cb3-10"><a aria-label="10"></a>    <span class="cf">return</span> liste</span>
-<span id="cb3-11"><a aria-label="11"></a></span>
-<span id="cb3-12"><a aria-label="12"></a>tri_insertion([<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>[1, 2, 3, 5, 8, 9]</code></pre>
+<section id="traduire-lalgorithme-en-récurrence" class="slide level2">
+<h2>Traduire l’algorithme en récurrence</h2>
+<p>Notons <span class="math inline">\(T(n)\)</span> le temps d’exécution sur une entrée de taille <span class="math inline">\(n\)</span>.</p>
+<ul>
+<li>Deux appels récursifs sur des sous-listes de taille <span class="math inline">\(n/2\)</span> : coût <span class="math inline">\(2 \cdot T(n/2)\)</span></li>
+<li>La fusion de deux listes triées de taille totale <span class="math inline">\(n\)</span> coûte <span class="math inline">\(\Theta(n)\)</span></li>
+</ul>
+<p><span class="math display">\[T(n) = 2\,T\!\left(\frac{n}{2}\right) + \Theta(n)\]</span></p>
+<div class="fragment">
+<p><strong>Forme générale</strong> — un algorithme qui découpe son entrée en <span class="math inline">\(a\)</span> sous-problèmes de taille <span class="math inline">\(n/b\)</span>, plus un travail non récursif <span class="math inline">\(f(n)\)</span> : <span class="math display">\[T(n) = a\,T\!\left(\frac{n}{b}\right) + f(n)\]</span></p>
 </div>
-</div>
+</section></section>
+<section>
+<section id="la-méthode-de-larbre-de-récursion" class="title-slide slide level1 center">
+<h1>2. La méthode de l’arbre de récursion</h1>
+
 </section>
-<section id="algorithme-3-le-tri-rapide-quicksort" class="slide level2">
-<h2>Algorithme 3 : le tri rapide (quicksort)</h2>
-<p><strong>Idée</strong> : choisir un pivot au hasard, séparer la liste en éléments plus petits / plus grands que le pivot, puis répéter récursivement sur chaque sous-liste.</p>
-<div id="243775e7" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a><span class="im">from</span> random <span class="im">import</span> randint</span>
-<span id="cb5-2"><a aria-label="2"></a></span>
-<span id="cb5-3"><a aria-label="3"></a><span class="kw">def</span> tri_rapide(liste):</span>
-<span id="cb5-4"><a aria-label="4"></a>    <span class="cf">if</span> <span class="bu">len</span>(liste) <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
-<span id="cb5-5"><a aria-label="5"></a>        <span class="cf">return</span> liste</span>
-<span id="cb5-6"><a aria-label="6"></a>    pivot <span class="op">=</span> liste[randint(<span class="dv">0</span>, <span class="bu">len</span>(liste) <span class="op">-</span> <span class="dv">1</span>)]</span>
-<span id="cb5-7"><a aria-label="7"></a>    plus_petits <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> liste <span class="cf">if</span> x <span class="op">&lt;</span> pivot]</span>
-<span id="cb5-8"><a aria-label="8"></a>    egaux <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> liste <span class="cf">if</span> x <span class="op">==</span> pivot]</span>
-<span id="cb5-9"><a aria-label="9"></a>    plus_grands <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> liste <span class="cf">if</span> x <span class="op">&gt;</span> pivot]</span>
-<span id="cb5-10"><a aria-label="10"></a>    <span class="cf">return</span> tri_rapide(plus_petits) <span class="op">+</span> egaux <span class="op">+</span> tri_rapide(plus_grands)</span>
-<span id="cb5-11"><a aria-label="11"></a></span>
-<span id="cb5-12"><a aria-label="12"></a>tri_rapide([<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>[1, 2, 3, 5, 8, 9]</code></pre>
-</div>
-</div>
-</section>
-<section id="combien-détapes-pour-chaque-algorithme" class="slide level2">
-<h2>Combien d’étapes pour chaque algorithme ?</h2>
-<p>Pour une liste de taille <span class="math inline">\(n\)</span> :</p>
+<section id="dérouler-larbre" class="slide level2">
+<h2>Dérouler l’arbre</h2>
+<p>À chaque niveau de récursion, on double le nombre de sous-problèmes et on divise leur taille par deux.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Algorithme</th>
-<th>Meilleur cas</th>
-<th>Pire cas</th>
-<th>Cas moyen</th>
+<th>Niveau</th>
+<th>Nb de sous-problèmes</th>
+<th>Taille de chacun</th>
+<th>Coût du niveau</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Tri à bulles</td>
-<td><span class="math inline">\(n(n-1)/2\)</span></td>
-<td><span class="math inline">\(n(n-1)/2\)</span></td>
-<td><span class="math inline">\(n(n-1)/2\)</span></td>
+<td>0</td>
+<td>1</td>
+<td><span class="math inline">\(n\)</span></td>
+<td><span class="math inline">\(cn\)</span></td>
 </tr>
 <tr class="even">
-<td>Tri par insertion</td>
-<td><span class="math inline">\(n\)</span></td>
-<td><span class="math inline">\(n(n-1)/2\)</span></td>
-<td><span class="math inline">\(n(n-1)/4\)</span></td>
+<td>1</td>
+<td>2</td>
+<td><span class="math inline">\(n/2\)</span></td>
+<td><span class="math inline">\(2 \cdot c(n/2) = cn\)</span></td>
 </tr>
 <tr class="odd">
-<td>Tri rapide</td>
-<td><span class="math inline">\(n\log n\)</span></td>
-<td><span class="math inline">\(n(n-1)/2\)</span></td>
-<td><span class="math inline">\(\approx 1{,}39\, n\log_2 n\)</span></td>
+<td>2</td>
+<td>4</td>
+<td><span class="math inline">\(n/4\)</span></td>
+<td><span class="math inline">\(4 \cdot c(n/4) = cn\)</span></td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\log_2 n\)</span></td>
+<td><span class="math inline">\(n\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(cn\)</span></td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p><strong>À retenir</strong> : le tri à bulles fait toujours le même nombre de comparaisons, quel que soit l’ordre initial. Les deux autres s’adaptent aux données — parfois beaucoup plus vite, parfois non.</p>
+<p>Il y a <span class="math inline">\(\log_2 n + 1\)</span> niveaux, chacun coûtant <span class="math inline">\(\Theta(n)\)</span> :</p>
+<p><span class="math display">\[T(n) = \Theta(n) \times \Theta(\log_2 n) = \Theta(n \log_2 n)\]</span></p>
 </div>
+</section>
+<section id="ce-que-donne-larbre-et-ses-limites" class="slide level2">
+<h2>Ce que donne l’arbre — et ses limites</h2>
+<p>L’arbre de récursion donne une <strong>intuition rapide et une hypothèse</strong> sur la complexité — mais ce n’est pas, à proprement parler, une preuve rigoureuse. Pour prouver le résultat formellement, on vérifie l’hypothèse par récurrence (substitution) — ou on utilise le théorème général quand il s’applique.</p>
 </section></section>
 <section>
-<section id="mesurer-la-complexité" class="title-slide slide level1 center">
-<h1>3. Mesurer la complexité</h1>
+<section id="la-méthode-de-substitution" class="title-slide slide level1 center">
+<h1>3. La méthode de substitution</h1>
 
 </section>
-<section id="pourquoi-mesurer-la-complexité" class="slide level2">
-<h2>Pourquoi mesurer la complexité ?</h2>
-<ul>
-<li>Comparer des algorithmes indépendamment du matériel utilisé</li>
-<li>Anticiper si un algorithme restera utilisable quand les données grossissent</li>
-<li>Estimer les ressources nécessaires (temps, mémoire) avant d’exécuter</li>
-</ul>
+<section id="principe-deviner-puis-vérifier" class="slide level2">
+<h2>Principe : deviner puis vérifier</h2>
+<ol type="1">
+<li>On <strong>devine</strong> une borne asymptotique (souvent suggérée par l’arbre de récursion)</li>
+<li>On la <strong>vérifie par récurrence mathématique</strong> (cas de base + hérédité)</li>
+</ol>
 </section>
-<section id="complexité-en-temps-et-en-espace" class="slide level2">
-<h2>Complexité en temps et en espace</h2>
-<p><strong>Complexité en temps</strong> : combien d’opérations élémentaires l’algorithme effectue-t-il, en fonction de la taille <span class="math inline">\(n\)</span> de l’entrée ?</p>
-<p><strong>Complexité en espace</strong> : combien de mémoire supplémentaire l’algorithme utilise-t-il ?</p>
+<section id="exemple-vérifier-tn-on-log_2-n" class="slide level2">
+<h2>Exemple : vérifier <span class="math inline">\(T(n) = O(n \log_2 n)\)</span></h2>
+<p>Pour <span class="math inline">\(T(n) = 2T(\lfloor n/2 \rfloor) + n\)</span>, on veut montrer <span class="math inline">\(T(n) \le C\, n \log_2 n\)</span> pour une constante <span class="math inline">\(C\)</span> bien choisie.</p>
+<p><strong>Hérédité</strong> — en supposant l’hypothèse vraie pour <span class="math inline">\(\lfloor n/2 \rfloor\)</span> :</p>
+<p><span class="math display">\[T(n) = 2T(\lfloor n/2 \rfloor) + n \le 2C\left\lfloor\frac{n}{2}\right\rfloor\log_2\left(\frac{n}{2}\right) + n\]</span> <span class="math display">\[\le C\,n\left(\log_2 n - 1\right) + n = C\,n\log_2 n - (C - 1)n \le C\,n\log_2 n \quad \text{si } C \ge 1\]</span></p>
 <div class="fragment">
-<p>Dans les deux cas, on s’intéresse à la façon dont le coût <strong>évolue avec <span class="math inline">\(n\)</span></strong>, pas à sa valeur exacte sur une machine donnée.</p>
+<p>Avec un cas de base vérifié séparément, on conclut <span class="math inline">\(T(n) = O(n\log_2 n)\)</span>.</p>
 </div>
 </section>
-<section id="meilleur-cas-pire-cas-cas-moyen" class="slide level2">
-<h2>Meilleur cas, pire cas, cas moyen</h2>
-<p>Pour une taille d’entrée fixée, la performance dépend du <strong>contenu</strong> de l’entrée (déjà triée ? dans le désordre le plus défavorable ?).</p>
-<ul>
-<li><strong>Pire cas</strong> : le coût maximal — c’est la garantie la plus utile en pratique, et le focus habituel de l’analyse de complexité</li>
-<li><strong>Meilleur cas</strong> : le coût minimal</li>
-<li><strong>Cas moyen</strong> : le coût moyen sur une distribution donnée des entrées (utile, mais suppose de connaître cette distribution)</li>
-</ul>
-</section></section>
-<section>
-<section id="notation-asymptotique" class="title-slide slide level1 center">
-<h1>4. Notation asymptotique</h1>
-
-</section>
-<section id="la-notation-o-grand-o" class="slide level2">
-<h2>La notation <span class="math inline">\(O\)</span> (grand O)</h2>
+<section id="un-piège-classique" class="slide level2">
+<h2>Un piège classique</h2>
+<p>Une erreur fréquente : appliquer la définition de <span class="math inline">\(O(\cdot)\)</span> <em>à l’intérieur</em> du raisonnement par récurrence, en gardant la <strong>même constante</strong> à chaque étape sans vérifier qu’elle reste valable — ce qui peut donner une conclusion fausse.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -422,87 +371,135 @@ Claire Borrelli
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(f(n) = O(g(n))\)</span> signifie qu’à partir d’un certain rang, <span class="math inline">\(f\)</span> est majorée par <span class="math inline">\(g\)</span> à une constante multiplicative près : il existe <span class="math inline">\(c &gt; 0\)</span> et <span class="math inline">\(n_0\)</span> tels que <span class="math inline">\(f(n) \le c \cdot g(n)\)</span> pour tout <span class="math inline">\(n \ge n_0\)</span>.</p>
+<p>Il faut fixer une constante <strong>unique</strong>, valable pour tous les <span class="math inline">\(n\)</span> à partir d’un certain rang — pas une constante qui varie implicitement à chaque niveau de récursion.</p>
 </div>
 </div>
-</div>
-<p>C’est un <strong>majorant</strong> : ça sert typiquement à borner le pire cas.</p>
-</section>
-<section id="les-notations-omega-et-theta" class="slide level2">
-<h2>Les notations <span class="math inline">\(\Omega\)</span> et <span class="math inline">\(\Theta\)</span></h2>
-<ul>
-<li><span class="math inline">\(f(n) = \Omega(g(n))\)</span> : <span class="math inline">\(g\)</span> est un <strong>minorant</strong> de <span class="math inline">\(f\)</span> (à constante près)</li>
-<li><span class="math inline">\(f(n) = \Theta(g(n))\)</span> : <span class="math inline">\(f\)</span> et <span class="math inline">\(g\)</span> ont le <strong>même ordre de grandeur</strong> (<span class="math inline">\(f = O(g)\)</span> et <span class="math inline">\(f = \Omega(g)\)</span>)</li>
-</ul>
-<div class="fragment">
-<p>Avec ces notations : tri à bulles et tri par insertion sont <span class="math inline">\(O(n^2)\)</span> dans le pire cas, tri rapide est <span class="math inline">\(O(n \log n)\)</span> en moyenne mais <span class="math inline">\(O(n^2)\)</span> dans le pire cas.</p>
 </div>
 </section></section>
 <section>
-<section id="comparaison-empirique" class="title-slide slide level1 center">
-<h1>5. Comparaison empirique</h1>
+<section id="le-théorème-général-master-theorem" class="title-slide slide level1 center">
+<h1>4. Le théorème général (Master Theorem)</h1>
 
 </section>
-<section id="mesurer-le-temps-réel-dexécution" class="slide level2">
-<h2>Mesurer le temps réel d’exécution</h2>
-<p>Vérifions ces résultats théoriques en pratique, avec des listes aléatoires de tailles croissantes.</p>
-<div id="c28fa8f3" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a><span class="im">import</span> time</span>
-<span id="cb7-2"><a aria-label="2"></a><span class="im">import</span> random</span>
-<span id="cb7-3"><a aria-label="3"></a></span>
-<span id="cb7-4"><a aria-label="4"></a><span class="kw">def</span> chronometrer(fonction, liste):</span>
-<span id="cb7-5"><a aria-label="5"></a>    debut <span class="op">=</span> time.perf_counter()</span>
-<span id="cb7-6"><a aria-label="6"></a>    fonction(liste)</span>
-<span id="cb7-7"><a aria-label="7"></a>    <span class="cf">return</span> time.perf_counter() <span class="op">-</span> debut</span>
-<span id="cb7-8"><a aria-label="8"></a></span>
-<span id="cb7-9"><a aria-label="9"></a>tailles <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">300</span>, <span class="dv">600</span>, <span class="dv">1000</span>, <span class="dv">1500</span>]</span>
-<span id="cb7-10"><a aria-label="10"></a>resultats <span class="op">=</span> {<span class="st">"bulles"</span>: [], <span class="st">"insertion"</span>: [], <span class="st">"rapide"</span>: []}</span>
-<span id="cb7-11"><a aria-label="11"></a></span>
-<span id="cb7-12"><a aria-label="12"></a><span class="cf">for</span> n <span class="kw">in</span> tailles:</span>
-<span id="cb7-13"><a aria-label="13"></a>    liste <span class="op">=</span> [random.randint(<span class="dv">0</span>, <span class="dv">10000</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
-<span id="cb7-14"><a aria-label="14"></a>    resultats[<span class="st">"bulles"</span>].append(chronometrer(tri_bulles, liste))</span>
-<span id="cb7-15"><a aria-label="15"></a>    resultats[<span class="st">"insertion"</span>].append(chronometrer(tri_insertion, liste))</span>
-<span id="cb7-16"><a aria-label="16"></a>    resultats[<span class="st">"rapide"</span>].append(chronometrer(tri_rapide, liste))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="énoncé" class="slide level2">
+<h2>Énoncé</h2>
+<p>Pour une récurrence de la forme <span class="math inline">\(T(n) = a\,T(n/b) + f(n)\)</span> avec <span class="math inline">\(a \ge 1\)</span>, <span class="math inline">\(b &gt; 1\)</span>, on compare <span class="math inline">\(f(n)\)</span> à <span class="math inline">\(n^{\log_b a}\)</span> :</p>
+<ol type="1">
+<li>Si <span class="math inline">\(f(n) = O(n^{\log_b a - \varepsilon})\)</span> pour un <span class="math inline">\(\varepsilon &gt; 0\)</span> : <span class="math inline">\(T(n) = \Theta(n^{\log_b a})\)</span> <em>(la récursion domine)</em></li>
+<li>Si <span class="math inline">\(f(n) = \Theta(n^{\log_b a})\)</span> : <span class="math inline">\(T(n) = \Theta(n^{\log_b a} \log n)\)</span> <em>(équilibre)</em></li>
+<li>Si <span class="math inline">\(f(n) = \Omega(n^{\log_b a + \varepsilon})\)</span> (+ condition de régularité) : <span class="math inline">\(T(n) = \Theta(f(n))\)</span> <em>(le travail non récursif domine)</em></li>
+</ol>
+</section>
+<section id="application-1-le-tri-fusion" class="slide level2">
+<h2>Application 1 : le tri fusion</h2>
+<p><span class="math display">\[T(n) = 2T(n/2) + \Theta(n)\]</span></p>
+<p><span class="math inline">\(a = 2\)</span>, <span class="math inline">\(b = 2\)</span>, donc <span class="math inline">\(n^{\log_b a} = n^{\log_2 2} = n^1 = n\)</span>.</p>
+<p><span class="math inline">\(f(n) = \Theta(n) = \Theta(n^{\log_b a})\)</span> → <strong>cas 2</strong>.</p>
+<p><span class="math display">\[T(n) = \Theta(n \log n)\]</span></p>
+<p>Cohérent avec le résultat obtenu par l’arbre de récursion.</p>
+</section>
+<section id="application-2-la-recherche-dichotomique" class="slide level2">
+<h2>Application 2 : la recherche dichotomique</h2>
+<p>La <strong>recherche dichotomique</strong> (binary search) divise l’espace de recherche en deux à chaque étape, avec un travail constant à chaque niveau :</p>
+<p><span class="math display">\[T(n) = T(n/2) + \Theta(1)\]</span></p>
+<p><span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 2\)</span>, donc <span class="math inline">\(n^{\log_b a} = n^0 = 1\)</span>. <span class="math inline">\(f(n) = \Theta(1) = \Theta(n^{\log_b a})\)</span> → <strong>cas 2</strong>.</p>
+<p><span class="math display">\[T(n) = \Theta(\log n)\]</span></p>
+<div id="c4fd2823" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="kw">def</span> recherche_dichotomique(liste_triee, cible):</span>
+<span id="cb3-2"><a aria-label="2"></a>    gauche, droite <span class="op">=</span> <span class="dv">0</span>, <span class="bu">len</span>(liste_triee) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb3-3"><a aria-label="3"></a>    <span class="cf">while</span> gauche <span class="op">&lt;=</span> droite:</span>
+<span id="cb3-4"><a aria-label="4"></a>        milieu <span class="op">=</span> (gauche <span class="op">+</span> droite) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb3-5"><a aria-label="5"></a>        <span class="cf">if</span> liste_triee[milieu] <span class="op">==</span> cible:</span>
+<span id="cb3-6"><a aria-label="6"></a>            <span class="cf">return</span> milieu</span>
+<span id="cb3-7"><a aria-label="7"></a>        <span class="cf">elif</span> liste_triee[milieu] <span class="op">&lt;</span> cible:</span>
+<span id="cb3-8"><a aria-label="8"></a>            gauche <span class="op">=</span> milieu <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb3-9"><a aria-label="9"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-10"><a aria-label="10"></a>            droite <span class="op">=</span> milieu <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb3-11"><a aria-label="11"></a>    <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb3-12"><a aria-label="12"></a></span>
+<span id="cb3-13"><a aria-label="13"></a>recherche_dichotomique(<span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="dv">2</span>)), <span class="dv">250</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>125</code></pre>
+</div>
 </div>
 </section>
-<section id="visualisation" class="slide level2">
-<h2>Visualisation</h2>
-<div id="b1089760" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb8-2"><a aria-label="2"></a></span>
-<span id="cb8-3"><a aria-label="3"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.5</span>))</span>
-<span id="cb8-4"><a aria-label="4"></a><span class="cf">for</span> nom, temps <span class="kw">in</span> resultats.items():</span>
-<span id="cb8-5"><a aria-label="5"></a>    plt.plot(tailles, temps, marker<span class="op">=</span><span class="st">"o"</span>, label<span class="op">=</span>nom)</span>
-<span id="cb8-6"><a aria-label="6"></a>plt.xlabel(<span class="st">"Taille de la liste (n)"</span>)</span>
-<span id="cb8-7"><a aria-label="7"></a>plt.ylabel(<span class="st">"Temps d'exécution (s)"</span>)</span>
-<span id="cb8-8"><a aria-label="8"></a>plt.title(<span class="st">"Temps de tri mesuré selon la taille de l'entrée"</span>)</span>
-<span id="cb8-9"><a aria-label="9"></a>plt.legend()</span>
-<span id="cb8-10"><a aria-label="10"></a>plt.tight_layout()</span>
-<span id="cb8-11"><a aria-label="11"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="limites-du-théorème" class="slide level2">
+<h2>Limites du théorème</h2>
+<ul>
+<li>Ne s’applique qu’à des récurrences de cette forme précise (sous-problèmes de <strong>même taille</strong>)</li>
+<li>Ne couvre pas les cas où <span class="math inline">\(f(n)\)</span> n’est ni polynomialement plus petite, ni polynomialement plus grande que <span class="math inline">\(n^{\log_b a}\)</span></li>
+<li>Dans ces cas : retour à l’arbre de récursion ou à la substitution</li>
+</ul>
+</section></section>
+<section>
+<section id="vérification-empirique" class="title-slide slide level1 center">
+<h1>5. Vérification empirique</h1>
+
+</section>
+<section id="compter-les-opérations-réellement-effectuées" class="slide level2">
+<h2>Compter les opérations réellement effectuées</h2>
+<p>Vérifions que le tri fusion fait bien de l’ordre de <span class="math inline">\(n \log_2 n\)</span> comparaisons, contre <span class="math inline">\(n^2\)</span> pour un tri par insertion.</p>
+<div id="7654bfed" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a><span class="im">import</span> math</span>
+<span id="cb5-2"><a aria-label="2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-3"><a aria-label="3"></a><span class="im">import</span> random</span>
+<span id="cb5-4"><a aria-label="4"></a></span>
+<span id="cb5-5"><a aria-label="5"></a><span class="kw">def</span> tri_fusion_compte(liste, compteur):</span>
+<span id="cb5-6"><a aria-label="6"></a>    <span class="cf">if</span> <span class="bu">len</span>(liste) <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb5-7"><a aria-label="7"></a>        <span class="cf">return</span> liste</span>
+<span id="cb5-8"><a aria-label="8"></a>    milieu <span class="op">=</span> <span class="bu">len</span>(liste) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb5-9"><a aria-label="9"></a>    g <span class="op">=</span> tri_fusion_compte(liste[:milieu], compteur)</span>
+<span id="cb5-10"><a aria-label="10"></a>    d <span class="op">=</span> tri_fusion_compte(liste[milieu:], compteur)</span>
+<span id="cb5-11"><a aria-label="11"></a>    resultat, i, j <span class="op">=</span> [], <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb5-12"><a aria-label="12"></a>    <span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(g) <span class="kw">and</span> j <span class="op">&lt;</span> <span class="bu">len</span>(d):</span>
+<span id="cb5-13"><a aria-label="13"></a>        compteur[<span class="dv">0</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-14"><a aria-label="14"></a>        <span class="cf">if</span> g[i] <span class="op">&lt;=</span> d[j]:</span>
+<span id="cb5-15"><a aria-label="15"></a>            resultat.append(g[i])<span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-16"><a aria-label="16"></a>        <span class="cf">else</span>:</span>
+<span id="cb5-17"><a aria-label="17"></a>            resultat.append(d[j])<span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-18"><a aria-label="18"></a>    <span class="cf">return</span> resultat <span class="op">+</span> g[i:] <span class="op">+</span> d[j:]</span>
+<span id="cb5-19"><a aria-label="19"></a></span>
+<span id="cb5-20"><a aria-label="20"></a>tailles <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">400</span>, <span class="dv">800</span>, <span class="dv">1600</span>]</span>
+<span id="cb5-21"><a aria-label="21"></a>comparaisons_reelles, borne_theorique <span class="op">=</span> [], []</span>
+<span id="cb5-22"><a aria-label="22"></a></span>
+<span id="cb5-23"><a aria-label="23"></a><span class="cf">for</span> n <span class="kw">in</span> tailles:</span>
+<span id="cb5-24"><a aria-label="24"></a>    liste <span class="op">=</span> [random.random() <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb5-25"><a aria-label="25"></a>    compteur <span class="op">=</span> [<span class="dv">0</span>]</span>
+<span id="cb5-26"><a aria-label="26"></a>    tri_fusion_compte(liste, compteur)</span>
+<span id="cb5-27"><a aria-label="27"></a>    comparaisons_reelles.append(compteur[<span class="dv">0</span>])</span>
+<span id="cb5-28"><a aria-label="28"></a>    borne_theorique.append(n <span class="op">*</span> math.log2(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="le-résultat" class="slide level2">
+<h2>Le résultat</h2>
+<div id="9c68d698" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.5</span>))</span>
+<span id="cb6-2"><a aria-label="2"></a>plt.plot(tailles, comparaisons_reelles, marker<span class="op">=</span><span class="st">"o"</span>, label<span class="op">=</span><span class="st">"Comparaisons réelles (tri fusion)"</span>)</span>
+<span id="cb6-3"><a aria-label="3"></a>plt.plot(tailles, borne_theorique, marker<span class="op">=</span><span class="st">"o"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"$n </span><span class="ch">\\</span><span class="st">log_2 n$ (référence théorique)"</span>)</span>
+<span id="cb6-4"><a aria-label="4"></a>plt.xlabel(<span class="st">"Taille de la liste (n)"</span>)</span>
+<span id="cb6-5"><a aria-label="5"></a>plt.ylabel(<span class="st">"Nombre de comparaisons"</span>)</span>
+<span id="cb6-6"><a aria-label="6"></a>plt.legend()</span>
+<span id="cb6-7"><a aria-label="7"></a>plt.title(<span class="st">"Tri fusion : comparaisons réelles vs borne théorique"</span>)</span>
+<span id="cb6-8"><a aria-label="8"></a>plt.tight_layout()</span>
+<span id="cb6-9"><a aria-label="9"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="algo-tri-complexite_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="422"></p>
+<p><img data-src="algo-analyse-recursive_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="662" height="422"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="interprétation" class="slide level2">
-<h2>Interprétation</h2>
-<ul>
-<li>Le tri rapide reste nettement plus rapide que les deux autres à mesure que <span class="math inline">\(n\)</span> augmente — cohérent avec sa complexité <span class="math inline">\(O(n\log n)\)</span> contre <span class="math inline">\(O(n^2)\)</span></li>
-<li>Sur de petites listes, la différence est peu visible : les constantes cachées derrière le <span class="math inline">\(O(\cdot)\)</span> comptent aussi en pratique</li>
-<li>Ce type de mesure empirique complète l’analyse théorique, sans la remplacer — le pire cas peut toujours arriver sur une entrée défavorable</li>
-</ul>
+<p>Les deux courbes évoluent au même rythme — cohérent avec <span class="math inline">\(T(n) = \Theta(n\log n)\)</span> obtenu par le Master Theorem.</p>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <ul>
-<li>Un même problème peut avoir plusieurs algorithmes aux performances très différentes</li>
-<li>La complexité s’exprime en fonction de la taille de l’entrée, indépendamment du matériel</li>
-<li>La notation <span class="math inline">\(O\)</span> (et <span class="math inline">\(\Omega\)</span>, <span class="math inline">\(\Theta\)</span>) permet de comparer des algorithmes de façon rigoureuse</li>
-<li>L’analyse théorique et la mesure empirique se complètent</li>
+<li>Un algorithme récursif se traduit en une relation de récurrence <span class="math inline">\(T(n) = a\,T(n/b) + f(n)\)</span></li>
+<li>L’arbre de récursion donne rapidement une intuition du résultat</li>
+<li>La substitution (récurrence mathématique) permet de le prouver rigoureusement</li>
+<li>Le théorème général résout directement les cas les plus courants, en comparant <span class="math inline">\(f(n)\)</span> à <span class="math inline">\(n^{\log_b a}\)</span></li>
+<li>Ces résultats théoriques se retrouvent empiriquement en comptant les opérations réellement exécutées</li>
 </ul>
 
 
