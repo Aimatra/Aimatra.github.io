@@ -242,7 +242,7 @@ Claire Borrelli
 <section id="exemple-fil-rouge-le-tri-fusion" class="slide level2">
 <h2>Exemple fil rouge : le tri fusion</h2>
 <p>Le <strong>tri fusion</strong> (merge sort) divise la liste en deux moitiés, trie chaque moitié récursivement, puis fusionne les deux résultats triés.</p>
-<div id="1fa9d3a9" class="cell" data-execution_count="1">
+<div id="0c81b823" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="kw">def</span> fusionner(gauche, droite):</span>
 <span id="cb1-2"><a aria-label="2"></a>    resultat <span class="op">=</span> []</span>
 <span id="cb1-3"><a aria-label="3"></a>    i <span class="op">=</span> j <span class="op">=</span> <span class="dv">0</span></span>
@@ -404,7 +404,7 @@ Claire Borrelli
 <p><span class="math display">\[T(n) = T(n/2) + \Theta(1)\]</span></p>
 <p><span class="math inline">\(a = 1\)</span>, <span class="math inline">\(b = 2\)</span>, donc <span class="math inline">\(n^{\log_b a} = n^0 = 1\)</span>. <span class="math inline">\(f(n) = \Theta(1) = \Theta(n^{\log_b a})\)</span> → <strong>cas 2</strong>.</p>
 <p><span class="math display">\[T(n) = \Theta(\log n)\]</span></p>
-<div id="89091455" class="cell" data-execution_count="2">
+<div id="66b04769" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="kw">def</span> recherche_dichotomique(liste_triee, cible):</span>
 <span id="cb3-2"><a aria-label="2"></a>    gauche, droite <span class="op">=</span> <span class="dv">0</span>, <span class="bu">len</span>(liste_triee) <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb3-3"><a aria-label="3"></a>    <span class="cf">while</span> gauche <span class="op">&lt;=</span> droite:</span>
@@ -439,7 +439,7 @@ Claire Borrelli
 <section id="compter-les-opérations-réellement-effectuées" class="slide level2">
 <h2>Compter les opérations réellement effectuées</h2>
 <p>Vérifions que le tri fusion fait bien de l’ordre de <span class="math inline">\(n \log_2 n\)</span> comparaisons, contre <span class="math inline">\(n^2\)</span> pour un tri par insertion.</p>
-<div id="72997725" class="cell" data-execution_count="3">
+<div id="1d427c08" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a><span class="im">import</span> math</span>
 <span id="cb5-2"><a aria-label="2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a aria-label="3"></a><span class="im">import</span> random</span>
@@ -472,7 +472,7 @@ Claire Borrelli
 </section>
 <section id="le-résultat" class="slide level2">
 <h2>Le résultat</h2>
-<div id="ca692ec0" class="cell" data-execution_count="4">
+<div id="45cceea1" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.5</span>))</span>
 <span id="cb6-2"><a aria-label="2"></a>plt.plot(tailles, comparaisons_reelles, marker<span class="op">=</span><span class="st">"o"</span>, label<span class="op">=</span><span class="st">"Comparaisons réelles (tri fusion)"</span>)</span>
 <span id="cb6-3"><a aria-label="3"></a>plt.plot(tailles, borne_theorique, marker<span class="op">=</span><span class="st">"o"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"$n </span><span class="ch">\\</span><span class="st">log_2 n$ (référence théorique)"</span>)</span>
