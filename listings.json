@@ -21,7 +21,8 @@
     "listing": "/cours.html",
     "items": [
       "/cours/exemple-cours.html",
-      "/cours/acp.html"
+      "/cours/acp.html",
+      "/cours/algo-tri-complexite.html"
     ]
   }
 ]
