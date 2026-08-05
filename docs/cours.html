@@ -281,20 +281,7 @@ Description
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="c3RhdGlzdGlxdWVz" data-listing-date-sort="1785621600000" data-listing-file-modified-sort="1785679165409" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="17" data-listing-title-sort="Exemple : nom du cours" data-listing-filename-sort="exemple-cours.qmd">
-<td>
-<a href="./cours/exemple-cours.html" class="title listing-title">Exemple : nom du cours</a>
-</td>
-<td>
-<span class="listing-date">Aug 2, 2026</span>
-</td>
-<td>
-<span class="listing-description">Courte description du cours et de ce que couvre la note.</span>
-</td>
-
-</tr>
-
-<tr data-index="1" data-categories="c3RhdGlzdGlxdWVzJTJDYW5hbHlzZSUyMGRlJTIwZG9ubiVDMyVBOWVzJTJDQUNQ" data-listing-date-sort="1702767600000" data-listing-file-modified-sort="1785683576000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1234" data-listing-title-sort="Analyse en Composantes Principales (ACP)" data-listing-filename-sort="acp.qmd">
+<tr data-index="0" data-categories="c3RhdGlzdGlxdWVzJTJDYW5hbHlzZSUyMGRlJTIwZG9ubiVDMyVBOWVzJTJDQUNQ" data-listing-date-sort="1702767600000" data-listing-file-modified-sort="1785963944285" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1448" data-listing-title-sort="Analyse en Composantes Principales (ACP)" data-listing-filename-sort="acp.qmd">
 <td>
 <a href="./cours/acp.html" class="title listing-title">Analyse en Composantes Principales (ACP)</a>
 </td>
@@ -303,6 +290,19 @@ Description
 </td>
 <td>
 <span class="listing-description">Cours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.</span>
+</td>
+
+</tr>
+
+<tr data-index="1" data-categories="YWxnb3JpdGhtaXF1ZSUyQ3B5dGhvbiUyQ3N0cnVjdHVyZXMlMjBkZSUyMGRvbm4lQzMlQTllcw==" data-listing-date-sort="1702249200000" data-listing-file-modified-sort="1785788852000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1339" data-listing-title-sort="Algorithmique : structures de données" data-listing-filename-sort="algo-structures-donnees.qmd">
+<td>
+<a href="./cours/algo-structures-donnees.html" class="title listing-title">Algorithmique : structures de données</a>
+</td>
+<td>
+<span class="listing-date">Dec 11, 2023</span>
+</td>
+<td>
+<span class="listing-description">Support réécrit à partir du cours d’algorithmique de l’ENSAI : les structures de données élémentaires (tableau, pile, file, liste chaînée, table de hachage), leurs opérations et leur complexité — avec implémentations et mesures en Python.</span>
 </td>
 
 </tr>
@@ -423,7 +423,7 @@ Description
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Aimatra\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

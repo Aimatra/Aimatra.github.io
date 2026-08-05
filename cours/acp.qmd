@@ -13,6 +13,11 @@ format:
     toc-depth: 1
     chalkboard: false
     smaller: true
+    title-slide-attributes:
+      data-background-image: "image/fond-titre.png"
+      data-background-size: cover
+      data-background-position: right
+      
 ---
 
 ## Plan
@@ -23,6 +28,7 @@ format:
 4. Résolution du problème
 5. Composantes principales & indicateurs
 6. Exemple appliqué en R
+7. Visualiser l'ACP en animation
 
 # 1. Le nuage de points pesants
 
@@ -279,8 +285,43 @@ ggplot() +
 - Les provinces proches sur le graphique ont des profils socio-économiques similaires
 - Vérifier le % d'inertie expliquée par les 2 premiers axes avant d'interpréter (`summary(acp)`)
 
+# 7. Visualiser l'ACP en animation
+
+## L'intuition derrière la recherche du premier axe
+
+Retour sur la toute première étape de la résolution (partie 4) : on cherche l'axe qui **maximise l'inertie expliquée** — c'est-à-dire la variance du nuage projeté dessus.
+
+L'animation ci-dessous (réalisée avec [Manim](https://www.manim.community/), la bibliothèque créée par Grant Sanderson pour 3Blue1Brown) montre :
+
+1. un axe qui **tourne** autour du nuage de points
+2. la variance expliquée qui **monte et descend** selon l'orientation de l'axe
+3. l'axe se **stabilise** sur la direction de variance maximale : le premier axe principal
+4. le second axe, **orthogonal** au premier, puis la projection des points
+
+## La vidéo
+
+<video controls width="100%">
+  <source src="../resources/manim/acp_projection.mp4" type="video/mp4">
+  Ta visionneuse ne supporte pas la balise vidéo — ouvre directement le fichier acp_projection.mp4.
+</video>
+
+::: {.callout-note}
+Cette vidéo doit être générée une fois, en local, avec le script `resources/manim/acp_projection.py` (voir la slide suivante), puis placée dans `resources/manim/acp_projection.mp4` pour s'afficher ici.
+:::
+
+## Comment générer la vidéo
+
+```bash
+pip install manim          # une seule fois — nécessite aussi FFmpeg installé
+cd resources/manim
+manim -pqh acp_projection.py ACPProjection
+```
+
+Le fichier rendu se trouve dans `media/videos/acp_projection/1080p60/ACPProjection.mp4` — il suffit de le copier vers `resources/manim/acp_projection.mp4` pour qu'il s'affiche sur cette slide.
+
 ## Conclusion
 
 - L'ACP transforme des variables corrélées en composantes non corrélées, ordonnées par inertie expliquée
 - Le choix de la métrique (normalisation) change fondamentalement les résultats
 - Toujours interpréter avec les indicateurs de qualité (cos², contribution) plutôt que le graphique seul
+- Une animation peut rendre visible ce que l'algèbre linéaire décrit : la recherche d'une direction de variance maximale

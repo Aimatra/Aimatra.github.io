@@ -35,11 +35,123 @@
     "text": "CV en français (PDF)\nCV in English (PDF)"
   },
   {
-    "objectID": "cours/exemple-cours.html",
-    "href": "cours/exemple-cours.html",
-    "title": "Exemple : nom du cours",
-    "section": "",
-    "text": "Contenu du cours ici. Tu peux inclure du code R ou Python exécutable directement :\n\nsummary(cars)"
+    "objectID": "cours/algo-tri-complexite.html#plan",
+    "href": "cours/algo-tri-complexite.html#plan",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Plan",
+    "text": "Plan\n\nQu’est-ce qu’un algorithme ?\nLe problème du tri, trois solutions\nMesurer la complexité d’un algorithme\nNotation asymptotique\nComparaison empirique en Python"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#algorithme",
+    "href": "cours/algo-tri-complexite.html#algorithme",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Algorithme",
+    "text": "Algorithme\n\n\n\n\n\n\nNote\n\n\nUn algorithme est une procédure bien définie qui prend une entrée, la transforme par une suite d’étapes précises, et produit une sortie.\n\n\n\nUn problème décrit ce qu’on veut (la relation entre entrée et sortie attendue), sans dire comment l’obtenir.\nUne instance est un cas particulier du problème, avec une entrée concrète.\n\nExemple — Problème : trier une liste de nombres. Instance : trier [5, 3, 8, 2]."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#un-problème-peut-avoir-plusieurs-algorithmes",
+    "href": "cours/algo-tri-complexite.html#un-problème-peut-avoir-plusieurs-algorithmes",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Un problème peut avoir plusieurs algorithmes",
+    "text": "Un problème peut avoir plusieurs algorithmes\nPour un même problème, plusieurs algorithmes peuvent exister — avec des performances très différentes.\nC’est exactement le cas du problème du tri, qu’on va utiliser comme fil rouge pour introduire la notion de complexité."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#formalisation",
+    "href": "cours/algo-tri-complexite.html#formalisation",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Formalisation",
+    "text": "Formalisation\n\nEntrée : une séquence de nombres \\(s = [a_1, \\dots, a_n]\\)\nSortie : une permutation \\([a'_1, \\dots, a'_n]\\) de \\(s\\) telle que \\(a'_1 \\le a'_2 \\le \\dots \\le a'_n\\)\n\nOn va comparer trois algorithmes classiques pour résoudre ce problème."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#algorithme-1-le-tri-à-bulles",
+    "href": "cours/algo-tri-complexite.html#algorithme-1-le-tri-à-bulles",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Algorithme 1 : le tri à bulles",
+    "text": "Algorithme 1 : le tri à bulles\nIdée : parcourir la liste, comparer chaque paire d’éléments voisins, les échanger s’ils sont dans le mauvais ordre. Répéter jusqu’à ce que la liste soit triée — à chaque passage, le plus grand élément restant “remonte” à sa place, comme une bulle.\n\ndef tri_bulles(liste):\n    liste = liste.copy()\n    n = len(liste)\n    for i in range(n - 1):\n        for j in range(n - i - 1):\n            if liste[j] &gt; liste[j + 1]:\n                liste[j], liste[j + 1] = liste[j + 1], liste[j]\n    return liste\n\ntri_bulles([5, 3, 8, 2, 9, 1])\n\n[1, 2, 3, 5, 8, 9]"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#algorithme-2-le-tri-par-insertion",
+    "href": "cours/algo-tri-complexite.html#algorithme-2-le-tri-par-insertion",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Algorithme 2 : le tri par insertion",
+    "text": "Algorithme 2 : le tri par insertion\nIdée : construire la liste triée progressivement, en insérant chaque nouvel élément à la bonne place parmi ceux déjà triés — comme on trierait des cartes à jouer dans sa main.\n\ndef tri_insertion(liste):\n    liste = liste.copy()\n    for i in range(1, len(liste)):\n        cle = liste[i]\n        j = i - 1\n        while j &gt;= 0 and liste[j] &gt; cle:\n            liste[j + 1] = liste[j]\n            j -= 1\n        liste[j + 1] = cle\n    return liste\n\ntri_insertion([5, 3, 8, 2, 9, 1])\n\n[1, 2, 3, 5, 8, 9]"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#algorithme-3-le-tri-rapide-quicksort",
+    "href": "cours/algo-tri-complexite.html#algorithme-3-le-tri-rapide-quicksort",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Algorithme 3 : le tri rapide (quicksort)",
+    "text": "Algorithme 3 : le tri rapide (quicksort)\nIdée : choisir un pivot au hasard, séparer la liste en éléments plus petits / plus grands que le pivot, puis répéter récursivement sur chaque sous-liste.\n\nfrom random import randint\n\ndef tri_rapide(liste):\n    if len(liste) &lt;= 1:\n        return liste\n    pivot = liste[randint(0, len(liste) - 1)]\n    plus_petits = [x for x in liste if x &lt; pivot]\n    egaux = [x for x in liste if x == pivot]\n    plus_grands = [x for x in liste if x &gt; pivot]\n    return tri_rapide(plus_petits) + egaux + tri_rapide(plus_grands)\n\ntri_rapide([5, 3, 8, 2, 9, 1])\n\n[1, 2, 3, 5, 8, 9]"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#combien-détapes-pour-chaque-algorithme",
+    "href": "cours/algo-tri-complexite.html#combien-détapes-pour-chaque-algorithme",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Combien d’étapes pour chaque algorithme ?",
+    "text": "Combien d’étapes pour chaque algorithme ?\nPour une liste de taille \\(n\\) :\n\n\n\nAlgorithme\nMeilleur cas\nPire cas\nCas moyen\n\n\n\n\nTri à bulles\n\\(n(n-1)/2\\)\n\\(n(n-1)/2\\)\n\\(n(n-1)/2\\)\n\n\nTri par insertion\n\\(n\\)\n\\(n(n-1)/2\\)\n\\(n(n-1)/4\\)\n\n\nTri rapide\n\\(n\\log n\\)\n\\(n(n-1)/2\\)\n\\(\\approx 1{,}39\\, n\\log_2 n\\)\n\n\n\n\nÀ retenir : le tri à bulles fait toujours le même nombre de comparaisons, quel que soit l’ordre initial. Les deux autres s’adaptent aux données — parfois beaucoup plus vite, parfois non."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#pourquoi-mesurer-la-complexité",
+    "href": "cours/algo-tri-complexite.html#pourquoi-mesurer-la-complexité",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Pourquoi mesurer la complexité ?",
+    "text": "Pourquoi mesurer la complexité ?\n\nComparer des algorithmes indépendamment du matériel utilisé\nAnticiper si un algorithme restera utilisable quand les données grossissent\nEstimer les ressources nécessaires (temps, mémoire) avant d’exécuter"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#complexité-en-temps-et-en-espace",
+    "href": "cours/algo-tri-complexite.html#complexité-en-temps-et-en-espace",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Complexité en temps et en espace",
+    "text": "Complexité en temps et en espace\nComplexité en temps : combien d’opérations élémentaires l’algorithme effectue-t-il, en fonction de la taille \\(n\\) de l’entrée ?\nComplexité en espace : combien de mémoire supplémentaire l’algorithme utilise-t-il ?\n\nDans les deux cas, on s’intéresse à la façon dont le coût évolue avec \\(n\\), pas à sa valeur exacte sur une machine donnée."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#meilleur-cas-pire-cas-cas-moyen",
+    "href": "cours/algo-tri-complexite.html#meilleur-cas-pire-cas-cas-moyen",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Meilleur cas, pire cas, cas moyen",
+    "text": "Meilleur cas, pire cas, cas moyen\nPour une taille d’entrée fixée, la performance dépend du contenu de l’entrée (déjà triée ? dans le désordre le plus défavorable ?).\n\nPire cas : le coût maximal — c’est la garantie la plus utile en pratique, et le focus habituel de l’analyse de complexité\nMeilleur cas : le coût minimal\nCas moyen : le coût moyen sur une distribution donnée des entrées (utile, mais suppose de connaître cette distribution)"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#la-notation-o-grand-o",
+    "href": "cours/algo-tri-complexite.html#la-notation-o-grand-o",
+    "title": "Algorithmique : tri et complexité",
+    "section": "La notation \\(O\\) (grand O)",
+    "text": "La notation \\(O\\) (grand O)\n\n\n\n\n\n\nNote\n\n\n\\(f(n) = O(g(n))\\) signifie qu’à partir d’un certain rang, \\(f\\) est majorée par \\(g\\) à une constante multiplicative près : il existe \\(c &gt; 0\\) et \\(n_0\\) tels que \\(f(n) \\le c \\cdot g(n)\\) pour tout \\(n \\ge n_0\\).\n\n\n\nC’est un majorant : ça sert typiquement à borner le pire cas."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#les-notations-omega-et-theta",
+    "href": "cours/algo-tri-complexite.html#les-notations-omega-et-theta",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Les notations \\(\\Omega\\) et \\(\\Theta\\)",
+    "text": "Les notations \\(\\Omega\\) et \\(\\Theta\\)\n\n\\(f(n) = \\Omega(g(n))\\) : \\(g\\) est un minorant de \\(f\\) (à constante près)\n\\(f(n) = \\Theta(g(n))\\) : \\(f\\) et \\(g\\) ont le même ordre de grandeur (\\(f = O(g)\\) et \\(f = \\Omega(g)\\))\n\n\nAvec ces notations : tri à bulles et tri par insertion sont \\(O(n^2)\\) dans le pire cas, tri rapide est \\(O(n \\log n)\\) en moyenne mais \\(O(n^2)\\) dans le pire cas."
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#mesurer-le-temps-réel-dexécution",
+    "href": "cours/algo-tri-complexite.html#mesurer-le-temps-réel-dexécution",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Mesurer le temps réel d’exécution",
+    "text": "Mesurer le temps réel d’exécution\nVérifions ces résultats théoriques en pratique, avec des listes aléatoires de tailles croissantes.\n\nimport time\nimport random\n\ndef chronometrer(fonction, liste):\n    debut = time.perf_counter()\n    fonction(liste)\n    return time.perf_counter() - debut\n\ntailles = [100, 300, 600, 1000, 1500]\nresultats = {\"bulles\": [], \"insertion\": [], \"rapide\": []}\n\nfor n in tailles:\n    liste = [random.randint(0, 10000) for _ in range(n)]\n    resultats[\"bulles\"].append(chronometrer(tri_bulles, liste))\n    resultats[\"insertion\"].append(chronometrer(tri_insertion, liste))\n    resultats[\"rapide\"].append(chronometrer(tri_rapide, liste))"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#visualisation",
+    "href": "cours/algo-tri-complexite.html#visualisation",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Visualisation",
+    "text": "Visualisation\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(7, 4.5))\nfor nom, temps in resultats.items():\n    plt.plot(tailles, temps, marker=\"o\", label=nom)\nplt.xlabel(\"Taille de la liste (n)\")\nplt.ylabel(\"Temps d'exécution (s)\")\nplt.title(\"Temps de tri mesuré selon la taille de l'entrée\")\nplt.legend()\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#interprétation",
+    "href": "cours/algo-tri-complexite.html#interprétation",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Interprétation",
+    "text": "Interprétation\n\nLe tri rapide reste nettement plus rapide que les deux autres à mesure que \\(n\\) augmente — cohérent avec sa complexité \\(O(n\\log n)\\) contre \\(O(n^2)\\)\nSur de petites listes, la différence est peu visible : les constantes cachées derrière le \\(O(\\cdot)\\) comptent aussi en pratique\nCe type de mesure empirique complète l’analyse théorique, sans la remplacer — le pire cas peut toujours arriver sur une entrée défavorable"
+  },
+  {
+    "objectID": "cours/algo-tri-complexite.html#conclusion",
+    "href": "cours/algo-tri-complexite.html#conclusion",
+    "title": "Algorithmique : tri et complexité",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nUn même problème peut avoir plusieurs algorithmes aux performances très différentes\nLa complexité s’exprime en fonction de la taille de l’entrée, indépendamment du matériel\nLa notation \\(O\\) (et \\(\\Omega\\), \\(\\Theta\\)) permet de comparer des algorithmes de façon rigoureuse\nL’analyse théorique et la mesure empirique se complètent"
   },
   {
     "objectID": "cours/algo-recursion.html#plan",
@@ -144,7 +256,7 @@
     "href": "cours/acp.html#plan",
     "title": "Analyse en Composantes Principales (ACP)",
     "section": "Plan",
-    "text": "Plan\n\nDonnées : le nuage de points pesants\nInertie\nPrincipe de l’ACP\nRésolution du problème\nComposantes principales & indicateurs\nExemple appliqué en R"
+    "text": "Plan\n\nDonnées : le nuage de points pesants\nInertie\nPrincipe de l’ACP\nRésolution du problème\nComposantes principales & indicateurs\nExemple appliqué en R\nVisualiser l’ACP en animation"
   },
   {
     "objectID": "cours/acp.html#nuage-de-points-pesants",
@@ -308,11 +420,32 @@
     "text": "Interprétation\n\nAxe 1 : oppose les provinces à forte fécondité / agriculture aux provinces plus éduquées et urbanisées\nAxe 2 : structuré par la pratique religieuse (Catholic) et la mortalité infantile\nLes provinces proches sur le graphique ont des profils socio-économiques similaires\nVérifier le % d’inertie expliquée par les 2 premiers axes avant d’interpréter (summary(acp))"
   },
   {
+    "objectID": "cours/acp.html#lintuition-derrière-la-recherche-du-premier-axe",
+    "href": "cours/acp.html#lintuition-derrière-la-recherche-du-premier-axe",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "L’intuition derrière la recherche du premier axe",
+    "text": "L’intuition derrière la recherche du premier axe\nRetour sur la toute première étape de la résolution (partie 4) : on cherche l’axe qui maximise l’inertie expliquée — c’est-à-dire la variance du nuage projeté dessus.\nL’animation ci-dessous (réalisée avec Manim, la bibliothèque créée par Grant Sanderson pour 3Blue1Brown) montre :\n\nun axe qui tourne autour du nuage de points\nla variance expliquée qui monte et descend selon l’orientation de l’axe\nl’axe se stabilise sur la direction de variance maximale : le premier axe principal\nle second axe, orthogonal au premier, puis la projection des points"
+  },
+  {
+    "objectID": "cours/acp.html#la-vidéo",
+    "href": "cours/acp.html#la-vidéo",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "La vidéo",
+    "text": "La vidéo\n\n\nTa visionneuse ne supporte pas la balise vidéo — ouvre directement le fichier acp_projection.mp4. \n\n\n\n\n\n\nNote\n\n\nCette vidéo doit être générée une fois, en local, avec le script resources/manim/acp_projection.py (voir la slide suivante), puis placée dans resources/manim/acp_projection.mp4 pour s’afficher ici."
+  },
+  {
+    "objectID": "cours/acp.html#comment-générer-la-vidéo",
+    "href": "cours/acp.html#comment-générer-la-vidéo",
+    "title": "Analyse en Composantes Principales (ACP)",
+    "section": "Comment générer la vidéo",
+    "text": "Comment générer la vidéo\npip install manim          # une seule fois — nécessite aussi FFmpeg installé\ncd resources/manim\nmanim -pqh acp_projection.py ACPProjection\nLe fichier rendu se trouve dans media/videos/acp_projection/1080p60/ACPProjection.mp4 — il suffit de le copier vers resources/manim/acp_projection.mp4 pour qu’il s’affiche sur cette slide."
+  },
+  {
     "objectID": "cours/acp.html#conclusion",
     "href": "cours/acp.html#conclusion",
     "title": "Analyse en Composantes Principales (ACP)",
     "section": "Conclusion",
-    "text": "Conclusion\n\nL’ACP transforme des variables corrélées en composantes non corrélées, ordonnées par inertie expliquée\nLe choix de la métrique (normalisation) change fondamentalement les résultats\nToujours interpréter avec les indicateurs de qualité (cos², contribution) plutôt que le graphique seul"
+    "text": "Conclusion\n\nL’ACP transforme des variables corrélées en composantes non corrélées, ordonnées par inertie expliquée\nLe choix de la métrique (normalisation) change fondamentalement les résultats\nToujours interpréter avec les indicateurs de qualité (cos², contribution) plutôt que le graphique seul\nUne animation peut rendre visible ce que l’algèbre linéaire décrit : la recherche d’une direction de variance maximale"
   },
   {
     "objectID": "contact.html",
@@ -427,130 +560,130 @@
     "text": "Conclusion\n\nUn algorithme récursif se traduit en une relation de récurrence \\(T(n) = a\\,T(n/b) + f(n)\\)\nL’arbre de récursion donne rapidement une intuition du résultat\nLa substitution (récurrence mathématique) permet de le prouver rigoureusement\nLe théorème général résout directement les cas les plus courants, en comparant \\(f(n)\\) à \\(n^{\\log_b a}\\)\nCes résultats théoriques se retrouvent empiriquement en comptant les opérations réellement exécutées"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#plan",
-    "href": "cours/algo-tri-complexite.html#plan",
-    "title": "Algorithmique : tri et complexité",
+    "objectID": "cours/algo-structures-donnees.html#plan",
+    "href": "cours/algo-structures-donnees.html#plan",
+    "title": "Algorithmique : structures de données",
     "section": "Plan",
-    "text": "Plan\n\nQu’est-ce qu’un algorithme ?\nLe problème du tri, trois solutions\nMesurer la complexité d’un algorithme\nNotation asymptotique\nComparaison empirique en Python"
+    "text": "Plan\n\nInterface vs implémentation\nLe tableau (liste Python)\nLa pile (LIFO)\nLa file (FIFO)\nLa liste chaînée\nLa table de hachage\nBilan comparatif"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#algorithme",
-    "href": "cours/algo-tri-complexite.html#algorithme",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Algorithme",
-    "text": "Algorithme\n\n\n\n\n\n\nNote\n\n\nUn algorithme est une procédure bien définie qui prend une entrée, la transforme par une suite d’étapes précises, et produit une sortie.\n\n\n\nUn problème décrit ce qu’on veut (la relation entre entrée et sortie attendue), sans dire comment l’obtenir.\nUne instance est un cas particulier du problème, avec une entrée concrète.\n\nExemple — Problème : trier une liste de nombres. Instance : trier [5, 3, 8, 2]."
+    "objectID": "cours/algo-structures-donnees.html#deux-notions-à-distinguer",
+    "href": "cours/algo-structures-donnees.html#deux-notions-à-distinguer",
+    "title": "Algorithmique : structures de données",
+    "section": "Deux notions à distinguer",
+    "text": "Deux notions à distinguer\n\nInterface : ce que la structure propose à l’utilisateur (les opérations disponibles) — ce qu’on voit\nImplémentation : comment ces opérations sont réalisées en mémoire — ce qu’on ne voit pas\n\n\nExemple — un distributeur de billets : l’interface, c’est l’écran et les boutons ; l’implémentation, c’est tout le mécanisme interne. On peut changer l’implémentation sans changer l’interface, et inversement.\n\nOn étudie ici quatre structures classiques, chacune avec ses forces et ses coûts."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#un-problème-peut-avoir-plusieurs-algorithmes",
-    "href": "cours/algo-tri-complexite.html#un-problème-peut-avoir-plusieurs-algorithmes",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Un problème peut avoir plusieurs algorithmes",
-    "text": "Un problème peut avoir plusieurs algorithmes\nPour un même problème, plusieurs algorithmes peuvent exister — avec des performances très différentes.\nC’est exactement le cas du problème du tri, qu’on va utiliser comme fil rouge pour introduire la notion de complexité."
+    "objectID": "cours/algo-structures-donnees.html#principe",
+    "href": "cours/algo-structures-donnees.html#principe",
+    "title": "Algorithmique : structures de données",
+    "section": "Principe",
+    "text": "Principe\nUn tableau stocke des éléments dans des cases mémoire contiguës et numérotées. Connaître l’indice suffit pour accéder directement à un élément.\n\nnotes = [12, 15, 9, 17, 14]\nnotes[2]  # accès direct, O(1)\n\n9"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#formalisation",
-    "href": "cours/algo-tri-complexite.html#formalisation",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Formalisation",
-    "text": "Formalisation\n\nEntrée : une séquence de nombres \\(s = [a_1, \\dots, a_n]\\)\nSortie : une permutation \\([a'_1, \\dots, a'_n]\\) de \\(s\\) telle que \\(a'_1 \\le a'_2 \\le \\dots \\le a'_n\\)\n\nOn va comparer trois algorithmes classiques pour résoudre ce problème."
+    "objectID": "cours/algo-structures-donnees.html#coût-des-opérations",
+    "href": "cours/algo-structures-donnees.html#coût-des-opérations",
+    "title": "Algorithmique : structures de données",
+    "section": "Coût des opérations",
+    "text": "Coût des opérations\n\n\n\nOpération\nComplexité\n\n\n\n\nLire notes[i]\n\\(O(1)\\)\n\n\nAjouter à la fin (append)\n\\(O(1)\\) en moyenne\n\n\nInsérer au milieu / au début\n\\(O(n)\\)\n\n\nSupprimer au milieu / au début\n\\(O(n)\\)\n\n\n\n\nInsérer ou supprimer ailleurs qu’à la fin coûte cher : il faut décaler tous les éléments suivants."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#algorithme-1-le-tri-à-bulles",
-    "href": "cours/algo-tri-complexite.html#algorithme-1-le-tri-à-bulles",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Algorithme 1 : le tri à bulles",
-    "text": "Algorithme 1 : le tri à bulles\nIdée : parcourir la liste, comparer chaque paire d’éléments voisins, les échanger s’ils sont dans le mauvais ordre. Répéter jusqu’à ce que la liste soit triée — à chaque passage, le plus grand élément restant “remonte” à sa place, comme une bulle.\n\ndef tri_bulles(liste):\n    liste = liste.copy()\n    n = len(liste)\n    for i in range(n - 1):\n        for j in range(n - i - 1):\n            if liste[j] &gt; liste[j + 1]:\n                liste[j], liste[j + 1] = liste[j + 1], liste[j]\n    return liste\n\ntri_bulles([5, 3, 8, 2, 9, 1])\n\n[1, 2, 3, 5, 8, 9]"
+    "objectID": "cours/algo-structures-donnees.html#vérification-empirique",
+    "href": "cours/algo-structures-donnees.html#vérification-empirique",
+    "title": "Algorithmique : structures de données",
+    "section": "Vérification empirique",
+    "text": "Vérification empirique\n\nimport time\nimport matplotlib.pyplot as plt\n\ntailles = [1000, 5000, 10000, 20000, 40000]\ntemps_append, temps_insert_debut = [], []\n\nfor n in tailles:\n    liste = list(range(n))\n    debut = time.perf_counter()\n    liste.append(0)\n    temps_append.append(time.perf_counter() - debut)\n\n    liste = list(range(n))\n    debut = time.perf_counter()\n    liste.insert(0, 0)  # insertion au début : décale tout\n    temps_insert_debut.append(time.perf_counter() - debut)\n\nplt.figure(figsize=(7, 4.5))\nplt.plot(tailles, temps_append, marker=\"o\", label=\"append (fin)\")\nplt.plot(tailles, temps_insert_debut, marker=\"o\", label=\"insert(0, ...) (début)\")\nplt.xlabel(\"Taille de la liste\"); plt.ylabel(\"Temps (s)\")\nplt.title(\"append vs insert(0, ...) selon la taille\")\nplt.legend(); plt.tight_layout(); plt.show()"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#algorithme-2-le-tri-par-insertion",
-    "href": "cours/algo-tri-complexite.html#algorithme-2-le-tri-par-insertion",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Algorithme 2 : le tri par insertion",
-    "text": "Algorithme 2 : le tri par insertion\nIdée : construire la liste triée progressivement, en insérant chaque nouvel élément à la bonne place parmi ceux déjà triés — comme on trierait des cartes à jouer dans sa main.\n\ndef tri_insertion(liste):\n    liste = liste.copy()\n    for i in range(1, len(liste)):\n        cle = liste[i]\n        j = i - 1\n        while j &gt;= 0 and liste[j] &gt; cle:\n            liste[j + 1] = liste[j]\n            j -= 1\n        liste[j + 1] = cle\n    return liste\n\ntri_insertion([5, 3, 8, 2, 9, 1])\n\n[1, 2, 3, 5, 8, 9]"
+    "objectID": "cours/algo-structures-donnees.html#dernier-arrivé-premier-sorti",
+    "href": "cours/algo-structures-donnees.html#dernier-arrivé-premier-sorti",
+    "title": "Algorithmique : structures de données",
+    "section": "Dernier arrivé, premier sorti",
+    "text": "Dernier arrivé, premier sorti\nUne pile (stack) ne permet d’accéder qu’à son élément le plus récent — comme une pile d’assiettes : on ne peut retirer que celle du dessus.\n\nempiler (push) : ajouter un élément au sommet — \\(O(1)\\)\ndépiler (pop) : retirer l’élément au sommet — \\(O(1)\\)\nsommet (peek) : lire l’élément au sommet sans le retirer — \\(O(1)\\)"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#algorithme-3-le-tri-rapide-quicksort",
-    "href": "cours/algo-tri-complexite.html#algorithme-3-le-tri-rapide-quicksort",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Algorithme 3 : le tri rapide (quicksort)",
-    "text": "Algorithme 3 : le tri rapide (quicksort)\nIdée : choisir un pivot au hasard, séparer la liste en éléments plus petits / plus grands que le pivot, puis répéter récursivement sur chaque sous-liste.\n\nfrom random import randint\n\ndef tri_rapide(liste):\n    if len(liste) &lt;= 1:\n        return liste\n    pivot = liste[randint(0, len(liste) - 1)]\n    plus_petits = [x for x in liste if x &lt; pivot]\n    egaux = [x for x in liste if x == pivot]\n    plus_grands = [x for x in liste if x &gt; pivot]\n    return tri_rapide(plus_petits) + egaux + tri_rapide(plus_grands)\n\ntri_rapide([5, 3, 8, 2, 9, 1])\n\n[1, 2, 3, 5, 8, 9]"
+    "objectID": "cours/algo-structures-donnees.html#implémentation-en-python",
+    "href": "cours/algo-structures-donnees.html#implémentation-en-python",
+    "title": "Algorithmique : structures de données",
+    "section": "Implémentation en Python",
+    "text": "Implémentation en Python\nUne liste Python fait très bien l’affaire : append = empiler, pop() = dépiler.\n\nclass Pile:\n    def __init__(self):\n        self._donnees = []\n\n    def empiler(self, element):\n        self._donnees.append(element)\n\n    def depiler(self):\n        return self._donnees.pop() if self._donnees else None\n\n    def sommet(self):\n        return self._donnees[-1] if self._donnees else None\n\nhistorique = Pile()\nhistorique.empiler(\"page A\")\nhistorique.empiler(\"page B\")\nhistorique.empiler(\"page C\")\nhistorique.depiler()  # on revient en arrière : \"page C\" est retirée\nhistorique.sommet()   # \"page B\"\n\n'page B'\n\n\nCas d’usage typique : l’historique de navigation d’un navigateur, ou l’annulation (Ctrl+Z) dans un éditeur."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#combien-détapes-pour-chaque-algorithme",
-    "href": "cours/algo-tri-complexite.html#combien-détapes-pour-chaque-algorithme",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Combien d’étapes pour chaque algorithme ?",
-    "text": "Combien d’étapes pour chaque algorithme ?\nPour une liste de taille \\(n\\) :\n\n\n\nAlgorithme\nMeilleur cas\nPire cas\nCas moyen\n\n\n\n\nTri à bulles\n\\(n(n-1)/2\\)\n\\(n(n-1)/2\\)\n\\(n(n-1)/2\\)\n\n\nTri par insertion\n\\(n\\)\n\\(n(n-1)/2\\)\n\\(n(n-1)/4\\)\n\n\nTri rapide\n\\(n\\log n\\)\n\\(n(n-1)/2\\)\n\\(\\approx 1{,}39\\, n\\log_2 n\\)\n\n\n\n\nÀ retenir : le tri à bulles fait toujours le même nombre de comparaisons, quel que soit l’ordre initial. Les deux autres s’adaptent aux données — parfois beaucoup plus vite, parfois non."
+    "objectID": "cours/algo-structures-donnees.html#premier-arrivé-premier-servi",
+    "href": "cours/algo-structures-donnees.html#premier-arrivé-premier-servi",
+    "title": "Algorithmique : structures de données",
+    "section": "Premier arrivé, premier servi",
+    "text": "Premier arrivé, premier servi\nUne file (queue) fonctionne comme une file d’attente : le premier élément ajouté est le premier retiré.\n\nenfiler (enqueue) : ajouter à la fin — \\(O(1)\\)\ndéfiler (dequeue) : retirer le premier élément — \\(O(1)\\) (avec la bonne implémentation)"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#pourquoi-mesurer-la-complexité",
-    "href": "cours/algo-tri-complexite.html#pourquoi-mesurer-la-complexité",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Pourquoi mesurer la complexité ?",
-    "text": "Pourquoi mesurer la complexité ?\n\nComparer des algorithmes indépendamment du matériel utilisé\nAnticiper si un algorithme restera utilisable quand les données grossissent\nEstimer les ressources nécessaires (temps, mémoire) avant d’exécuter"
+    "objectID": "cours/algo-structures-donnees.html#le-piège-dune-implémentation-naïve",
+    "href": "cours/algo-structures-donnees.html#le-piège-dune-implémentation-naïve",
+    "title": "Algorithmique : structures de données",
+    "section": "Le piège d’une implémentation naïve",
+    "text": "Le piège d’une implémentation naïve\n\nfile_naive = [1, 2, 3, 4, 5]\nfile_naive.pop(0)  # retire le premier élément... mais décale tout le reste !\n\n1\n\n\npop(0) sur une liste Python coûte \\(O(n)\\), car tous les éléments doivent être décalés d’une case. Pour une vraie file efficace, on utilise collections.deque :\n\nfrom collections import deque\n\nguichet = deque()\nguichet.append(\"client 1\")\nguichet.append(\"client 2\")\nguichet.append(\"client 3\")\nguichet.popleft()  # \"client 1\" — retrait en O(1), pas de décalage\n\n'client 1'"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#complexité-en-temps-et-en-espace",
-    "href": "cours/algo-tri-complexite.html#complexité-en-temps-et-en-espace",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Complexité en temps et en espace",
-    "text": "Complexité en temps et en espace\nComplexité en temps : combien d’opérations élémentaires l’algorithme effectue-t-il, en fonction de la taille \\(n\\) de l’entrée ?\nComplexité en espace : combien de mémoire supplémentaire l’algorithme utilise-t-il ?\n\nDans les deux cas, on s’intéresse à la façon dont le coût évolue avec \\(n\\), pas à sa valeur exacte sur une machine donnée."
+    "objectID": "cours/algo-structures-donnees.html#principe-1",
+    "href": "cours/algo-structures-donnees.html#principe-1",
+    "title": "Algorithmique : structures de données",
+    "section": "Principe",
+    "text": "Principe\nChaque élément (un maillon) connaît seulement l’élément suivant — comme des wagons de train reliés un à un, sans numérotation globale des places.\n\nclass Maillon:\n    def __init__(self, valeur, suivant=None):\n        self.valeur = valeur\n        self.suivant = suivant\n\n# Construction manuelle d'une petite liste chaînée : 3 -&gt; 7 -&gt; 1\nliste = Maillon(3, Maillon(7, Maillon(1)))\n\n# Parcours\ncourant = liste\nvaleurs = []\nwhile courant is not None:\n    valeurs.append(courant.valeur)\n    courant = courant.suivant\nvaleurs\n\n[3, 7, 1]"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#meilleur-cas-pire-cas-cas-moyen",
-    "href": "cours/algo-tri-complexite.html#meilleur-cas-pire-cas-cas-moyen",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Meilleur cas, pire cas, cas moyen",
-    "text": "Meilleur cas, pire cas, cas moyen\nPour une taille d’entrée fixée, la performance dépend du contenu de l’entrée (déjà triée ? dans le désordre le plus défavorable ?).\n\nPire cas : le coût maximal — c’est la garantie la plus utile en pratique, et le focus habituel de l’analyse de complexité\nMeilleur cas : le coût minimal\nCas moyen : le coût moyen sur une distribution donnée des entrées (utile, mais suppose de connaître cette distribution)"
+    "objectID": "cours/algo-structures-donnees.html#coût-des-opérations-1",
+    "href": "cours/algo-structures-donnees.html#coût-des-opérations-1",
+    "title": "Algorithmique : structures de données",
+    "section": "Coût des opérations",
+    "text": "Coût des opérations\n\n\n\nOpération\nTableau\nListe chaînée\n\n\n\n\nAccès par indice\n\\(O(1)\\)\n\\(O(n)\\)\n\n\nInsertion/suppression en tête\n\\(O(n)\\)\n\\(O(1)\\)\n\n\nRecherche d’une valeur\n\\(O(n)\\)\n\\(O(n)\\)\n\n\n\n\nInsérer ou retirer un maillon ne demande que de modifier deux liens — pas de décaler des éléments. En contrepartie, on perd l’accès direct par indice : il faut parcourir la liste depuis le début."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#la-notation-o-grand-o",
-    "href": "cours/algo-tri-complexite.html#la-notation-o-grand-o",
-    "title": "Algorithmique : tri et complexité",
-    "section": "La notation \\(O\\) (grand O)",
-    "text": "La notation \\(O\\) (grand O)\n\n\n\n\n\n\nNote\n\n\n\\(f(n) = O(g(n))\\) signifie qu’à partir d’un certain rang, \\(f\\) est majorée par \\(g\\) à une constante multiplicative près : il existe \\(c &gt; 0\\) et \\(n_0\\) tels que \\(f(n) \\le c \\cdot g(n)\\) pour tout \\(n \\ge n_0\\).\n\n\n\nC’est un majorant : ça sert typiquement à borner le pire cas."
+    "objectID": "cours/algo-structures-donnees.html#le-problème-stocker-des-paires-clé-valeur",
+    "href": "cours/algo-structures-donnees.html#le-problème-stocker-des-paires-clé-valeur",
+    "title": "Algorithmique : structures de données",
+    "section": "Le problème : stocker des paires clé-valeur",
+    "text": "Le problème : stocker des paires clé-valeur\nOn veut retrouver rapidement une valeur à partir d’une clé — par exemple, la note d’un élève à partir de son nom.\n\nnotes_par_nom = {\"Claire\": 17, \"Merlin\": 14, \"Ting\": 19}\nnotes_par_nom[\"Merlin\"]  # accès direct, en moyenne O(1)\n\n14\n\n\nC’est exactement ce que fait un dictionnaire Python — implémenté avec une table de hachage."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#les-notations-omega-et-theta",
-    "href": "cours/algo-tri-complexite.html#les-notations-omega-et-theta",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Les notations \\(\\Omega\\) et \\(\\Theta\\)",
-    "text": "Les notations \\(\\Omega\\) et \\(\\Theta\\)\n\n\\(f(n) = \\Omega(g(n))\\) : \\(g\\) est un minorant de \\(f\\) (à constante près)\n\\(f(n) = \\Theta(g(n))\\) : \\(f\\) et \\(g\\) ont le même ordre de grandeur (\\(f = O(g)\\) et \\(f = \\Omega(g)\\))\n\n\nAvec ces notations : tri à bulles et tri par insertion sont \\(O(n^2)\\) dans le pire cas, tri rapide est \\(O(n \\log n)\\) en moyenne mais \\(O(n^2)\\) dans le pire cas."
+    "objectID": "cours/algo-structures-donnees.html#le-principe",
+    "href": "cours/algo-structures-donnees.html#le-principe",
+    "title": "Algorithmique : structures de données",
+    "section": "Le principe",
+    "text": "Le principe\n\nUne fonction de hachage transforme chaque clé en un indice dans un grand tableau\nLa paire (clé, valeur) est stockée à cet indice\nPour retrouver une valeur, on re-hache la clé et on va directement à la bonne case\n\n\nLe problème des collisions : deux clés différentes peuvent produire le même indice. On gère ça en stockant une petite liste chaînée à chaque case (chaînage) — plusieurs paires cohabitent alors sur le même indice."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#mesurer-le-temps-réel-dexécution",
-    "href": "cours/algo-tri-complexite.html#mesurer-le-temps-réel-dexécution",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Mesurer le temps réel d’exécution",
-    "text": "Mesurer le temps réel d’exécution\nVérifions ces résultats théoriques en pratique, avec des listes aléatoires de tailles croissantes.\n\nimport time\nimport random\n\ndef chronometrer(fonction, liste):\n    debut = time.perf_counter()\n    fonction(liste)\n    return time.perf_counter() - debut\n\ntailles = [100, 300, 600, 1000, 1500]\nresultats = {\"bulles\": [], \"insertion\": [], \"rapide\": []}\n\nfor n in tailles:\n    liste = [random.randint(0, 10000) for _ in range(n)]\n    resultats[\"bulles\"].append(chronometrer(tri_bulles, liste))\n    resultats[\"insertion\"].append(chronometrer(tri_insertion, liste))\n    resultats[\"rapide\"].append(chronometrer(tri_rapide, liste))"
+    "objectID": "cours/algo-structures-donnees.html#une-implémentation-simplifiée",
+    "href": "cours/algo-structures-donnees.html#une-implémentation-simplifiée",
+    "title": "Algorithmique : structures de données",
+    "section": "Une implémentation simplifiée",
+    "text": "Une implémentation simplifiée\n\nclass TableHachage:\n    def __init__(self, taille=16):\n        self._cases = [[] for _ in range(taille)]\n        self._taille = taille\n\n    def _indice(self, cle):\n        return hash(cle) % self._taille\n\n    def inserer(self, cle, valeur):\n        case = self._cases[self._indice(cle)]\n        for i, (c, _) in enumerate(case):\n            if c == cle:\n                case[i] = (cle, valeur)\n                return\n        case.append((cle, valeur))\n\n    def rechercher(self, cle):\n        for c, v in self._cases[self._indice(cle)]:\n            if c == cle:\n                return v\n        return None\n\ntable = TableHachage()\ntable.inserer(\"Claire\", 17)\ntable.inserer(\"Merlin\", 14)\ntable.rechercher(\"Merlin\")\n\n14"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#visualisation",
-    "href": "cours/algo-tri-complexite.html#visualisation",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Visualisation",
-    "text": "Visualisation\n\nimport matplotlib.pyplot as plt\n\nplt.figure(figsize=(7, 4.5))\nfor nom, temps in resultats.items():\n    plt.plot(tailles, temps, marker=\"o\", label=nom)\nplt.xlabel(\"Taille de la liste (n)\")\nplt.ylabel(\"Temps d'exécution (s)\")\nplt.title(\"Temps de tri mesuré selon la taille de l'entrée\")\nplt.legend()\nplt.tight_layout()\nplt.show()"
+    "objectID": "cours/algo-structures-donnees.html#pourquoi-cest-presque-toujours-rapide",
+    "href": "cours/algo-structures-donnees.html#pourquoi-cest-presque-toujours-rapide",
+    "title": "Algorithmique : structures de données",
+    "section": "Pourquoi c’est (presque toujours) rapide",
+    "text": "Pourquoi c’est (presque toujours) rapide\n\nCas moyen : si la fonction de hachage répartit bien les clés, chaque case contient peu d’éléments → recherche, insertion, suppression en \\(O(1)\\) en moyenne\nPire cas : si toutes les clés tombent dans la même case (mauvaise fonction de hachage, ou volontairement provoqué), la recherche redevient \\(O(n)\\)\nD’où l’importance d’une bonne fonction de hachage : déterministe, rapide à calculer, et qui répartit les clés le plus uniformément possible"
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#interprétation",
-    "href": "cours/algo-tri-complexite.html#interprétation",
-    "title": "Algorithmique : tri et complexité",
-    "section": "Interprétation",
-    "text": "Interprétation\n\nLe tri rapide reste nettement plus rapide que les deux autres à mesure que \\(n\\) augmente — cohérent avec sa complexité \\(O(n\\log n)\\) contre \\(O(n^2)\\)\nSur de petites listes, la différence est peu visible : les constantes cachées derrière le \\(O(\\cdot)\\) comptent aussi en pratique\nCe type de mesure empirique complète l’analyse théorique, sans la remplacer — le pire cas peut toujours arriver sur une entrée défavorable"
+    "objectID": "cours/algo-structures-donnees.html#quelle-structure-pour-quel-besoin",
+    "href": "cours/algo-structures-donnees.html#quelle-structure-pour-quel-besoin",
+    "title": "Algorithmique : structures de données",
+    "section": "Quelle structure pour quel besoin ?",
+    "text": "Quelle structure pour quel besoin ?\n\n\n\n\n\n\n\n\n\n\n\nOpération\nTableau\nPile\nFile\nListe chaînée\nTable de hachage\n\n\n\n\nAccès par indice\n\\(O(1)\\)\n—\n—\n\\(O(n)\\)\n—\n\n\nAjout/retrait aux extrémités\n\\(O(n)\\)*\n\\(O(1)\\)\n\\(O(1)\\)\n\\(O(1)\\)\n—\n\n\nRecherche par clé\n—\n—\n—\n—\n\\(O(1)\\) moy.\n\n\n\n* \\(O(1)\\) seulement à la fin d’un tableau.\n\nAucune structure n’est universellement meilleure. Le bon choix dépend de l’opération la plus fréquente dans votre programme : accès direct → tableau ; annulation/retour en arrière → pile ; traitement dans l’ordre d’arrivée → file ; insertions fréquentes en tête → liste chaînée ; recherche par clé → table de hachage."
   },
   {
-    "objectID": "cours/algo-tri-complexite.html#conclusion",
-    "href": "cours/algo-tri-complexite.html#conclusion",
-    "title": "Algorithmique : tri et complexité",
+    "objectID": "cours/algo-structures-donnees.html#conclusion",
+    "href": "cours/algo-structures-donnees.html#conclusion",
+    "title": "Algorithmique : structures de données",
     "section": "Conclusion",
-    "text": "Conclusion\n\nUn même problème peut avoir plusieurs algorithmes aux performances très différentes\nLa complexité s’exprime en fonction de la taille de l’entrée, indépendamment du matériel\nLa notation \\(O\\) (et \\(\\Omega\\), \\(\\Theta\\)) permet de comparer des algorithmes de façon rigoureuse\nL’analyse théorique et la mesure empirique se complètent"
+    "text": "Conclusion\n\nInterface (ce qu’on utilise) et implémentation (comment ça marche) sont deux choses différentes\nChaque structure de données a un profil de coût différent selon l’opération\nChoisir la bonne structure, c’est d’abord identifier l’opération dominante de son programme"
   },
   {
     "objectID": "cours.html",
     "href": "cours.html",
     "title": "Cours",
     "section": "",
-    "text": "Notes et supports issus de mes cours à l’ENSAI et à Sciences Po.\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nExemple : nom du cours\n\n\nAug 2, 2026\n\n\nCourte description du cours et de ce que couvre la note.\n\n\n\n\n\n\nAnalyse en Composantes Principales (ACP)\n\n\nDec 17, 2023\n\n\nCours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.\n\n\n\n\n\n\nAlgorithmique : analyser un algorithme récursif\n\n\nNov 21, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : comment poser et résoudre la relation de récurrence d’un algorithme récursif — arbre de récursion, méthode de substitution, théorème général (Master Theorem) — avec exemples et vérification empirique en Python.\n\n\n\n\n\n\nAlgorithmique : la récursion\n\n\nNov 21, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : le principe de récursion, cas de base et cas récursif, la pile d’appels, et le compromis récursif/itératif — avec exemples en Python.\n\n\n\n\n\n\nAlgorithmique : tri et complexité\n\n\nOct 1, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : le problème du tri, trois algorithmes classiques (tri à bulles, par insertion, rapide), et les bases de l’analyse de complexité — avec exemples et mesures en Python.\n\n\n\n\n\n\nNo matching items"
+    "text": "Notes et supports issus de mes cours à l’ENSAI et à Sciences Po.\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDate\n\n\n\nDescription\n\n\n\n\n\n\n\n\nAnalyse en Composantes Principales (ACP)\n\n\nDec 17, 2023\n\n\nCours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.\n\n\n\n\n\n\nAlgorithmique : structures de données\n\n\nDec 11, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : les structures de données élémentaires (tableau, pile, file, liste chaînée, table de hachage), leurs opérations et leur complexité — avec implémentations et mesures en Python.\n\n\n\n\n\n\nAlgorithmique : analyser un algorithme récursif\n\n\nNov 21, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : comment poser et résoudre la relation de récurrence d’un algorithme récursif — arbre de récursion, méthode de substitution, théorème général (Master Theorem) — avec exemples et vérification empirique en Python.\n\n\n\n\n\n\nAlgorithmique : la récursion\n\n\nNov 21, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : le principe de récursion, cas de base et cas récursif, la pile d’appels, et le compromis récursif/itératif — avec exemples en Python.\n\n\n\n\n\n\nAlgorithmique : tri et complexité\n\n\nOct 1, 2023\n\n\nSupport réécrit à partir du cours d’algorithmique de l’ENSAI : le problème du tri, trois algorithmes classiques (tri à bulles, par insertion, rapide), et les bases de l’analyse de complexité — avec exemples et mesures en Python.\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "datavis/exemple-datavis.html",
