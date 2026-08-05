@@ -252,11 +252,11 @@
     "text": "Conclusion\n\nLa récursion structure un problème en cas de base + cas récursif, en s’appuyant sur la pile d’appels\nElle est limitée par la profondeur de récursion (mémoire), contrairement à une boucle équivalente\nUne récursion mal pensée peut recalculer les mêmes sous-problèmes un nombre exponentiel de fois\nLa mémoïsation (garder les résultats déjà calculés) résout ce problème sans renoncer à l’écriture récursive"
   },
   {
-    "objectID": "cours/acp.html#plan",
-    "href": "cours/acp.html#plan",
+    "objectID": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante-et-utile",
+    "href": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante-et-utile",
     "title": "Analyse en Composantes Principales (ACP)",
-    "section": "Plan",
-    "text": "Plan\n\nDonnées : le nuage de points pesants\nInertie\nPrincipe de l’ACP\nRésolution du problème\nComposantes principales & indicateurs\nExemple appliqué en R\nVisualiser l’ACP en animation"
+    "section": "Pourquoi l’ACP est une idée intéressante et utile",
+    "text": "Pourquoi l’ACP est une idée intéressante et utile"
   },
   {
     "objectID": "cours/acp.html#nuage-de-points-pesants",
