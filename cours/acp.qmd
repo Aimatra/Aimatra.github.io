@@ -20,25 +20,52 @@ format:
       
 ---
 
-## Pourquoi l'ACP est une idée intéressante et utile
-
+## Pourquoi l'ACP est une idée intéressante
+::: {.columns}
+::: {.column width = "50%"}
+::: {style="text-align: left;"}
 ```{r}
+#| fig-align: left
 library(plotly)
 donnees <- data.frame(
-  x = rnorm(100),
-  y = rnorm(100),
-  z = rnorm(100)
+  PIB = rnorm(100),
+  Chomage = rnorm(100),
+  Inflation = rnorm(100)
 )
 plot_ly(data = donnees,
-        x = ~x, y = ~y, z = ~z,
-        type = "scatter3d", mode = "markers") |>
+        x = ~PIB, y = ~Chomage, z = ~Inflation,
+        type = "scatter3d", mode = "markers",
+        marker = list(size = 2, color = ~Inflation, colorscale = "Rainbow"),
+        width = 450, height = 450) |>
   layout(
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "rgba(0,0,0,0)",
     scene = list(bgcolor = "rgba(0,0,0,0)")
   )
 ```
+:::
+:::
 
+::: {.column width = "50%"}
+```{r}
+library(gt)
+pays <- data.frame(
+  Pays = c("France", "Allemagne", "États-Unis", "Japon", "Brésil", "Norvège"),
+  PIB_par_habitant = c(52890, 65300, 86000, 34000, 10500, 95000),   # en USD
+  Chomage = c(7.6, 5.9, 4.2, 2.5, 7.0, 3.5),                        # en %
+  Inflation = c(1.5, 1.9, 2.9, 2.5, 4.5, 3.0),                      # en %
+  Dette_publique = c(112, 63, 124, 206, 87, 29),                    # % du PIB
+  Gini = c(30.0, 29.5, 41.8, 32.9, 52.0, 27.7)                      # indice de Gini
+)
+pays |> 
+  gt() |>
+  tab_options(
+    table.background.color = "transparent",
+    heading.background.color = "transparent"
+  )
+```
+:::
+:::
 # 1. Le nuage de points pesants
 
 ## Nuage de points pesants
