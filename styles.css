@@ -1,4 +1,15 @@
 /* Personnalisation légère du thème */
 .quarto-about-jolla .about-image {
-  border-radius: 50%;
+  border-radius: 20%;
+}
+.reveal .slides section {
+  padding: 0;
+}
+.reveal h2 {
+  margin-top: 0;
+}
+.reveal .columns {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
 }
