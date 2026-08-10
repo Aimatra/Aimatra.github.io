@@ -252,11 +252,11 @@
     "text": "Conclusion\n\nLa récursion structure un problème en cas de base + cas récursif, en s’appuyant sur la pile d’appels\nElle est limitée par la profondeur de récursion (mémoire), contrairement à une boucle équivalente\nUne récursion mal pensée peut recalculer les mêmes sous-problèmes un nombre exponentiel de fois\nLa mémoïsation (garder les résultats déjà calculés) résout ce problème sans renoncer à l’écriture récursive"
   },
   {
-    "objectID": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante-et-utile",
-    "href": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante-et-utile",
+    "objectID": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante",
+    "href": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante",
     "title": "Analyse en Composantes Principales (ACP)",
-    "section": "Pourquoi l’ACP est une idée intéressante et utile",
-    "text": "Pourquoi l’ACP est une idée intéressante et utile\n\n\n\n\n\n\n\n\n\n\n\nblabla"
+    "section": "Pourquoi l’ACP est une idée intéressante",
+    "text": "Pourquoi l’ACP est une idée intéressante\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPays\nPIB_par_habitant\nChomage\nInflation\nDette_publique\nGini\n\n\n\n\nFrance\n52890\n7.6\n1.5\n112\n30.0\n\n\nAllemagne\n65300\n5.9\n1.9\n63\n29.5\n\n\nÉtats-Unis\n86000\n4.2\n2.9\n124\n41.8\n\n\nJapon\n34000\n2.5\n2.5\n206\n32.9\n\n\nBrésil\n10500\n7.0\n4.5\n87\n52.0\n\n\nNorvège\n95000\n3.5\n3.0\n29\n27.7"
   },
   {
     "objectID": "cours/acp.html#nuage-de-points-pesants",
@@ -740,12 +740,5 @@
     "title": "Théorie des signatures en cancérologie",
     "section": "Document complet",
     "text": "Document complet\nTélécharger le rapport (PDF)"
-  },
-  {
-    "objectID": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante",
-    "href": "cours/acp.html#pourquoi-lacp-est-une-idée-intéressante",
-    "title": "Analyse en Composantes Principales (ACP)",
-    "section": "Pourquoi l’ACP est une idée intéressante",
-    "text": "Pourquoi l’ACP est une idée intéressante\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPays\nPIB_par_habitant\nChomage\nInflation\nDette_publique\nGini\n\n\n\n\nFrance\n52890\n7.6\n1.5\n112\n30.0\n\n\nAllemagne\n65300\n5.9\n1.9\n63\n29.5\n\n\nÉtats-Unis\n86000\n4.2\n2.9\n124\n41.8\n\n\nJapon\n34000\n2.5\n2.5\n206\n32.9\n\n\nBrésil\n10500\n7.0\n4.5\n87\n52.0\n\n\nNorvège\n95000\n3.5\n3.0\n29\n27.7"
   }
 ]

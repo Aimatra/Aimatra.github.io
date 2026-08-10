@@ -7,6 +7,11 @@ description: "Cours complet sur l'ACP : nuage de points pesants, inertie, théor
 categories: [statistiques, analyse de données, ACP]
 format:
   revealjs:
+    center: false
+    margin: 0.05
+    css: ../styles.css
+    width: 1600
+    height: 900
     slide-number: true
     theme: simple
     toc: false
@@ -36,7 +41,7 @@ plot_ly(data = donnees,
         x = ~PIB, y = ~Chomage, z = ~Inflation,
         type = "scatter3d", mode = "markers",
         marker = list(size = 2, color = ~Inflation, colorscale = "Rainbow"),
-        width = 450, height = 450) |>
+        width = 770, height = 770) |>
   layout(
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "rgba(0,0,0,0)",
@@ -47,6 +52,7 @@ plot_ly(data = donnees,
 :::
 
 ::: {.column width = "50%"}
+::: {style="margin-top: 60px;"}
 ```{r}
 library(gt)
 pays <- data.frame(
@@ -61,9 +67,13 @@ pays |>
   gt() |>
   tab_options(
     table.background.color = "transparent",
-    heading.background.color = "transparent"
+    heading.background.color = "transparent",
+    table.font.size = "22px",
+    table.width = "90%"
   )
 ```
+::: 
+
 :::
 :::
 # 1. Le nuage de points pesants
