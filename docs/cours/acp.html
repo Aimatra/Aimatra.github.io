@@ -1,279 +1,309 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-12-17">
+<meta name="description" content="Cours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.">
+
+<title>Analyse en Composantes Principales (ACP) – Claire Borrelli</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.10.18">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 
-  <meta name="author" content="Claire Borrelli">
-  <meta name="dcterms.date" content="2023-12-17">
-  <title>Claire Borrelli – Analyse en Composantes Principales (ACP)</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: 1.5em;}
-    div.column{flex: auto;}
-    @media screen {
-    div.columns{gap: min(4vw, 1.5em);}
-    div.column{overflow-x: auto;}
-    }
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
+<script src="../site_libs/plotly-binding-4.12.1/plotly.js"></script>
+
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
-  <link rel="stylesheet" href="../styles.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none; 
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". "; 
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0; 
-    }
-  </style>
-  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
-  <script src="../site_libs/plotly-binding-4.12.1/plotly.js"></script>
-
-  <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
-
-  <script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
-
-  <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-
-  <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-
-  <link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
-
-  <script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
-
+<link rel="stylesheet" href="../styles.css">
 </head>
-<body class="quarto-light">
-  <div class="reveal">
-    <div class="slides">
 
-<section id="title-slide" data-background-image="image/fond-titre.png" data-background-position="right" data-background-size="cover" class="quarto-title-block center">
-  <h1 class="title">Analyse en Composantes Principales (ACP)</h1>
-  <p class="subtitle">Nuages pesants, inertie et composantes principales</p>
+<body class="nav-fixed fullcontent quarto-light">
 
-<div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Claire Borrelli
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Claire Borrelli</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Accueil</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cours.html"> 
+<span class="menu-text">Cours</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projets.html"> 
+<span class="menu-text">Projets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../exposes.html"> 
+<span class="menu-text">Exposés</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../datavis.html"> 
+<span class="menu-text">Datavis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index-en.html"> 
+<span class="menu-text">EN</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/TON-PSEUDO/TON-PSEUDO.github.io">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
 </div>
-</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analyse en Composantes Principales (ACP)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistiques</div>
+    <div class="quarto-category">analyse de données</div>
+    <div class="quarto-category">ACP</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Cours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.
+  </div>
 </div>
 
-  <p class="date">2023-12-17</p>
-</section>
-<section id="pourquoi-lacp-est-une-idée-intéressante" class="slide level2">
-<h2>Pourquoi l’ACP est une idée intéressante</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="text-align: left;">
-<div class="cell" data-layout-align="left">
-<div class="cell-output-display">
-<div id="htmlwidget-143ca74bd3c81f80a0c3" style="width:770px;height:770px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-143ca74bd3c81f80a0c3">{"x":{"visdat":{"622049b93d54":["function () ","plotlyVisDat"]},"cur_data":"622049b93d54","attrs":{"622049b93d54":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":2,"color":{},"colorscale":"Rainbow"},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"width":770,"height":770,"margin":{"b":40,"l":60,"t":25,"r":10},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","scene":{"bgcolor":"rgba(0,0,0,0)","xaxis":{"title":"PIB"},"yaxis":{"title":"Chomage"},"zaxis":{"title":"Inflation"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-1.7837000879518106,-0.39350707018767694,-0.46398890902407169,-0.57099927804457373,1.4165576369334449,-0.92889147718549048,-0.12748117641000858,0.79999501213879298,-0.44976575500345273,0.21508836706503079,-0.39718210662427073,-0.67385481672068592,-0.22917800062017421,1.8237673067113847,-0.25637460863411909,0.98055007850724685,-0.54678653313184211,-0.69399775007318709,0.084558321098253911,-0.20883230545103246,2.0111103686804448,-1.4905895786384384,0.019063530763795959,0.75188941665882614,-0.14887038321282439,0.68364210472552567,-0.97838199852908214,-0.61524402592533911,1.7990533493901406,0.85787489771559122,-0.20546176269098371,0.91824208294347498,-1.253293925233365,0.6721599185484205,-0.66144943504114817,-1.0304243214024456,1.1844798324314756,-1.2387132043404352,0.67816851866145023,-0.78403322621301252,-1.0396457084710955,-0.35324606617162502,1.13161096551055,-0.61333144519600047,-0.53192924303895384,0.7791070308143716,-0.1555574858778169,1.2190695998372711,0.1722477033444281,0.14886026929587556,1.4543417021594582,-0.37605199648355081,-0.16482360642327251,0.23573543004526271,-1.7189617844296456,-1.92534017051159,-1.383941387554849,-0.70962000532970393,-0.10651443459701374,0.18229503299223512,-1.6224807559626078,0.013124303898123931,-0.47553446066366611,0.59276827683488831,1.983104801199179,-0.025032540679286959,-0.8378170499272537,0.83085577789341558,-0.40754495142155184,-0.033203111251338742,1.2614919695852918,-2.081099085846458,-1.2423439864444434,-1.0923740267251036,0.37140698912248088,0.012797453942057847,1.4232836092407994,1.4103416414646852,0.18636892107792416,1.2412894980924221,-0.36383828525634232,0.73519065573121833,1.0407273825900936,0.97702845164712782,-0.12560908491426934,-1.1139425177432734,-0.98586902150498157,-0.50185480791761072,0.72221044683925462,-0.46187199541790924,0.76410797584487522,1.0761871743718483,-2.3332074698918541,0.019935198644201856,-0.049549702815667639,1.0943998172805431,1.9975114119368416,0.54418724778112959,0.69044221645913728,-1.6924458651345102],"y":[0.56502501678328365,0.61680118594875466,-0.088419764995839797,2.0891806732438649,1.5981555970299217,0.49285898732935618,-0.65532615255948412,-0.44134347070504237,-1.6888659964674151,1.5665382135392367,0.84565188168110594,-1.4421573470965197,0.50132489232374888,-0.31915029400094708,0.77821588822725174,1.4479683163336956,0.55430798928812397,1.4707172647110534,1.1615257037536348,0.17191865130735862,1.4426167455442838,-1.0823964725498445,0.88578644922770178,0.4434123699967405,-0.53777498316565142,-0.31666668944578852,-1.5618740154200359,0.13265975858208517,2.212038010923278,0.40343691308301566,-0.74112200382031657,-0.00041710389609658213,0.40760671744741145,0.43550258455962432,-0.68689767922661626,-0.38118045318423821,0.61907582147174056,-1.0255475147334348,0.77234729219354015,-0.065139786073832001,-0.74998416066039608,0.046433465716433128,-0.073404660755449699,0.17516558904952997,-0.61031535110266066,-0.68588454814939293,-0.86189622731203797,0.069082469101508975,-2.5752091358856921,-0.52814281054876855,-0.77398977802008218,0.43527466123078434,-0.99603987879347067,1.0045288458608204,-0.38379216587766635,-1.352612505274184,-1.042186902289332,-1.4245452409310018,1.2397665407800071,0.19067857619507292,0.76788197141059367,-2.2029210539509414,0.22820461627359057,-0.63679804775113724,-0.19881601210075867,0.36088094240438862,1.6901212415444689,-0.46876087236289354,0.56653199153409217,0.52676900203504617,-0.89260804428210394,0.51321577069842506,0.12928522263012684,-2.0239428727522988,0.30626452731443904,-1.5111086514051701,-0.021938266233933142,-0.17243447363594888,-0.24632561592142835,0.35348357862898661,-0.52239350980241195,-0.59130742828904592,-0.074851508719810458,1.2212417455651425,0.91197265361161994,-1.2666184063943624,-2.8532540885613233,1.2603417041829172,-0.96786213206362293,-0.81242926029209117,1.8955857271954826,-0.076729595370267301,0.96062917115248825,0.4612331162463611,0.42974447210168298,0.55561305299959296,-1.6695041707929754,0.35512462070287981,-0.59285117107047858,0.037687115903257892],"z":[1.325276673810668,0.077549909067054751,-0.30414756319193115,-1.9994722393467175,-0.37679938099903804,1.6472486331326781,-1.7662452555377153,1.0232830482266206,-1.4209377634537745,-0.11842031580653745,0.67183701896337555,0.093203657576685431,-1.1708865127589727,-0.18214616561692154,-0.92938117311715929,1.6561038906629446,2.3130664485466208,0.43628340696128409,-0.3337800197603969,-0.48893533549998242,1.1454773856333242,1.7062452574936386,-1.0646989543230376,0.39524675029822026,-1.6206392311336768,0.5060101327846821,-0.63641397715809644,0.53184713056988475,0.77471205531479359,-0.063925548383464301,-1.5656609697221895,0.12862812701533366,-1.9803597849673842,1.3157159760660477,-1.4676800514059249,0.15478305451418586,-0.9489721351726832,-1.069944474517265,0.84000236011265006,1.3548728904107263,0.34381813539831013,0.59087243415823032,0.89881835364831753,-0.63758870204325291,-0.58338167885611514,-0.092581855628350598,-0.13446532742366615,-2.6300131237877684,-0.16657089921293103,-1.3809028356591802,-1.4446459531419915,1.6410907369536518,-0.76797442599456101,-0.67176474825193855,0.71482106015023417,0.65177440847450085,0.78153344357447874,-1.4132693239942098,1.6778519347896386,0.91999676252266815,-1.1278842607928725,-0.26345718669421203,0.027757480549094469,-1.9586605672925319,-1.8161779916891234,1.2076441897206733,-0.12797480927062399,-0.05911023834676201,1.5939676226596071,0.35436081348211901,1.4199985055766691,-1.5559929567971102,-2.1494809520271723,2.3074570787242923,0.35182345443561797,2.5715789747200106,1.1983498809021891,-0.35319863339497554,-0.1049154166455276,1.4852659334735354,-1.9118661985180112,-0.71733161348919028,0.48399130137936031,0.4331718335315588,-0.23998111159135246,0.088421939482012352,0.45484175895063733,0.2874893584089887,2.1701704767114887,0.46720940632170238,0.64787649828753668,-0.26928237170098096,1.1499540222620859,-1.8560811962592338,-0.60026293415084941,0.42106808583985245,0.61002694419471781,1.633774382952391,2.8826088275041535,1.4797796088288149],"mode":"markers","marker":{"color":[1.325276673810668,0.077549909067054751,-0.30414756319193115,-1.9994722393467175,-0.37679938099903804,1.6472486331326781,-1.7662452555377153,1.0232830482266206,-1.4209377634537745,-0.11842031580653745,0.67183701896337555,0.093203657576685431,-1.1708865127589727,-0.18214616561692154,-0.92938117311715929,1.6561038906629446,2.3130664485466208,0.43628340696128409,-0.3337800197603969,-0.48893533549998242,1.1454773856333242,1.7062452574936386,-1.0646989543230376,0.39524675029822026,-1.6206392311336768,0.5060101327846821,-0.63641397715809644,0.53184713056988475,0.77471205531479359,-0.063925548383464301,-1.5656609697221895,0.12862812701533366,-1.9803597849673842,1.3157159760660477,-1.4676800514059249,0.15478305451418586,-0.9489721351726832,-1.069944474517265,0.84000236011265006,1.3548728904107263,0.34381813539831013,0.59087243415823032,0.89881835364831753,-0.63758870204325291,-0.58338167885611514,-0.092581855628350598,-0.13446532742366615,-2.6300131237877684,-0.16657089921293103,-1.3809028356591802,-1.4446459531419915,1.6410907369536518,-0.76797442599456101,-0.67176474825193855,0.71482106015023417,0.65177440847450085,0.78153344357447874,-1.4132693239942098,1.6778519347896386,0.91999676252266815,-1.1278842607928725,-0.26345718669421203,0.027757480549094469,-1.9586605672925319,-1.8161779916891234,1.2076441897206733,-0.12797480927062399,-0.05911023834676201,1.5939676226596071,0.35436081348211901,1.4199985055766691,-1.5559929567971102,-2.1494809520271723,2.3074570787242923,0.35182345443561797,2.5715789747200106,1.1983498809021891,-0.35319863339497554,-0.1049154166455276,1.4852659334735354,-1.9118661985180112,-0.71733161348919028,0.48399130137936031,0.4331718335315588,-0.23998111159135246,0.088421939482012352,0.45484175895063733,0.2874893584089887,2.1701704767114887,0.46720940632170238,0.64787649828753668,-0.26928237170098096,1.1499540222620859,-1.8560811962592338,-0.60026293415084941,0.42106808583985245,0.61002694419471781,1.633774382952391,2.8826088275041535,1.4797796088288149],"size":2,"colorscale":"Rainbow","line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div style="margin-top: 60px;">
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 17, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="pourquoi-lacp-est-une-idée-intéressante" class="level2">
+<h2 class="anchored" data-anchor-id="pourquoi-lacp-est-une-idée-intéressante">Pourquoi l’ACP est une idée intéressante ?</h2>
+<p>Prenons un jeu de données décrivant plusieurs pays selon leur PIB par habitant, leur taux de chômage, l’inflation, la dette publique et l’indice de Gini. Les données sont en 5 dimensions, et nous ne sommes capables d’en visualiser que 3 au mieux. Comment, dans ce cas, identifier des tendances ou des groupes ?</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="uhltiaadfo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uhltiaadfo table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+<div id="dkposzrrdw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dkposzrrdw table {
+  font-family: 'Georgia, serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uhltiaadfo thead, #uhltiaadfo tbody, #uhltiaadfo tfoot, #uhltiaadfo tr, #uhltiaadfo td, #uhltiaadfo th {
+#dkposzrrdw thead, #dkposzrrdw tbody, #dkposzrrdw tfoot, #dkposzrrdw tr, #dkposzrrdw td, #dkposzrrdw th {
   border-style: none;
 }
 
-#uhltiaadfo p {
+#dkposzrrdw p {
   margin: 0;
   padding: 0;
 }
 
-#uhltiaadfo .gt_table {
+#dkposzrrdw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
   color: #333333;
-  font-size: 22px;
+  font-size: 15px;
   font-weight: normal;
   font-style: normal;
   background-color: rgba(255, 255, 255, 0);
-  width: 90%;
+  width: 100%;
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #A8A8A8;
@@ -288,12 +318,12 @@ Claire Borrelli
   border-left-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_caption {
+#dkposzrrdw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uhltiaadfo .gt_title {
+#dkposzrrdw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -305,7 +335,7 @@ Claire Borrelli
   border-bottom-width: 0;
 }
 
-#uhltiaadfo .gt_subtitle {
+#dkposzrrdw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -317,7 +347,7 @@ Claire Borrelli
   border-top-width: 0;
 }
 
-#uhltiaadfo .gt_heading {
+#dkposzrrdw .gt_heading {
   background-color: rgba(255, 255, 255, 0);
   text-align: center;
   border-bottom-color: rgba(255, 255, 255, 0);
@@ -329,13 +359,13 @@ Claire Borrelli
   border-right-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_bottom_border {
+#dkposzrrdw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_col_headings {
+#dkposzrrdw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -350,7 +380,7 @@ Claire Borrelli
   border-right-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_col_heading {
+#dkposzrrdw .gt_col_heading {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -370,7 +400,7 @@ Claire Borrelli
   overflow-x: hidden;
 }
 
-#uhltiaadfo .gt_column_spanner_outer {
+#dkposzrrdw .gt_column_spanner_outer {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -382,15 +412,15 @@ Claire Borrelli
   padding-right: 4px;
 }
 
-#uhltiaadfo .gt_column_spanner_outer:first-child {
+#dkposzrrdw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uhltiaadfo .gt_column_spanner_outer:last-child {
+#dkposzrrdw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uhltiaadfo .gt_column_spanner {
+#dkposzrrdw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -402,11 +432,11 @@ Claire Borrelli
   width: 100%;
 }
 
-#uhltiaadfo .gt_spanner_row {
+#dkposzrrdw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uhltiaadfo .gt_group_heading {
+#dkposzrrdw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -432,7 +462,7 @@ Claire Borrelli
   text-align: left;
 }
 
-#uhltiaadfo .gt_empty_group_heading {
+#dkposzrrdw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
@@ -447,15 +477,15 @@ Claire Borrelli
   vertical-align: middle;
 }
 
-#uhltiaadfo .gt_from_md > :first-child {
+#dkposzrrdw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uhltiaadfo .gt_from_md > :last-child {
+#dkposzrrdw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uhltiaadfo .gt_row {
+#dkposzrrdw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -474,7 +504,7 @@ Claire Borrelli
   overflow-x: hidden;
 }
 
-#uhltiaadfo .gt_stub {
+#dkposzrrdw .gt_stub {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -487,7 +517,7 @@ Claire Borrelli
   padding-right: 5px;
 }
 
-#uhltiaadfo .gt_stub_row_group {
+#dkposzrrdw .gt_stub_row_group {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -501,15 +531,15 @@ Claire Borrelli
   vertical-align: top;
 }
 
-#uhltiaadfo .gt_row_group_first td {
+#dkposzrrdw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uhltiaadfo .gt_row_group_first th {
+#dkposzrrdw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uhltiaadfo .gt_summary_row {
+#dkposzrrdw .gt_summary_row {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   text-transform: inherit;
@@ -519,16 +549,16 @@ Claire Borrelli
   padding-right: 5px;
 }
 
-#uhltiaadfo .gt_first_summary_row {
+#dkposzrrdw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_first_summary_row.thick {
+#dkposzrrdw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uhltiaadfo .gt_last_summary_row {
+#dkposzrrdw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -538,7 +568,7 @@ Claire Borrelli
   border-bottom-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_grand_summary_row {
+#dkposzrrdw .gt_grand_summary_row {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   text-transform: inherit;
@@ -548,7 +578,7 @@ Claire Borrelli
   padding-right: 5px;
 }
 
-#uhltiaadfo .gt_first_grand_summary_row {
+#dkposzrrdw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -558,7 +588,7 @@ Claire Borrelli
   border-top-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_last_grand_summary_row_top {
+#dkposzrrdw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -568,11 +598,11 @@ Claire Borrelli
   border-bottom-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_striped {
+#dkposzrrdw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uhltiaadfo .gt_table_body {
+#dkposzrrdw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -581,7 +611,7 @@ Claire Borrelli
   border-bottom-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_footnotes {
+#dkposzrrdw .gt_footnotes {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   border-bottom-style: none;
@@ -595,7 +625,7 @@ Claire Borrelli
   border-right-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_footnote {
+#dkposzrrdw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -604,7 +634,7 @@ Claire Borrelli
   padding-right: 5px;
 }
 
-#uhltiaadfo .gt_sourcenotes {
+#dkposzrrdw .gt_sourcenotes {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   border-bottom-style: none;
@@ -618,7 +648,7 @@ Claire Borrelli
   border-right-color: #D3D3D3;
 }
 
-#uhltiaadfo .gt_sourcenote {
+#dkposzrrdw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -626,134 +656,134 @@ Claire Borrelli
   padding-right: 5px;
 }
 
-#uhltiaadfo .gt_left {
+#dkposzrrdw .gt_left {
   text-align: left;
 }
 
-#uhltiaadfo .gt_center {
+#dkposzrrdw .gt_center {
   text-align: center;
 }
 
-#uhltiaadfo .gt_right {
+#dkposzrrdw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uhltiaadfo .gt_font_normal {
+#dkposzrrdw .gt_font_normal {
   font-weight: normal;
 }
 
-#uhltiaadfo .gt_font_bold {
+#dkposzrrdw .gt_font_bold {
   font-weight: bold;
 }
 
-#uhltiaadfo .gt_font_italic {
+#dkposzrrdw .gt_font_italic {
   font-style: italic;
 }
 
-#uhltiaadfo .gt_super {
+#dkposzrrdw .gt_super {
   font-size: 65%;
 }
 
-#uhltiaadfo .gt_footnote_marks {
+#dkposzrrdw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uhltiaadfo .gt_asterisk {
+#dkposzrrdw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uhltiaadfo .gt_indent_1 {
+#dkposzrrdw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uhltiaadfo .gt_indent_2 {
+#dkposzrrdw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uhltiaadfo .gt_indent_3 {
+#dkposzrrdw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uhltiaadfo .gt_indent_4 {
+#dkposzrrdw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uhltiaadfo .gt_indent_5 {
+#dkposzrrdw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uhltiaadfo .katex-display {
+#dkposzrrdw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uhltiaadfo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dkposzrrdw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Pays" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Pays</th>
-<th id="PIB_par_habitant" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">PIB_par_habitant</th>
+<th id="PIB" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">PIB</th>
 <th id="Chomage" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Chomage</th>
 <th id="Inflation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Inflation</th>
-<th id="Dette_publique" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Dette_publique</th>
+<th id="Dette" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Dette</th>
 <th id="Gini" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Gini</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="Pays">France</td>
-<td class="gt_row gt_right" headers="PIB_par_habitant">52890</td>
+<td class="gt_row gt_right" headers="PIB">52890</td>
 <td class="gt_row gt_right" headers="Chomage">7.6</td>
 <td class="gt_row gt_right" headers="Inflation">1.5</td>
-<td class="gt_row gt_right" headers="Dette_publique">112</td>
+<td class="gt_row gt_right" headers="Dette">112</td>
 <td class="gt_row gt_right" headers="Gini">30.0</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Pays">Allemagne</td>
-<td class="gt_row gt_right" headers="PIB_par_habitant">65300</td>
+<td class="gt_row gt_right" headers="PIB">65300</td>
 <td class="gt_row gt_right" headers="Chomage">5.9</td>
 <td class="gt_row gt_right" headers="Inflation">1.9</td>
-<td class="gt_row gt_right" headers="Dette_publique">63</td>
+<td class="gt_row gt_right" headers="Dette">63</td>
 <td class="gt_row gt_right" headers="Gini">29.5</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Pays">États-Unis</td>
-<td class="gt_row gt_right" headers="PIB_par_habitant">86000</td>
+<td class="gt_row gt_right" headers="PIB">86000</td>
 <td class="gt_row gt_right" headers="Chomage">4.2</td>
 <td class="gt_row gt_right" headers="Inflation">2.9</td>
-<td class="gt_row gt_right" headers="Dette_publique">124</td>
+<td class="gt_row gt_right" headers="Dette">124</td>
 <td class="gt_row gt_right" headers="Gini">41.8</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Pays">Japon</td>
-<td class="gt_row gt_right" headers="PIB_par_habitant">34000</td>
+<td class="gt_row gt_right" headers="PIB">34000</td>
 <td class="gt_row gt_right" headers="Chomage">2.5</td>
 <td class="gt_row gt_right" headers="Inflation">2.5</td>
-<td class="gt_row gt_right" headers="Dette_publique">206</td>
+<td class="gt_row gt_right" headers="Dette">206</td>
 <td class="gt_row gt_right" headers="Gini">32.9</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Pays">Brésil</td>
-<td class="gt_row gt_right" headers="PIB_par_habitant">10500</td>
+<td class="gt_row gt_right" headers="PIB">10500</td>
 <td class="gt_row gt_right" headers="Chomage">7.0</td>
 <td class="gt_row gt_right" headers="Inflation">4.5</td>
-<td class="gt_row gt_right" headers="Dette_publique">87</td>
+<td class="gt_row gt_right" headers="Dette">87</td>
 <td class="gt_row gt_right" headers="Gini">52.0</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Pays">Norvège</td>
-<td class="gt_row gt_right" headers="PIB_par_habitant">95000</td>
+<td class="gt_row gt_right" headers="PIB">95000</td>
 <td class="gt_row gt_right" headers="Chomage">3.5</td>
 <td class="gt_row gt_right" headers="Inflation">3.0</td>
-<td class="gt_row gt_right" headers="Dette_publique">29</td>
+<td class="gt_row gt_right" headers="Dette">29</td>
 <td class="gt_row gt_right" headers="Gini">27.7</td>
 </tr>
 </tbody>
@@ -762,162 +792,154 @@ Claire Borrelli
 </div>
 </div>
 </div>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div id="htmlwidget-ca052c8f436fded00ec0" style="width:100%;height:650px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ca052c8f436fded00ec0">{"x":{"visdat":{"5c90193a60e7":["function () ","plotlyVisDat"]},"cur_data":"5c90193a60e7","attrs":{"5c90193a60e7":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":2,"color":{},"colorscale":"Rainbow"},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"width":600,"height":600,"margin":{"b":40,"l":60,"t":25,"r":10},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","scene":{"bgcolor":"rgba(0,0,0,0)","xaxis":{"title":"PIB"},"yaxis":{"title":"Chomage"},"zaxis":{"title":"Inflation"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-0.15936591744808962,0.50611163886448396,-1.754421223745763,-0.90028667131937656,-0.91320341304841302,-1.0297283991904627,-0.29861216068940222,-1.0460693237246044,-1.0331499954459249,1.3985079659520083,-0.0034957786958717137,1.783975959509984,1.8777442169959002,0.045732498464727926,-0.98065147786149776,0.46120525671068024,1.3053225571390312,0.27464167408745582,0.51845194474618472,-1.018870704149919,0.34955765604513206,1.4888841343637722,-0.95047837774131161,-0.35657192593643861,-0.42460448615032337,-0.76687184515476647,-0.087976607562630552,-0.7513451873258874,1.432960905719693,1.6645261045225725,1.8514995363278373,0.17113814577576666,0.88913578906986024,-0.57577064915128262,0.081750630174987501,0.091137578183787329,0.27165549601811068,-1.1521136721346836,1.0883832058734877,-2.0605190831879807,0.093153611570142666,-1.2659191549212065,0.60398709588950505,-1.0330391646479204,-0.03186607101745239,1.8827031205705815,1.1626125672388772,0.63545453307033606,-1.9172974667781304,-1.0777028395570631,-0.8159240109143534,0.32794015687889655,1.3764988566739045,-0.37622352949224347,0.72421496590861123,-0.077297182510395371,-2.7011862512951166,-0.18510123706917583,-1.666139899032947,0.2676101517970772,0.15958818059665034,-0.99442865679747339,0.69292658854822509,-0.51168432703114985,0.57473227784570724,-0.091400523063459513,1.0009098009563933,-0.33004410510696025,-1.8811282163612222,-0.27917978392903603,-1.5810064268620314,-0.73281824653333305,-0.59065552025696921,0.7957360707835619,-0.7225093572083644,0.38708926682185413,-0.69864627633722187,0.28660632021485011,1.2571269275985903,-0.33365326755217106,0.26882071798366763,-0.61107608510361922,-0.82236276345234283,0.066297769338727733,0.40433113924247022,-1.6408487879541824,-2.0050827476144564,-0.59931921435990998,0.56003887858287715,0.3678148531973669,0.4149291772182494,-1.8938519548276498,-0.94028493346162845,-1.3440537533765646,0.15845135246587477,0.30234559510817838,1.0600212867319843,-0.35469836842019314,-0.41898571893166742,-0.1869336134150246],"y":[1.4873313004876594,0.64738296909362636,-0.80145327433543245,-0.24950403961605094,0.15689420270272081,-0.90891945820484099,-0.41678297269039788,0.26469040372977753,-0.024192705772782565,0.61315389451607161,-1.7709805753185319,0.44065079119103029,3.1137946976704161,0.9165134634830745,-0.79596252749867635,1.3335869392675557,0.022083455552772257,0.62335666212962493,-0.97895261341608542,0.17936457077046941,-1.7693989634393008,0.36762661324474816,-0.76148907233106433,-0.60986685803257934,-0.86830761219873986,-1.2816250875041231,0.23827474002574542,-1.1848519733086789,1.3638055382529828,0.26645785865708455,1.8081745111541747,-0.79997553429721224,0.23293031942405634,-0.5517110518834496,-0.85721032229447347,0.56237347335582866,0.61063921991988301,1.6094724282757766,1.3534448820250462,0.094687143635686741,0.7118783151743181,0.1296297755625917,-0.22857796261493041,0.28377650890038458,-0.8040545304260498,0.29569953437426999,-0.71771331047187503,1.5860048279975425,0.84357309013235293,-0.73437738733003999,-1.4660155879126842,0.86853402699265203,-1.3072887327373306,0.52671374997205123,0.79504698798403806,-2.7226798191531212,-0.81135863994686208,0.49427951848869583,-1.2718963767893874,0.37333519206008547,-1.1069437319566309,-0.54393279084744117,-0.19895098957696133,-0.52450207413322503,1.4609472174281881,-0.77405798466864728,0.12178803206950385,1.06967820304196,0.51484216431612606,-1.4985052622807025,1.2502766742227005,1.8177349285777455,2.1596773456068221,0.017687331292607533,1.0839440024241425,-0.98742918227984788,1.3508409785822635,-0.79503828746516525,-1.5273752619877492,-0.45403793364796613,-2.3320317604170513,0.87952706467605846,-1.6560412859401055,0.5294126792016538,-0.77316138272743395,-0.21006173036604336,0.42000874876969102,0.32184499773257441,0.0032298202182233404,1.809119811383201,0.15292015304940498,-0.11096687780059168,-0.22157113579385068,-0.063554270739101068,0.21902959692217805,0.70773919870612989,-0.44051633572246107,0.3462653517467662,0.16732729029042212,0.31612999832954952],"z":[0.23152902371539008,-2.1025102305553847,-0.36632992593951313,-0.5670860724050969,0.040466857011930875,-0.42685460232574135,-0.44458574567697728,-0.91140331717692624,0.28722528032130978,2.8925986077863191,0.46302400322359377,-1.2434118327456112,-0.29367388418249835,0.88717894115191887,0.47713690013093374,-0.3994973315567184,-1.596611445286177,0.082824787374359873,0.32346907361999866,1.3433299511646453,1.071981297064986,-0.3597506792352792,0.79173820359652802,1.2938913652541419,1.2958097842126894,-0.0062243577768820784,-0.12462298637897372,-0.051087604801942403,-0.65551751238750344,-0.066837224296023082,-2.0998636283646404,0.38661633828029823,0.25498093112497022,-0.24670778808743032,-0.21679063422252315,0.32017441723026074,-0.29285781662767724,0.27812539819888804,-1.1405394852794539,1.3974430790791854,0.63617676087202712,2.1890400707544497,0.61545959280220086,-0.97331533540961479,-0.58789532218367058,1.4563501642031296,-0.51855188727875234,-0.84754573510034137,1.6396166060290343,0.50680638670926115,0.20771875991178745,1.3134224827018623,0.90755232659833751,-2.1937938892244779,-0.34433849491427576,0.71484535258749293,0.41984375547421771,1.5817276059430978,0.42549443664636816,0.0111395373317476,-0.13840764766935618,-2.0659197174791064,-0.30805793014870275,2.5940165497148171,-0.50573110381903286,0.72920255586247806,1.2831816107292675,-1.3540543941731025,0.15839850241063416,0.074793908771188966,1.3113562214588486,0.43876291638595,-0.89641776991590805,-1.2970136208734597,0.39411728258321604,-1.2577132600802896,-1.5652510025417603,-0.85842275454514338,0.43053769806811537,-1.9125917176951097,-0.35149111970984692,-1.5595338084187005,0.66588236392897426,-0.1596336783609355,0.86682219457250342,0.15319135824087171,1.0141055543887392,0.066171500679205617,1.5885902879894416,-1.0451943835936102,-0.25988462919656502,0.175202749445238,-1.520385856666806,-1.1318246494070496,-0.84586053380025406,-1.3980530899902792,-0.41948547739233494,0.94870561136831444,0.23849146108319039,-1.3318221488558031],"mode":"markers","marker":{"color":[0.23152902371539008,-2.1025102305553847,-0.36632992593951313,-0.5670860724050969,0.040466857011930875,-0.42685460232574135,-0.44458574567697728,-0.91140331717692624,0.28722528032130978,2.8925986077863191,0.46302400322359377,-1.2434118327456112,-0.29367388418249835,0.88717894115191887,0.47713690013093374,-0.3994973315567184,-1.596611445286177,0.082824787374359873,0.32346907361999866,1.3433299511646453,1.071981297064986,-0.3597506792352792,0.79173820359652802,1.2938913652541419,1.2958097842126894,-0.0062243577768820784,-0.12462298637897372,-0.051087604801942403,-0.65551751238750344,-0.066837224296023082,-2.0998636283646404,0.38661633828029823,0.25498093112497022,-0.24670778808743032,-0.21679063422252315,0.32017441723026074,-0.29285781662767724,0.27812539819888804,-1.1405394852794539,1.3974430790791854,0.63617676087202712,2.1890400707544497,0.61545959280220086,-0.97331533540961479,-0.58789532218367058,1.4563501642031296,-0.51855188727875234,-0.84754573510034137,1.6396166060290343,0.50680638670926115,0.20771875991178745,1.3134224827018623,0.90755232659833751,-2.1937938892244779,-0.34433849491427576,0.71484535258749293,0.41984375547421771,1.5817276059430978,0.42549443664636816,0.0111395373317476,-0.13840764766935618,-2.0659197174791064,-0.30805793014870275,2.5940165497148171,-0.50573110381903286,0.72920255586247806,1.2831816107292675,-1.3540543941731025,0.15839850241063416,0.074793908771188966,1.3113562214588486,0.43876291638595,-0.89641776991590805,-1.2970136208734597,0.39411728258321604,-1.2577132600802896,-1.5652510025417603,-0.85842275454514338,0.43053769806811537,-1.9125917176951097,-0.35149111970984692,-1.5595338084187005,0.66588236392897426,-0.1596336783609355,0.86682219457250342,0.15319135824087171,1.0141055543887392,0.066171500679205617,1.5885902879894416,-1.0451943835936102,-0.25988462919656502,0.175202749445238,-1.520385856666806,-1.1318246494070496,-0.84586053380025406,-1.3980530899902792,-0.41948547739233494,0.94870561136831444,0.23849146108319039,-1.3318221488558031],"size":2,"colorscale":"Rainbow","line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
-</div></div>
+</div>
+<p>C’est précisément le problème que l’ACP se propose de résoudre.</p>
 </section>
-<section>
-<section id="le-nuage-de-points-pesants" class="title-slide slide level1 center">
-<h1>1. Le nuage de points pesants</h1>
-
-</section>
-<section id="nuage-de-points-pesants" class="slide level2">
-<h2>Nuage de points pesants</h2>
-<p>Un nuage de points pesants est un ensemble <span class="math inline">\(N = \{(x_i, p_i) : i = 1, \dots, n\}\)</span> où :</p>
+<section id="introduction-des-concepts-utiles" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-des-concepts-utiles">1. Introduction des concepts utiles</h2>
+<p>Nous commençons donc avec un jeu de données quelconque. Formellement un jeu de données est composé d’un nuage de points pesant et d’une métrique.</p>
+<p><strong>Définition 1 - Nuage de points pesants</strong> On appelle nuage de points pesants un ensemble <span class="math inline">\(({x_{1}, ..., x_{n}})\)</span> de n points de <span class="math inline">\(\mathbb{R}^p\)</span> où chaque observation <span class="math inline">\(x_{i}\)</span> est décrite par p variables continues et est munie d’un poids <span class="math inline">\(p_{i} &gt; 0\)</span> avec <span class="math inline">\(\sum_{i=1}^n p_i =1\)</span>. Le nuage de points pesants N est</p>
+<p><span class="math inline">\(N = \{(x_{i}, p_{i}): i =1,...,n\}\)</span></p>
+<p>Avec,</p>
 <ul>
 <li><span class="math inline">\(x_i \in \mathbb{R}^p\)</span> : une observation décrite par <span class="math inline">\(p\)</span> variables</li>
 <li><span class="math inline">\(p_i &gt; 0\)</span> : le poids de l’observation <span class="math inline">\(i\)</span>, avec <span class="math inline">\(\sum_{i=1}^n p_i = 1\)</span></li>
 </ul>
-<div class="fragment">
-<p><strong>Exemple</strong> — 3 observations dans <span class="math inline">\(\mathbb{R}^2\)</span> :</p>
-<p><span class="math display">\[x_1 = (2,3),\ p_1=0.4 \qquad x_2 = (1,5),\ p_2=0.3 \qquad x_3 = (4,2),\ p_3=0.3\]</span></p>
-</div>
-</section>
-<section id="les-matrices-d-et-x" class="slide level2">
-<h2>Les matrices <span class="math inline">\(D\)</span> et <span class="math inline">\(X\)</span></h2>
-<p><span class="math inline">\(D\)</span> : matrice diagonale <span class="math inline">\(n \times n\)</span> des poids — <span class="math inline">\(X\)</span> : matrice <span class="math inline">\(n \times p\)</span> des données</p>
+<p><strong>Pourquoi mettre des poids sur les observations ?</strong></p>
+<p>Il est courant en statistique de vouloir pondérer ses observations pour mieux refléter la réalité statistique du monde. Par exemple, si l’on relève 2 observations pour un secteur économique qui représente 60% de l’activité d’une région et 7 observations pour un secteur qui représente 10% de l’activité économique de cette même région. Il est alors naturel de vouloir surpondérer les premières observations et sous-pondérer les deuxièmes quand l’on souhaite produire des mesures de l’activité économique de cette région. C’est là le rôle du poids de nos observations.</p>
+<p><strong>Les matrices <span class="math inline">\(D\)</span> et <span class="math inline">\(X\)</span></strong></p>
+<p>Pour décrire un nuage de points pesants, on utilise les deux matrices suivantes:</p>
+<ul>
+<li><span class="math inline">\(D \in \mathbb{R}^{n \times n}\)</span> est la matrice décrivant les poids des observations. D est une matrice diagonale telle que l’élément (i,j) est</li>
+</ul>
+<p><span class="math display">\[D_{ij} =
+\begin{cases}
+p_i &amp; \text{si } i=j, \\
+0 &amp; \text{sinon}
+\end{cases}\]</span></p>
+<ul>
+<li><span class="math inline">\(X \in \mathbb{R}^{n \times p}\)</span> est la matrice décrivant les <span class="math inline">\(n\)</span> observations par <span class="math inline">\(p\)</span> variables continues, telle que l’élément <span class="math inline">\((i,j)\)</span> est la variable <span class="math inline">\(j\)</span> pour l’observation <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p><strong>Exemple</strong> <span class="math inline">\(D\)</span> est la matrice diagonale <span class="math inline">\(n \times n\)</span> des poids, et <span class="math inline">\(X\)</span> la matrice <span class="math inline">\(n \times p\)</span> des données</p>
 <p><span class="math display">\[D = \begin{bmatrix} 0.4 &amp; 0 &amp; 0 \\ 0 &amp; 0.3 &amp; 0 \\ 0 &amp; 0 &amp; 0.3 \end{bmatrix}
 \qquad
 X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></p>
-</section>
-<section id="le-triplet-x-d-m" class="slide level2">
-<h2>Le triplet <span class="math inline">\((X, D, M)\)</span></h2>
+<p><strong>Définition 2 - Le triplet <span class="math inline">\((X, D, M)\)</span></strong> En analyse de données, les données sont définies par le triplet (X, D, M):</p>
 <ul>
 <li><span class="math inline">\(X\)</span> : matrice des données (<span class="math inline">\(n \times p\)</span>)</li>
 <li><span class="math inline">\(D\)</span> : matrice de poids (diagonale, <span class="math inline">\(\sum p_i = 1\)</span>)</li>
-<li><span class="math inline">\(M\)</span> : métrique — matrice <span class="math inline">\(p \times p\)</span>, symétrique définie positive, qui définit les distances entre observations</li>
+<li><span class="math inline">\(M\)</span> : métrique : matrice <span class="math inline">\(p \times p\)</span>, symétrique définie positive, qui définit les distances entre observations</li>
 </ul>
-<div class="fragment">
 <p>Cas courants :</p>
 <ul>
 <li>Poids égaux : <span class="math inline">\(D = \tfrac{1}{n} I_n\)</span></li>
 <li>Métrique euclidienne : <span class="math inline">\(M = I_p\)</span></li>
-<li><strong>Métrique normalisée</strong> : <span class="math inline">\(M = \text{diag}(1/s_1^2, \dots, 1/s_p^2)\)</span> — corrige les différences d’échelle entre variables</li>
+<li><strong>Métrique normalisée</strong> : <span class="math inline">\(M = \text{diag}(1/s_1^2, \dots, 1/s_p^2)\)</span></li>
 </ul>
-</div>
+<section id="cest-quoi-une-métrique" class="level3">
+<h3 class="anchored" data-anchor-id="cest-quoi-une-métrique">C’est quoi une métrique ?</h3>
+<p>Quand on a p variables (disons: PIB, chômage, inflation), et nous voulons mesurer la distance entre les deux individus <span class="math inline">\(x_{i}\)</span> et <span class="math inline">\(x_{j}\)</span>. La formule générale de distance est:</p>
+<p><span class="math display">\[d_{M}^2(x_{i}, x_{j}) = (x_{i} - x_{j})^\top M (x_{i}-x_{j})\]</span></p>
+<p>Le choix de M change complètement la notion de “distance”.</p>
+<p>Cas 1: <span class="math inline">\(M = I_{p}\)</span> (métrique euclidienne) Ici, chaque variable contribue à la distance avec le même poids. SAUF QUE, si une variable a une échelle plus grande qu’une autre (par exemple le PIB en dizaine de milliers de millions et l’inflation, en point de pourcentage), elle va écraser les autres dans le calcul de la distance. Une petite variation de PIB pèse beaucoup plus qu’une grosse variation d’inflation, simplement parce que l’échelle numérique est plus grande, pas parce que c’est réellement plus important. C’est la raison pour laquelle on utilise la <em>métrique normalisée</em></p>
+<p>Cas 2: <span class="math inline">\(M = \text{diag}(1/s_1^2, \dots, 1/s_p^2)\)</span> (métrique normalisée) \ Pour corriger ce problème, on prend:</p>
+<p><span class="math display">\[M = diag(\frac{1}{s_{1}^2}, ..., \frac{1}{s_{p}^2})\]</span></p>
+<p>où <span class="math inline">\(s_{j}^2\)</span> est la variance empirique de la variable j.</p>
+<p>Concrètement, cela revient à diviser chaque écart <span class="math inline">\(x_{i} - x_{j}\)</span> par <span class="math inline">\(s_{j}^2\)</span> avant de le mettre au carré. Une variable très dispersée (grande variance comme le PIB) est “rétrécie”, une variable peu dispersée (comme l’inflation) est “dilatée”.\</p>
+<p>Remarque : c’est ce que fait la fonction scale() en R.</p>
+<p><strong>Exemple</strong></p>
+<p>Prenons 3 individus décrits par 2 variables (PIB, chômage) :</p>
+<p><span class="math display">\[X = \begin{bmatrix} 50000 &amp; 7 \\ 30000 &amp; 5 \\ 80000 &amp; 3 \end{bmatrix}\]</span></p>
+<p>On compare l’individu 1 <span class="math inline">\((50000, 7)\)</span> et l’individu 2 <span class="math inline">\((30000, 5)\)</span>, d’écart <span class="math inline">\(x_1 - x_2 = (20000,\ 2)\)</span>.</p>
+<p><strong>Variances empiriques</strong> : <span class="math display">\[s_{\text{PIB}}^2 \approx 422\,222\,222 \qquad s_{\text{chômage}}^2 \approx 2{,}667\]</span></p>
+<p><strong>Sans normalisation</strong> (<span class="math inline">\(M = I_p\)</span>) : <span class="math display">\[d^2 = 20000^2 + 2^2 = 400\,000\,000 + 4 = 400\,000\,004\]</span> La contribution du chômage (4) est totalement écrasée par celle du PIB (400 000 000), alors qu’une différence de 2 points de chômage est loin d’être négligeable économiquement.</p>
+<p><strong>Avec normalisation</strong> (<span class="math inline">\(M = \text{diag}(1/s_{\text{PIB}}^2,\ 1/s_{\text{chômage}}^2)\)</span>) : <span class="math display">\[d^2 = \frac{20000^2}{422\,222\,222} + \frac{2^2}{2{,}667} = 0{,}947 + 1{,}500 = 2{,}447\]</span> Les deux variables contribuent maintenant dans un ordre de grandeur comparable.</p>
+<p><strong>Propriété clé</strong> : les distances calculées sur les données brutes avec la métrique <span class="math inline">\(D_{1/s}\)</span> sont identiques aux distances calculées sur les données réduites (centrées-réduites) avec la métrique identité. Normaliser une variable ou changer de métrique, c’est donc la même opération.</p>
+<p><span class="math display">\[d_{D_{1/s^2}}^2(x_{1}, x_{2}) = (x_{1} - x_{2})^\top D_{1/s^2}(x_{1}-x_{2}) \\
+                                = [D_{1/s}(x_{1}-x_{2})]^\top[D_{1/s}(x_{1}-x_{2})] \\
+                                = (x_{1}^* - x_{2}^*)^\top(x_{1}^*-x_{2}^*) \\
+                                = d_{I_{p}^2}(x_{1}^*, x_{2}^*)\]</span></p>
+<p><strong><em>Définition 3 - Centre de gravité</em></strong></p>
+<p>Le centre de gravité du nuage <span class="math inline">\(N\)</span> est <span class="math display">\[g = \sum_{i=1}^n p_i x_i\]</span> Le nuage centré a pour coordonnées <span class="math inline">\(x_i - g\)</span>.</p>
 </section>
-<section id="pourquoi-normaliser" class="slide level2">
-<h2>Pourquoi normaliser ?</h2>
-<p>Avec <span class="math inline">\(M = \text{diag}(1/s_j^2)\)</span>, les variables à faible variance (peu dispersées) reçoivent un poids plus fort, et inversement.</p>
-<div class="fragment">
-<p><strong>Propriété clé</strong> : les distances calculées sur les données brutes avec la métrique <span class="math inline">\(D_{1/s}\)</span> sont identiques aux distances calculées sur les données réduites (centrées-réduites) avec la métrique identité.</p>
-<p><span class="math inline">\(\Rightarrow\)</span> normaliser une variable ou changer de métrique, c’est la même opération.</p>
-</div>
 </section>
-<section id="centre-de-gravité" class="slide level2">
-<h2>Centre de gravité</h2>
-<p>Le centre de gravité du nuage <span class="math inline">\(N\)</span> est</p>
-<p><span class="math display">\[g = \sum_{i=1}^n p_i x_i\]</span></p>
-<p>Le nuage centré a pour coordonnées <span class="math inline">\(x_i - g\)</span>.</p>
-</section></section>
-<section>
-<section id="inertie" class="title-slide slide level1 center">
-<h1>2. Inertie</h1>
-
-</section>
-<section id="inertie-par-rapport-à-un-point-un-sous-espace" class="slide level2">
-<h2>Inertie par rapport à un point / un sous-espace</h2>
-<p><strong>Par rapport à un point</strong> <span class="math inline">\(a\)</span> : <span class="math display">\[I_a = \sum_{i=1}^n p_i\, d_M^2(a, x_i)\]</span></p>
-<p><strong>Par rapport au centre de gravité</strong> (<span class="math inline">\(I := I_g\)</span>) : joue le rôle central dans les méthodes factorielles.</p>
-<p><strong>Par rapport à un sous-espace affine</strong> <span class="math inline">\(F\)</span> : <span class="math display">\[I_F = \sum_{i=1}^n p_i\, d_M^2(F, x_i)\]</span></p>
-</section>
-<section id="théorème-de-huygens" class="slide level2">
-<h2>Théorème de Huygens</h2>
-<p>Pour tout sous-espace affine <span class="math inline">\(F\)</span> de <span class="math inline">\(\mathbb{R}^p\)</span> :</p>
-<p><span class="math display">\[I_F = I_{F_g} + d_M^2(a, g)\]</span></p>
-<p>où <span class="math inline">\(F_g\)</span> est le sous-espace parallèle à <span class="math inline">\(F\)</span> passant par <span class="math inline">\(g\)</span>, et <span class="math inline">\(a\)</span> la projection <span class="math inline">\(M\)</span>-orthogonale de <span class="math inline">\(g\)</span> sur <span class="math inline">\(F\)</span>.</p>
-<div class="fragment">
+<section id="inertie" class="level2">
+<h2 class="anchored" data-anchor-id="inertie">2. Inertie</h2>
+<p><strong>Inertie par rapport à un point</strong> <span class="math inline">\(a\)</span> : <span class="math display">\[I_a = \sum_{i=1}^n p_i\, d_M^2(a, x_i)\]</span></p>
+<p><strong>Inertie par rapport au centre de gravité</strong> (<span class="math inline">\(I := I_g\)</span>) : joue le rôle central dans les méthodes factorielles.</p>
+<p><strong>Inertie par rapport à un sous-espace affine</strong> <span class="math inline">\(F\)</span> : <span class="math display">\[I_F = \sum_{i=1}^n p_i\, d_M^2(F, x_i)\]</span></p>
+<section id="théorème-de-huygens" class="level3">
+<h3 class="anchored" data-anchor-id="théorème-de-huygens">Théorème de Huygens</h3>
+<p>Pour tout sous-espace affine <span class="math inline">\(F\)</span> de <span class="math inline">\(\mathbb{R}^p\)</span> : <span class="math display">\[I_F = I_{F_g} + d_M^2(a, g)\]</span> où <span class="math inline">\(F_g\)</span> est le sous-espace parallèle à <span class="math inline">\(F\)</span> passant par <span class="math inline">\(g\)</span>, et <span class="math inline">\(a\)</span> la projection <span class="math inline">\(M\)</span>-orthogonale de <span class="math inline">\(g\)</span> sur <span class="math inline">\(F\)</span>.</p>
 <p><strong>Conséquence</strong> : le sous-espace parallèle à <span class="math inline">\(F\)</span> d’inertie minimale est celui qui passe par le centre de gravité.</p>
-</div>
 </section>
-<section id="inertie-totale-expression-matricielle" class="slide level2">
-<h2>Inertie totale : expression matricielle</h2>
-<p>En notant <span class="math inline">\(V = X^\top D X\)</span> la matrice de variances-covariances :</p>
-<p><span class="math display">\[I = \text{tr}(VM)\]</span></p>
-<p>Et le nuage <span class="math inline">\(N\)</span> (individus) et le nuage <span class="math inline">\(N^*\)</span> (variables, tableau transposé) ont <strong>la même inertie totale</strong>.</p>
-</section></section>
-<section>
-<section id="principe-de-lacp" class="title-slide slide level1 center">
-<h1>3. Principe de l’ACP</h1>
-
+<section id="inertie-totale-expression-matricielle" class="level3">
+<h3 class="anchored" data-anchor-id="inertie-totale-expression-matricielle">Inertie totale : expression matricielle</h3>
+<p>En notant <span class="math inline">\(V = X^\top D X\)</span> la matrice de variances-covariances : <span class="math display">\[I = \text{tr}(VM)\]</span></p>
+<p>Le nuage <span class="math inline">\(N\)</span> (individus) et le nuage <span class="math inline">\(N^*\)</span> (variables, tableau transposé) ont <strong>la même inertie totale</strong>.</p>
 </section>
-<section id="formulation-du-problème" class="slide level2">
-<h2>Formulation du problème</h2>
+</section>
+<section id="principe-de-lacp" class="level2">
+<h2 class="anchored" data-anchor-id="principe-de-lacp">3. Principe de l’ACP</h2>
+<section id="formulation-du-problème" class="level3">
+<h3 class="anchored" data-anchor-id="formulation-du-problème">Formulation du problème</h3>
 <p>L’ACP cherche une représentation approchée du nuage <span class="math inline">\(N \subset \mathbb{R}^p\)</span> dans un sous-espace de dimension réduite <span class="math inline">\(k &lt; p\)</span>.</p>
-<p>On cherche <span class="math inline">\(E_k\)</span>, sous-espace de dimension <span class="math inline">\(k\)</span>, qui <strong>minimise</strong> l’inertie perdue <span class="math inline">\(I_{E_k^\perp}\)</span> — ce qui équivaut, l’inertie totale étant fixe, à <strong>maximiser</strong> l’inertie expliquée <span class="math inline">\(I_{E_k^\perp}\)</span>…</p>
-<div class="fragment">
-<p>Formellement : <span class="math inline">\(E_k\)</span> est optimal s’il maximise l’inertie expliquée parmi tous les sous-espaces de dimension <span class="math inline">\(k\)</span>.</p>
-</div>
+<p>On cherche <span class="math inline">\(E_k\)</span>, sous-espace de dimension <span class="math inline">\(k\)</span>, qui <strong>minimise</strong> l’inertie perdue <span class="math inline">\(I_{E_k^\perp}\)</span> — ce qui équivaut, l’inertie totale étant fixe, à <strong>maximiser</strong> l’inertie expliquée <span class="math inline">\(I_{E_k}\)</span>. Formellement, <span class="math inline">\(E_k\)</span> est optimal s’il maximise l’inertie expliquée parmi tous les sous-espaces de dimension <span class="math inline">\(k\)</span>.</p>
 </section>
-<section id="construction-séquentielle" class="slide level2">
-<h2>Construction séquentielle</h2>
+<section id="construction-séquentielle" class="level3">
+<h3 class="anchored" data-anchor-id="construction-séquentielle">Construction séquentielle</h3>
 <p>Deux lemmes permettent de construire les axes un à un :</p>
 <ul>
 <li><strong>Lemme d’inclusion</strong> : le sous-espace optimal de dimension <span class="math inline">\(k\)</span> contient le sous-espace optimal de dimension <span class="math inline">\(k-1\)</span></li>
 <li><strong>Lemme de construction</strong> : chercher <span class="math inline">\(E_k\)</span> optimal <span class="math inline">\(\supseteq E_{k-1}\)</span> revient à chercher une droite <span class="math inline">\(\Delta u_k\)</span>, <span class="math inline">\(M\)</span>-orthogonale à <span class="math inline">\(E_{k-1}\)</span>, qui minimise <span class="math inline">\(I_{\Delta u_k}\)</span></li>
 </ul>
-<p><span class="math inline">\(\Rightarrow\)</span> on peut construire les axes <strong>un par un</strong>, par ordre d’importance.</p>
-</section></section>
-<section>
-<section id="résolution-du-problème" class="title-slide slide level1 center">
-<h1>4. Résolution du problème</h1>
-
+<p>On peut ainsi construire les axes <strong>un par un</strong>, par ordre d’importance.</p>
 </section>
-<section id="recherche-du-premier-axe" class="slide level2">
-<h2>Recherche du premier axe</h2>
-<p>On cherche <span class="math inline">\(u_1\)</span> unitaire (<span class="math inline">\(u_1^\top M u_1 = 1\)</span>) qui maximise l’inertie expliquée :</p>
-<p><span class="math display">\[u_1 = \arg\max_u\ u^\top MVMu \quad \text{s.c.}\quad u^\top Mu = 1\]</span></p>
-<p>Par les multiplicateurs de Lagrange, on obtient :</p>
-<p><span class="math display">\[MVMu_1 - \lambda_1 Mu_1 = 0 \quad\Longleftrightarrow\quad VMu_1 = \lambda_1 u_1\]</span></p>
-<div class="fragment">
+</section>
+<section id="résolution-du-problème" class="level2">
+<h2 class="anchored" data-anchor-id="résolution-du-problème">4. Résolution du problème</h2>
+<section id="recherche-du-premier-axe" class="level3">
+<h3 class="anchored" data-anchor-id="recherche-du-premier-axe">Recherche du premier axe</h3>
+<p>On cherche <span class="math inline">\(u_1\)</span> unitaire (<span class="math inline">\(u_1^\top M u_1 = 1\)</span>) qui maximise l’inertie expliquée : <span class="math display">\[u_1 = \arg\max_u\ u^\top MVMu \quad \text{s.c.}\quad u^\top Mu = 1\]</span></p>
+<p>Par les multiplicateurs de Lagrange, on obtient : <span class="math display">\[MVMu_1 - \lambda_1 Mu_1 = 0 \quad\Longleftrightarrow\quad VMu_1 = \lambda_1 u_1\]</span></p>
 <p><strong><span class="math inline">\(u_1\)</span> est donc un vecteur propre de <span class="math inline">\(VM\)</span></strong>, associé à sa plus grande valeur propre <span class="math inline">\(\lambda_1\)</span>. L’inertie expliquée par cet axe vaut <span class="math inline">\(\lambda_1\)</span>.</p>
-</div>
 </section>
-<section id="généralisation-les-axes-factoriels" class="slide level2">
-<h2>Généralisation : les axes factoriels</h2>
-<p><strong>Lemme 2.3.1</strong> — Les axes <span class="math inline">\(\Delta u_1, \dots, \Delta u_p\)</span> sont les <strong>axes factoriels</strong> :</p>
+<section id="généralisation-les-axes-factoriels" class="level3">
+<h3 class="anchored" data-anchor-id="généralisation-les-axes-factoriels">Généralisation : les axes factoriels</h3>
+<p>Les axes <span class="math inline">\(\Delta u_1, \dots, \Delta u_p\)</span> sont les <strong>axes factoriels</strong> :</p>
 <ul>
 <li><span class="math inline">\(u_k\)</span> = vecteur propre de <span class="math inline">\(VM = X^\top D X M\)</span> associé à la <span class="math inline">\(k\)</span>-ème plus grande valeur propre <span class="math inline">\(\lambda_k\)</span></li>
 <li>L’inertie expliquée par <span class="math inline">\(\Delta u_k\)</span> vaut <span class="math inline">\(\lambda_k\)</span>, et <span class="math inline">\(I = \sum_{k=1}^p \lambda_k\)</span></li>
 <li>Le % d’inertie expliqué par <span class="math inline">\(E_k\)</span> est <span class="math inline">\(\dfrac{100 \cdot (\lambda_1 + \dots + \lambda_k)}{I}\)</span></li>
 </ul>
 <p>Si <span class="math inline">\(r = \text{rang}(X)\)</span>, alors <span class="math inline">\(\lambda_1, \dots, \lambda_r &gt; 0\)</span> et <span class="math inline">\(\lambda_{r+1} = \dots = \lambda_p = 0\)</span>.</p>
-</section></section>
-<section>
-<section id="composantes-principales-indicateurs" class="title-slide slide level1 center">
-<h1>5. Composantes principales &amp; indicateurs</h1>
-
 </section>
-<section id="composantes-principales" class="slide level2">
-<h2>Composantes principales</h2>
+</section>
+<section id="composantes-principales-indicateurs" class="level2">
+<h2 class="anchored" data-anchor-id="composantes-principales-indicateurs">5. Composantes principales &amp; indicateurs</h2>
+<section id="composantes-principales" class="level3">
+<h3 class="anchored" data-anchor-id="composantes-principales">Composantes principales</h3>
 <p>La <span class="math inline">\(k\)</span>-ème composante principale <span class="math inline">\(C_k = XMu_k\)</span> donne les coordonnées des <span class="math inline">\(n\)</span> observations sur l’axe <span class="math inline">\(\Delta u_k\)</span>.</p>
 <p>Propriétés : les <span class="math inline">\(C_k\)</span> sont centrées, de variance <span class="math inline">\(\lambda_k\)</span>, et <strong>non corrélées entre elles</strong>.</p>
-<div class="fragment">
 <p><strong>Formule de reconstitution</strong> — avec <span class="math inline">\(s &lt; r\)</span> composantes : <span class="math display">\[X \approx \tilde X = \sum_{k=1}^s C_k u_k^\top\]</span></p>
-</div>
 </section>
-<section id="indicateurs-de-qualité" class="slide level2">
-<h2>Indicateurs de qualité</h2>
+<section id="indicateurs-de-qualité" class="level3">
+<h3 class="anchored" data-anchor-id="indicateurs-de-qualité">Indicateurs de qualité</h3>
 <p><strong>Qualité de représentation d’une observation</strong> sur l’axe <span class="math inline">\(k\)</span> : <span class="math display">\[\cos^2(i,k) = \left(\frac{c_{ik}}{\|x_i\|_M}\right)^2\]</span></p>
 <p><strong>Contribution d’une observation</strong> à la construction de l’axe <span class="math inline">\(k\)</span> (repère les observations atypiques) : <span class="math display">\[\text{ctr}(i,k) = \frac{p_i c_{ik}^2}{\lambda_k}\]</span></p>
 </section>
-<section id="représentation-des-variables" class="slide level2">
-<h2>Représentation des variables</h2>
-<p>On peut projeter les variables initiales sur les axes factoriels et calculer leur corrélation avec chaque composante :</p>
-<p><span class="math display">\[\text{cor}(j,k) = \frac{d_{kj}}{\|X_j\|_D} \in [-1, 1]\]</span></p>
+<section id="représentation-des-variables" class="level3">
+<h3 class="anchored" data-anchor-id="représentation-des-variables">Représentation des variables</h3>
+<p>On peut projeter les variables initiales sur les axes factoriels et calculer leur corrélation avec chaque composante : <span class="math display">\[\text{cor}(j,k) = \frac{d_{kj}}{\|X_j\|_D} \in [-1, 1]\]</span></p>
 <p>Ces corrélations se visualisent sur le <strong>cercle des corrélations</strong>.</p>
 </section>
-<section id="lacp-en-pratique" class="slide level2">
-<h2>L’ACP en pratique</h2>
+<section id="lacp-en-pratique" class="level3">
+<h3 class="anchored" data-anchor-id="lacp-en-pratique">L’ACP en pratique</h3>
 <ol type="1">
 <li>Description des données</li>
 <li>Statistiques descriptives univariées et bivariées</li>
@@ -926,18 +948,14 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 <li>Interprétation des axes (sens, observations bien représentées, atypiques)</li>
 <li>Conclusion</li>
 </ol>
-</section></section>
-<section>
-<section id="exemple-appliqué-en-r" class="title-slide slide level1 center">
-<h1>6. Exemple appliqué en R</h1>
-
 </section>
-<section id="le-jeu-de-données-swiss" class="slide level2">
-<h2>Le jeu de données : <code>swiss</code></h2>
+</section>
+<section id="exemple-appliqué-en-r" class="level2">
+<h2 class="anchored" data-anchor-id="exemple-appliqué-en-r">6. Exemple appliqué en R</h2>
+<section id="le-jeu-de-données-swiss" class="level3">
+<h3 class="anchored" data-anchor-id="le-jeu-de-données-swiss">Le jeu de données <code>swiss</code></h3>
 <p>Indicateurs socio-économiques et de fécondité pour 47 provinces francophones de Suisse (1888) — inclus nativement dans R.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="fu">data</span>(swiss)</span>
-<span id="cb1-2"><a aria-label="2"></a><span class="fu">str</span>(swiss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   47 obs. of  6 variables:
  $ Fertility       : num  80.2 83.1 92.5 85.8 76.9 76.1 83.8 92.4 82.4 82.9 ...
@@ -949,10 +967,9 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 </div>
 </div>
 </section>
-<section id="statistiques-descriptives" class="slide level2">
-<h2>Statistiques descriptives</h2>
+<section id="statistiques-descriptives" class="level3">
+<h3 class="anchored" data-anchor-id="statistiques-descriptives">Statistiques descriptives</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a><span class="fu">summary</span>(swiss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Fertility      Agriculture     Examination      Education    
  Min.   :35.00   Min.   : 1.20   Min.   : 3.00   Min.   : 1.00  
@@ -971,11 +988,9 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 </div>
 </div>
 </section>
-<section id="calcul-de-lacp-données-centrées-réduites" class="slide level2">
-<h2>Calcul de l’ACP (données centrées-réduites)</h2>
+<section id="calcul-de-lacp-données-centrées-réduites" class="level3">
+<h3 class="anchored" data-anchor-id="calcul-de-lacp-données-centrées-réduites">Calcul de l’ACP (données centrées-réduites)</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-label="1"></a>acp <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(swiss, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-2"><a aria-label="2"></a><span class="fu">summary</span>(acp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                           PC1    PC2    PC3     PC4     PC5     PC6
@@ -986,66 +1001,56 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 </div>
 <p>Ici, la métrique <span class="math inline">\(M = \text{diag}(1/s_j^2)\)</span> correspond à <code>scale. = TRUE</code> (normalisation des variables).</p>
 </section>
-<section id="éboulis-des-valeurs-propres" class="slide level2">
-<h2>Éboulis des valeurs propres</h2>
+<section id="éboulis-des-valeurs-propres" class="level3">
+<h3 class="anchored" data-anchor-id="éboulis-des-valeurs-propres">Éboulis des valeurs propres</h3>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb7-2"><a aria-label="2"></a>lambda <span class="ot">&lt;-</span> acp<span class="sc">$</span>sdev<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb7-3"><a aria-label="3"></a>df_eb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">axe =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(lambda)), <span class="at">inertie =</span> <span class="dv">100</span><span class="sc">*</span>lambda<span class="sc">/</span><span class="fu">sum</span>(lambda))</span>
-<span id="cb7-4"><a aria-label="4"></a><span class="fu">ggplot</span>(df_eb, <span class="fu">aes</span>(axe, inertie)) <span class="sc">+</span></span>
-<span id="cb7-5"><a aria-label="5"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2c7fb8"</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a aria-label="6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Axe factoriel"</span>, <span class="at">y =</span> <span class="st">"% d'inertie expliquée"</span>, <span class="at">title =</span> <span class="st">"Éboulis des valeurs propres"</span>) <span class="sc">+</span></span>
-<span id="cb7-7"><a aria-label="7"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="acp_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
 </div>
-<img data-src="acp_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="nuage-des-individus-δu₁-δu₂" class="slide level2">
-<h2>Nuage des individus (Δu₁, Δu₂)</h2>
+</div>
+</div>
+</section>
+<section id="nuage-des-individus-δu₁-δu₂" class="level3">
+<h3 class="anchored" data-anchor-id="nuage-des-individus-δu₁-δu₂">Nuage des individus (Δu₁, Δu₂)</h3>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-label="1"></a>df_ind <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(acp<span class="sc">$</span>x, <span class="at">province =</span> <span class="fu">rownames</span>(swiss))</span>
-<span id="cb8-2"><a aria-label="2"></a><span class="fu">ggplot</span>(df_ind, <span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> province)) <span class="sc">+</span></span>
-<span id="cb8-3"><a aria-label="3"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#2c7fb8"</span>) <span class="sc">+</span></span>
-<span id="cb8-4"><a aria-label="4"></a>  <span class="fu">geom_text</span>(<span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a aria-label="5"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Composante 1"</span>, <span class="at">y =</span> <span class="st">"Composante 2"</span>, <span class="at">title =</span> <span class="st">"Provinces suisses dans le premier plan factoriel"</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a aria-label="6"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="acp_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
 </div>
-<img data-src="acp_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="cercle-des-corrélations" class="slide level2">
-<h2>Cercle des corrélations</h2>
+</div>
+</div>
+</section>
+<section id="cercle-des-corrélations" class="level3">
+<h3 class="anchored" data-anchor-id="cercle-des-corrélations">Cercle des corrélations</h3>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a>cor_var <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cor</span>(swiss, acp<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]))</span>
-<span id="cb9-2"><a aria-label="2"></a>cor_var<span class="sc">$</span>variable <span class="ot">&lt;-</span> <span class="fu">rownames</span>(cor_var)</span>
-<span id="cb9-3"><a aria-label="3"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
-<span id="cb9-4"><a aria-label="4"></a>cercle <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">cos</span>(theta), <span class="at">y =</span> <span class="fu">sin</span>(theta))</span>
-<span id="cb9-5"><a aria-label="5"></a></span>
-<span id="cb9-6"><a aria-label="6"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb9-7"><a aria-label="7"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> cercle, <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">"grey70"</span>) <span class="sc">+</span></span>
-<span id="cb9-8"><a aria-label="8"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> cor_var, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> PC1, <span class="at">yend =</span> PC2),</span>
-<span id="cb9-9"><a aria-label="9"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"cm"</span>)), <span class="at">color =</span> <span class="st">"#e34a33"</span>) <span class="sc">+</span></span>
-<span id="cb9-10"><a aria-label="10"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> cor_var, <span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> variable), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb9-11"><a aria-label="11"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
-<span id="cb9-12"><a aria-label="12"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Composante 1"</span>, <span class="at">y =</span> <span class="st">"Composante 2"</span>, <span class="at">title =</span> <span class="st">"Cercle des corrélations"</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a aria-label="13"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="acp_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
 </div>
-<img data-src="acp_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="interprétation" class="slide level2">
-<h2>Interprétation</h2>
+</div>
+</div>
+</section>
+<section id="interprétation" class="level3">
+<h3 class="anchored" data-anchor-id="interprétation">Interprétation</h3>
 <ul>
 <li><strong>Axe 1</strong> : oppose les provinces à forte fécondité / agriculture aux provinces plus éduquées et urbanisées</li>
 <li><strong>Axe 2</strong> : structuré par la pratique religieuse (<code>Catholic</code>) et la mortalité infantile</li>
 <li>Les provinces proches sur le graphique ont des profils socio-économiques similaires</li>
 <li>Vérifier le % d’inertie expliquée par les 2 premiers axes avant d’interpréter (<code>summary(acp)</code>)</li>
 </ul>
-</section></section>
-<section>
-<section id="visualiser-lacp-en-animation" class="title-slide slide level1 center">
-<h1>7. Visualiser l’ACP en animation</h1>
-
 </section>
-<section id="lintuition-derrière-la-recherche-du-premier-axe" class="slide level2">
-<h2>L’intuition derrière la recherche du premier axe</h2>
+</section>
+<section id="visualiser-lacp-en-animation" class="level2">
+<h2 class="anchored" data-anchor-id="visualiser-lacp-en-animation">7. Visualiser l’ACP en animation</h2>
+<section id="lintuition-derrière-la-recherche-du-premier-axe" class="level3">
+<h3 class="anchored" data-anchor-id="lintuition-derrière-la-recherche-du-premier-axe">L’intuition derrière la recherche du premier axe</h3>
 <p>Retour sur la toute première étape de la résolution (partie 4) : on cherche l’axe qui <strong>maximise l’inertie expliquée</strong> — c’est-à-dire la variance du nuage projeté dessus.</p>
 <p>L’animation ci-dessous (réalisée avec <a href="https://www.manim.community/">Manim</a>, la bibliothèque créée par Grant Sanderson pour 3Blue1Brown) montre :</p>
 <ol type="1">
@@ -1054,35 +1059,23 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <li>l’axe se <strong>stabilise</strong> sur la direction de variance maximale : le premier axe principal</li>
 <li>le second axe, <strong>orthogonal</strong> au premier, puis la projection des points</li>
 </ol>
-</section>
-<section id="la-vidéo" class="slide level2">
-<h2>La vidéo</h2>
 <video controls="" width="100%">
 <source src="../resources/manim/acp_projection.mp4" type="video/mp4">
 <p>Ta visionneuse ne supporte pas la balise vidéo — ouvre directement le fichier acp_projection.mp4. </p>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Cette vidéo doit être générée une fois, en local, avec le script <code>resources/manim/acp_projection.py</code> (voir la slide suivante), puis placée dans <code>resources/manim/acp_projection.mp4</code> pour s’afficher ici.</p>
-</div>
-</div>
-</div>
+<blockquote class="blockquote">
+<p>Cette vidéo doit être générée une fois, en local, avec le script <code>resources/manim/acp_projection.py</code> (voir ci-dessous), puis placée dans <code>resources/manim/acp_projection.mp4</code> pour s’afficher ici.</p>
+</blockquote>
 </video></section>
-<section id="comment-générer-la-vidéo" class="slide level2">
-<h2>Comment générer la vidéo</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a aria-label="1"></a><span class="ex">pip</span> install manim          <span class="co"># une seule fois — nécessite aussi FFmpeg installé</span></span>
-<span id="cb10-2"><a aria-label="2"></a><span class="bu">cd</span> resources/manim</span>
-<span id="cb10-3"><a aria-label="3"></a><span class="ex">manim</span> <span class="at">-pqh</span> acp_projection.py ACPProjection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Le fichier rendu se trouve dans <code>media/videos/acp_projection/1080p60/ACPProjection.mp4</code> — il suffit de le copier vers <code>resources/manim/acp_projection.mp4</code> pour qu’il s’affiche sur cette slide.</p>
+<section id="comment-générer-la-vidéo" class="level3">
+<h3 class="anchored" data-anchor-id="comment-générer-la-vidéo">Comment générer la vidéo</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install manim          <span class="co"># une seule fois — nécessite aussi FFmpeg installé</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> resources/manim</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">manim</span> <span class="at">-pqh</span> acp_projection.py ACPProjection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le fichier rendu se trouve dans <code>media/videos/acp_projection/1080p60/ACPProjection.mp4</code> — il suffit de le copier vers <code>resources/manim/acp_projection.mp4</code> pour qu’il s’affiche sur cette page.</p>
 </section>
-<section id="conclusion" class="slide level2">
-<h2>Conclusion</h2>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <ul>
 <li>L’ACP transforme des variables corrélées en composantes non corrélées, ordonnées par inertie expliquée</li>
 <li>Le choix de la métrique (normalisation) change fondamentalement les résultats</li>
@@ -1091,466 +1084,425 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 </ul>
 
 
-</section></section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<div class="footer footer-default">
+</section>
 
-</div>
-</div></div>
-
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
-  
-
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
-
-  <script>
-
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': true,
- 
-        // Display controls in the bottom right corner
-        controls: false,
-
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
-
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
-
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
-
-        // Display a presentation progress bar
-        progress: true,
-
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
-
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
-
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
-
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
-
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
-
-        // Push each slide change to the browser history
-        history: true,
-
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-
-        // Enable the slide overview mode
-        overview: true,
-
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
-
-        // Vertical centering of slides
-        center: false,
-
-        // Enables touch navigation on devices with touch input
-        touch: true,
-
-        // Loop the presentation
-        loop: false,
-
-        // Change the presentation direction to be RTL
-        rtl: false,
-
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
-
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
-
-        // Turns fragments on and off globally
-        fragments: true,
-
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
-
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
-
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
-
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
-
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: null,
-
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
-
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
-
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
-
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
-
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
-
-        // The display mode that will be used to show slides
-        display: 'block',
-
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
-
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
-
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
-
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
-
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'default',
-
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
-
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
-
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
-
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1600,
-
-        height: 900,
-
-        // Factor of the display size that should remain empty around the content
-        margin: 5.0e-2,
-
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
-
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
-    </script>
-    
-
-    <script>
-
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
         }
-
-    
-
-      })();
-
-    </script>
-
-    
-
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
-          }
-          return false;
-        }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
-        }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
-    
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© Claire Borrelli</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
 
 </body></html>

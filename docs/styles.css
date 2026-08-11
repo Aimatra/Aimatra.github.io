@@ -7,9 +7,14 @@
 }
 .reveal h2 {
   margin-top: 0;
+  font-family: 'Georgia', serif;
 }
 .reveal .columns {
   width: 100%;
   max-width: 100%;
   display: flex;
+}
+
+.puces-espacees li {
+  margin-bottom: 100px;
 }
