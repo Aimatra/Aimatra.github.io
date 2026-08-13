@@ -59,18 +59,25 @@ C'est précisément le problème que l'ACP se propose de résoudre.
 
 ## 1. Introduction des concepts utiles
 
+Avant de commencer à introduire les concepts, il est important de savoir ce qu'on cherche à faire quand on fait une ACP. L'ACP prend un nuage de points en $N$ dimensions et le projette sur les $p$ dimensions (N > p) qui "résument" le plus d'informations possibles. Que veut dire "résume"? Comment trouver ces dimensions et effectuer la projection? C'est l'objet de ce cours. 
+
+**Note de l'auteur**
+Quand j'ai étudié l'ACP pour la première fois, l'idée de l'ACP et ce vers quoi tendent toutes ces maths n'était malheureusement mentionnée que très tardivement dans le cours, ce qui a fait d'un cours qui est en tout point passionant, un des pires souvenirs de mon école d'ingénieur. Ce cours est une tentative de faire le cours que j'aurais aimé avoir à l'époque. J'espère qu'il aidera, et à défaut il est un bon rappel pour moi de tout le chemin parcouru depuis. 
+
 Nous commençons donc avec un jeu de données quelconque. Formellement un jeu de données est composé d'un nuage de points pesant et d'une métrique.
 
-**Définition 1 - Nuage de points pesants**
-On appelle nuage de points pesants un ensemble $({x_{1}, ..., x_{n}})$ de n points de $\mathbb{R}^p$ où chaque observation $x_{i}$ est décrite par p variables continues et est munie d'un poids $p_{i} > 0$ avec $\sum_{i=1}^n p_i =1$. Le nuage de points pesants N est 
+::: {.callout-important title="Définition 1 - Nuage de points pesants"}
 
-$N = \{(x_{i}, p_{i}): i =1,...,n\}$
+On appelle nuage de points pesants un ensemble $(x_{1}, \dots, x_{n})$ de $n$ points de $\mathbb{R}^p$ où chaque observation $x_{i}$ est décrite par $p$ variables continues et est munie d'un poids $p_{i} > 0$ avec $\sum_{i=1}^n p_i =1$. Le nuage de points pesants $N$ est
 
+$$N = \{(x_{i}, p_{i}): i =1,...,n\}$$
 
-Avec,
+Avec :
 
 - $x_i \in \mathbb{R}^p$ : une observation décrite par $p$ variables
 - $p_i > 0$ : le poids de l'observation $i$, avec $\sum_{i=1}^n p_i = 1$
+
+:::
 
 **Pourquoi mettre des poids sur les observations ?**
 
@@ -101,27 +108,28 @@ $$D = \begin{bmatrix} 0.4 & 0 & 0 \\ 0 & 0.3 & 0 \\ 0 & 0 & 0.3 \end{bmatrix}
 \qquad
 X = \begin{bmatrix} 2 & 3 \\ 1 & 5 \\ 4 & 2 \end{bmatrix}$$
 
-**Définition 2 - Le triplet $(X, D, M)$**
-En analyse de données, les données sont définies par le triplet (X, D, M):
+On a maintenant un nuage de points (des observations) et une pondération.
+Mais en analyse de données, les données sont définies par le triplet (X, D, M)
+
+::: {.callout-important title="Définition 2 - Le triplet $(X, D, M)$"}
 
 - $X$ : matrice des données ($n \times p$)
 - $D$ : matrice de poids (diagonale, $\sum p_i = 1$)
 - $M$ : métrique : matrice $p \times p$, symétrique définie positive, qui définit les distances entre observations
 
-Cas courants :
+:::
 
-- Poids égaux : $D = \tfrac{1}{n} I_n$
-- Métrique euclidienne : $M = I_p$
-- **Métrique normalisée** : $M = \text{diag}(1/s_1^2, \dots, 1/s_p^2)$ 
+Il nous faut donc rajouter une métrique pour avoir une notion de distance valable
+dans plusieurs dimensions.
 
-### C'est quoi une métrique ?
+ ***C'est quoi une métrique ?***
 
 Quand on a p variables (disons: PIB, chômage, inflation), et nous voulons mesurer la distance entre les deux individus
 $x_{i}$ et $x_{j}$. La formule générale de distance est:
 
 $$d_{M}^2(x_{i}, x_{j}) = (x_{i} - x_{j})^\top M (x_{i}-x_{j})$$
 
-Le choix de M change complètement la notion de "distance".
+Le choix de M (la métrique) change complètement la notion de "distance".
 
 Cas 1: $M = I_{p}$ (métrique euclidienne)
 Ici, chaque variable contribue à la distance avec le même poids.
@@ -142,7 +150,7 @@ avant de le mettre au carré. Une variable très dispersée (grande variance com
 
 Remarque : c'est ce que fait la fonction scale() en R.
 
-**Exemple**
+::: {.callout-note title="Exemple : effet de la normalisation"}
 
 Prenons 3 individus décrits par 2 variables (PIB, chômage) :
 
@@ -161,6 +169,7 @@ La contribution du chômage (4) est totalement écrasée par celle du PIB (400 0
 $$d^2 = \frac{20000^2}{422\,222\,222} + \frac{2^2}{2{,}667} = 0{,}947 + 1{,}500 = 2{,}447$$
 Les deux variables contribuent maintenant dans un ordre de grandeur comparable.
 
+:::
 **Propriété clé** : les distances calculées sur les données brutes avec la métrique $D_{1/s}$ sont identiques aux distances calculées sur les données réduites (centrées-réduites) avec la métrique identité. Normaliser une variable ou changer de métrique, c'est donc la même opération.
 
 $$d_{D_{1/s^2}}^2(x_{1}, x_{2}) = (x_{1} - x_{2})^\top D_{1/s^2}(x_{1}-x_{2}) \\
@@ -169,36 +178,279 @@ $$d_{D_{1/s^2}}^2(x_{1}, x_{2}) = (x_{1} - x_{2})^\top D_{1/s^2}(x_{1}-x_{2}) \\
                                 = d_{I_{p}^2}(x_{1}^*, x_{2}^*)$$
 
 
-***Définition 3 - Centre de gravité***
+## 1.1. Inertie
+Maintenant qu'on a une notion de distance, on peut s'intéresser à l'inertie de notre
+nuage. L'inertie du nuage par rapport à un point est la mesure de la dispersion du nuage autour de ce point.
 
-Le centre de gravité du nuage $N$ est
-$$g = \sum_{i=1}^n p_i x_i$$
-Le nuage centré a pour coordonnées $x_i - g$.
+::: {.callout-important title="Définition 3 — Inertie par rapport à un point"}
 
-## 2. Inertie
+L'inertie de $N$ par rapport à un point $a \in \mathbb{R}^p$ est
 
-**Inertie par rapport à un point** $a$ :
 $$I_a = \sum_{i=1}^n p_i\, d_M^2(a, x_i)$$
 
-**Inertie par rapport au centre de gravité** ($I := I_g$) : joue le rôle central dans les méthodes factorielles.
+:::
 
-**Inertie par rapport à un sous-espace affine** $F$ :
+### Quel point minimise l'inertie ?
+
+Une question naturelle se pose : parmi tous les points $a \in \mathbb{R}^p$, lequel rend la dispersion du nuage $I_a$ la plus petite possible (en somme, le point le plus central du nuage) ? En développant $I_a$ comme fonction de $a$ :
+
+$$I_a = \sum_{i=1}^n p_i (x_i - a)^\top M (x_i - a)$$
+
+et en dérivant par rapport à $a$ (avec $M$ symétrique) :
+
+$$\frac{\partial I_a}{\partial a} = -2 \sum_{i=1}^n p_i\, M(x_i - a)$$
+
+On annule cette dérivée :
+
+$$\sum_{i=1}^n p_i\, M(x_i - a) = 0 \quad\Longleftrightarrow\quad M\left(\sum_{i=1}^n p_i x_i - a\right) = 0$$
+
+Comme $M$ est symétrique définie positive (donc inversible), on obtient
+
+$$a = \sum_{i=1}^n p_i x_i$$
+
+Ce point particulier et indépendant du choix de la métrique $M$, est celui qui minimise l'inertie. C'est précisément le centre de gravité du nuage.
+
+::: {.callout-important title="Définition 4 — Centre de gravité"}
+
+Le centre de gravité du nuage $N$, noté $g$, est un vecteur de $\mathbb{R}^p$ donné par la relation
+
+$$g = \sum_{i=1}^n p_i x_i = (g_1, \dots, g_p)^\top$$
+
+Le nuage centré est alors la matrice dont l'élément $(i,j)$ est $x_{ij} - g_j$.
+
+:::
+
+L'inertie de $N$ par rapport au centre de gravité $g$ joue un rôle essentiel dans les méthodes factorielles. On la note
+
+$$I := I_g = \sum_{i=1}^n p_i\, d_M^2(g, x_i)$$
+
+Maintenant qu'on sait que $I_{g}$  est l'inertie minimale du nuage de points, le
+théorème suivant paraît naturel. 
+
+### Théorème de Huygens (par rapport à un point)
+
+::: {.callout-tip title="Théorème 1 — Huygens par rapport à un point"}
+
+$$\forall a \in \mathbb{R}^p, \qquad I_a = I_g + d_M^2(a, g)$$
+
+:::
+
+**Preuve.** Pour tout $a \in \mathbb{R}^p$, on décompose $x_i - a = (x_i - g) + (g - a)$ :
+
+$$I_a = \sum_{i=1}^n p_i \big[(x_i-g) + (g-a)\big]^\top M \big[(x_i-g) + (g-a)\big]$$
+
+En développant ce produit :
+
+$$I_a = \underbrace{\sum_{i=1}^n p_i (x_i-g)^\top M (x_i-g)}_{=\ I_g} + 2(g-a)^\top M \underbrace{\sum_{i=1}^n p_i (x_i - g)}_{=\ 0} + \underbrace{\sum_{i=1}^n p_i}_{=\ 1} (g-a)^\top M (g-a)$$
+
+Le terme croisé s'annule car $\sum_i p_i (x_i - g) = \sum_i p_i x_i - g \sum_i p_i = g - g = 0$ (en utilisant $\sum_i p_i = 1$ et la définition de $g$). Il reste :
+
+$$I_a = I_g + (g-a)^\top M (g-a) = I_g + d_M^2(a, g)$$
+
+$\blacksquare$
+
+Comme $d_M^2(a,g) \geq 0$ pour tout $a$, ce théorème confirme directement le résultat de la section précédente : 
+
+$I_a \geq I_g$, avec égalité si et seulement si $a = g$. Le centre de gravité est donc bien l'unique point qui minimise l'inertie.
+
+
+### Inertie par rapport à un sous-espace affine
+
+On vient de voir que le centre de gravité $g$ est le point qui minimise l'inertie du nuage. Mais s'arrêter à un point ne nous avance pas beaucoup : projeter toutes nos observations sur un seul point $g$ revient à effacer complètement l'information qui nous intéresse, à savoir la façon dont les observations varient les unes par rapport aux autres. Un point n'a pas de direction, pas d'étendue : il ne peut rien nous apprendre sur la structure du nuage.
+
+Ce qui est réellement utile, en revanche, c'est de projeter le nuage sur un sous-espace de dimension plus grande qu'un simple point, une droite ou un plan par exemple, car cela permet de préserver une partie de la variabilité des données tout en la représentant dans un espace plus simple. Le problème change donc de nature : il ne s'agit plus de trouver le meilleur point pour résumer le nuage, mais de trouver le meilleur sous-espace. Et comme un point n'est jamais qu'un sous-espace affine de dimension 0, il est naturel de se demander si le résultat obtenu pour un point (le fait que $g$ minimise l'inertie) se généralise à des sous-espaces de dimension quelconque. C'est précisément ce que va établir la version du théorème de Huygens pour un sous-espace affine.
+
+::: {.callout-important title="Définition 5 — Inertie par rapport à un sous-espace affine"}
+
+L'inertie de $N$ par rapport à un sous-espace affine $F$ est
+
 $$I_F = \sum_{i=1}^n p_i\, d_M^2(F, x_i)$$
 
-### Théorème de Huygens
+:::
+
+Ici, $d_M^2(F, x_i)$ mesure la distance entre l'observation $x_i$ et sa projection sur $F$ : c'est l'information qu'on perd en résumant $x_i$ par sa version projetée sur $F$. L'inertie $I_F$ additionne ces pertes sur toutes les observations, pondérées par leur poids $p_i$, c'est donc une mesure globale de la perte d'information quand on remplace le nuage $N$ par sa projection sur $F$.
+
+C'est ce point qui est essentiel pour la suite : si on cherche maintenant à minimiser $I_F$, ce n'est pas un choix arbitraire ou un exercice mathématique gratuit. C'est précisément parce que $I_F$ mesure la perte d'information causée par la projection sur $F$ que la minimiser revient à choisir, parmi tous les sous-espaces possibles, celui qui déforme le moins les données originales. Autrement dit, on commence ici à formuler le véritable problème de l'ACP : trouver le sous-espace qui capture le mieux le nuage $N$, ce qui, traduit mathématiquement, signifie trouver le sous-espace qui minimise l'inertie perdue $I_F$.
+
+Le théorème de Huygens pour un sous-espace affine généralise celui vu pour un point : il montre que, parmi tous les sous-espaces affines parallèles à une direction donnée, celui qui passe par le centre de gravité $g$ est celui qui minimise l'inertie perdue.
+
+::: {.callout-tip title ="Théorème 2 — Huygens par rapport à un sous-espace affine"}
 
 Pour tout sous-espace affine $F$ de $\mathbb{R}^p$ :
+
 $$I_F = I_{F_g} + d_M^2(a, g)$$
-où $F_g$ est le sous-espace parallèle à $F$ passant par $g$, et $a$ la projection $M$-orthogonale de $g$ sur $F$.
 
-**Conséquence** : le sous-espace parallèle à $F$ d'inertie minimale est celui qui passe par le centre de gravité.
+où $F_g$ est le sous-espace affine parallèle à $F$ passant par $g$, et $a$ est la projection $M$-orthogonale de $g$ sur $F$.
 
-### Inertie totale : expression matricielle
+:::
 
-En notant $V = X^\top D X$ la matrice de variances-covariances :
-$$I = \text{tr}(VM)$$
+**Comment lire ce théorème.** Il dit que l'inertie totale $I_F$ se décompose en deux morceaux :
 
-Le nuage $N$ (individus) et le nuage $N^*$ (variables, tableau transposé) ont **la même inertie totale**.
+1. $I_{F_g}$ : l'inertie "intrinsèque", celle qu'on aurait de toute façon avec la meilleure version possible de ce sous-espace (celle qui passe par $g$), c'est la partie qu'on ne peut pas réduire.
+2. $d_M^2(a, g)$ : un terme qui dépend uniquement de **où se situe** $F$ par rapport à $g$ : plus $F$ est loin du centre de gravité, plus ce terme est grand.
+
+**Pourquoi c'est important.**  
+
+Comme $d_M^2(a,g) \geq 0$, on a toujours $I_F \geq I_{F_g}$, avec égalité si et seulement si $F$ passe par $g$ (c'est-à-dire $F = F_g$). Ainsi, **le sous-espace affine parallèle à $F$ d'inertie minimale est $F_g$**, celui qui passe par le centre de gravité.
+
+L'ACP, comme on l'expliquera plus loin, est une méthode qui cherche le "meilleur" 
+sous espace dans lequel projeter des données en gardant l'essentiel de l'information.
+Ce résultat, c'est exactement le résultat dont l'ACP a besoin : au lieu de chercher, pour chaque direction possible, le meilleur sous-espace parmi *tous* les sous-espaces affines parallèles à cette direction (une infinité de candidats), on sait déjà que le meilleur passe forcément par $g$. Le problème se réduit donc à chercher uniquement la bonne **direction**, ce qui déplace le problème des sous-espaces affines ou sous-espaces vectoriels.
+
+**Preuve du Théorème 1.2.2.**
+
+Cette preuve reprend le même schéma que celle du théorème de Huygens par rapport à un point : on décompose, on développe un carré, et un terme croisé s'annule grâce à une propriété du centre de gravité. La différence, ici, est qu'on travaille avec des résidus vectoriels par rapport à un sous-espace plutôt qu'avec de simples différences de points.
+
+Pour chaque observation $x_i$, on la décompose de deux façons. Par rapport à $F$, on écrit $x_i = x_{i1} + x_{i2}$, où $x_{i1} \in F$ est la projection de $x_i$ sur $F$ et $x_{i2} \in F^\perp$ le résidu orthogonal, c'est-à-dire ce qui reste après avoir projeté $x_i$ sur $F$. Par rapport à $F_g$, on écrit de la même manière $x_i = \tilde x_{i1} + \tilde x_{i2}$ avec $\tilde x_{i1} \in F_g$ et $\tilde x_{i2} \in F_g^\perp$.
+
+Comme $F_g$ est le sous-espace parallèle à $F$ passant par $g$, les deux sous-espaces ont la même direction, donc le même espace orthogonal : $F^\perp = F_g^\perp$. Il en résulte que le vecteur $b = x_{i2} - \tilde x_{i2}$ ne dépend pas de $i$, mais est un unique vecteur fixe pour toutes les observations. Intuitivement, translater un sous-espace affine d'un vecteur fixe translate le résidu orthogonal de chaque point de ce même vecteur fixe, quelle que soit l'observation considérée.
+
+On utilise maintenant la définition du centre de gravité pour identifier ce vecteur $b$. En injectant la décomposition par rapport à $F_g$ dans $g = \sum_{i=1}^n p_i x_i$, on obtient
+
+$$g = \sum_{i=1}^n p_i \tilde x_{i1} + \sum_{i=1}^n p_i (x_{i2} - b).$$
+
+Or $g$ appartient à $F_g$ par construction, et $\sum_{i=1}^n p_i \tilde x_{i1}$ appartient également à $F_g$, puisqu'une moyenne pondérée de points d'un sous-espace affine reste dans ce sous-espace dès lors que les poids somment à 1. En soustrayant, le second terme $\sum_{i=1}^n p_i(x_{i2}-b)$ doit donc appartenir à la direction de $F_g$. Mais chaque terme $x_{i2}-b$ appartient à $F^\perp$, donc leur somme pondérée aussi. Un vecteur appartenant à la fois à la direction de $F_g$ et à son orthogonal ne peut être que le vecteur nul, d'où
+
+$$\sum_{i=1}^n p_i(x_{i2}-b) = 0.$$
+
+Cette égalité entraîne deux conséquences essentielles pour la suite de la preuve. D'une part, $b = \sum_{i=1}^n p_i x_{i2}$, puisque $\sum_{i=1}^n p_i = 1$. D'autre part, le point $a := \sum_{i=1}^n p_i \tilde x_{i1}$ s'identifie précisément à la projection $M$-orthogonale de $g$ sur $F$.
+
+On peut à présent calculer $I_F$ à partir de sa définition, en développant complètement le carré. Comme la distance de $x_i$ à $F$ est exactement la norme de son résidu orthogonal $x_{i2}$, on a
+
+$$
+\begin{aligned}
+I_F &= \sum_{i=1}^n p_i\, d_M^2(F, x_i) \\
+&= \sum_{i=1}^n p_i \|x_{i2}\|_M^2 \\
+&= \sum_{i=1}^n p_i (x_{i2} - b + b)^\top M (x_{i2} - b + b) \\
+&= \sum_{i=1}^n p_i (x_{i2}-b)^\top M (x_{i2}-b) + \sum_{i=1}^n p_i\, b^\top M b + 2\sum_{i=1}^n p_i (x_{i2}-b)^\top M b \\
+&= \sum_{i=1}^n p_i\, \tilde x_{i2}^\top M \tilde x_{i2} + \sum_{i=1}^n p_i (g-a)^\top M (g-a) + 2\sum_{i=1}^n p_i (x_{i2}-b)^\top M b
+\end{aligned}
+$$
+
+La preuve se termine en remarquant les trois faits suivants. D'abord, $I_{F_g} = \sum_{i=1}^n p_i\, \tilde x_{i2}^\top M \tilde x_{i2}$, ce terme étant par définition l'inertie du nuage par rapport à $F_g$. Ensuite, $d_M^2(a,g) = \sum_{i=1}^n p_i (g-a)^\top M (g-a)$, puisque $b = g - a$ et que ce terme ne dépend pas de $i$. Enfin, $\sum_{i=1}^n p_i (x_{i2}-b)^\top M b = 0$, car $b = \sum_{i=1}^n p_i x_{i2}$, ce qui annule exactement le terme croisé.
+
+On obtient donc
+
+$$I_F = I_{F_g} + d_M^2(a,g),$$
+
+ce qui achève la preuve. $\blacksquare$
+
+
+Le théorème de Huygens nous a beaucoup aidé, maintenant on connait la position de
+notre plan : $g$. Mais il nous reste un problème d'importance, la direction. Comment
+évaluer si une direction E est bonne? Le critère de l'ACP est de minimiser l'inertie perdue. Le problème, c'est que cette quantité est difficile à manipuler. C'est là 
+qu'intervient notre premier lemme. 
+
+::: {.lemme title="Lemme 1.2.1"}
+
+Soit $E$ un sous-espace vectoriel de $\mathbb{R}^p$ tel que $\mathbb{R}^p = E \oplus E^\perp$, on a
+
+$$I = I_E + I_{E^\perp}.$$
+
+:::
+
+**Preuve du Lemme 1.2.1.**
+
+Pour tout point $x_i \in \mathbb{R}^p$, on peut écrire $x_i = x_{i1} + x_{i2}$, où $x_{i1} \in E$ et $x_{i2} \in E^\perp$, cette décomposition étant unique puisque $\mathbb{R}^p = E \oplus E^\perp$.
+
+En partant de la définition de l'inertie totale et en développant complètement le carré, on obtient
+
+$$
+\begin{aligned}
+I &= \sum_{i=1}^n p_i\, d_M^2(x_i, g) \\
+&= \sum_{i=1}^n p_i (x_i - g)^\top M (x_i - g) \\
+&= \sum_{i=1}^n p_i (x_{i1} + x_{i2} - g)^\top M (x_{i1} + x_{i2} - g) \\
+&= \sum_{i=1}^n p_i\, x_{i1}^\top M x_{i1} + \sum_{i=1}^n p_i\, x_{i2}^\top M x_{i2} + 2\sum_{i=1}^n p_i\, x_{i2}^\top M x_{i1} - 2\sum_{i=1}^n p_i (x_{i1}+x_{i2})^\top M g + g^\top M g
+\end{aligned}
+$$
+
+La preuve se termine en observant deux faits. D'une part, $x_{i1}^\top M x_{i2} = 0$ pour tout $i$, puisque $x_{i1} \in E$ et $x_{i2} \in E^\perp$, ce qui annule le terme croisé $2\sum_{i=1}^n p_i\, x_{i2}^\top M x_{i1}$. D'autre part, en travaillant sur le nuage centré, on a $g = 0$, ce qui annule à la fois le terme $-2\sum_{i=1}^n p_i (x_{i1}+x_{i2})^\top M g$ et le terme $g^\top M g$.
+
+Il reste donc
+
+$$I = \sum_{i=1}^n p_i\, x_{i1}^\top M x_{i1} + \sum_{i=1}^n p_i\, x_{i2}^\top M x_{i2} = I_E + I_{E^\perp}.$$
+
+$\blacksquare$
+
+::: {.lemme title="Lemme 1.2.2"}
+
+Soit $V = X^\top D X = \sum_{i=1}^n p_i x_i x_i^\top$ la matrice de variances-covariances. On a l'expression matricielle suivante de l'inertie totale :
+
+$$I = \text{tr}(VM).$$
+
+:::
+
+**Preuve du Lemme 1.2.2.**
+
+En rappelant que $g = 0$ (le nuage étant centré), on part de la définition de l'inertie totale et on utilise le fait qu'un scalaire est égal à sa propre trace :
+
+$$
+\begin{aligned}
+I &= \sum_{i=1}^n p_i\, d_M^2(0, x_i) \\
+&= \sum_{i=1}^n p_i\, x_i^\top M x_i \\
+&= \text{tr}\left(\sum_{i=1}^n p_i\, x_i^\top M x_i\right)
+\end{aligned}
+$$
+
+Par la propriété de commutativité cyclique de la trace, on peut réécrire chaque terme $x_i^\top M x_i$ sous la forme $M x_i x_i^\top$ à l'intérieur de la trace, c'est-à-dire $\text{tr}\left(\sum_{i=1}^n p_i\, x_i^\top M x_i\right) = \text{tr}\left(\sum_{i=1}^n p_i\, M x_i x_i^\top\right)$. En sortant $M$ de la somme, puisqu'il ne dépend pas de $i$, on obtient
+
+$$
+\begin{aligned}
+I &= \text{tr}\left(\sum_{i=1}^n p_i\, M x_i x_i^\top\right) \\
+&= \text{tr}\left(M \sum_{i=1}^n p_i\, x_i x_i^\top\right) \\
+&= \text{tr}(MV) \\
+&= \text{tr}(VM)
+\end{aligned}
+$$
+
+la dernière égalité découlant à nouveau de la commutativité cyclique de la trace, $\text{tr}(MV) = \text{tr}(VM)$. $\blacksquare$
+
+L'inertie totale étant reliée à la matrice de variances-covariances (voir Lemme 1.2.2), on s'intéresse maintenant au lien entre cette matrice et l'inertie expliquée par un axe.
+
+::: {.lemme title="Lemme 1.2.3"}
+
+Soit $\Delta_u$ un axe passant par $g = 0$ de vecteur unitaire $u$. On a
+
+$$I_{\Delta_u^\perp} = u^\top M V M u.$$
+
+:::
+
+**Preuve du Lemme 1.2.3.**
+
+Par la définition 1.2.2, on a
+
+$$I_{\Delta_u^\perp} = \sum_{i=1}^n p_i\, d_M^2(x_i, \Delta_u^\perp).$$
+
+Soit $v \in \Delta_u$ et $\alpha$ l'angle entre $v$ et $x_i$, on a
+
+$$\cos(\alpha) = \frac{x_i^\top M v}{\|x_i\|_M \|v\|_M}.$$
+
+Ainsi,
+
+$$
+\begin{aligned}
+d_M^2(x_i, \Delta_u^\perp) &= \cos^2(\alpha)\, \|x_i\|_M^2 \\
+&= \frac{(x_i^\top M v)^2}{\|v\|_M^2} \\
+&= \left(\frac{x_i^\top M v}{\|v\|_M}\right)^2
+\end{aligned}
+$$
+
+En considérant le vecteur unitaire $u = \dfrac{v}{\|v\|_M}$, on a
+
+$$d_M^2(x_i, \Delta_u^\perp) = (x_i^\top M u)^2.$$
+
+Ainsi,
+
+$$
+\begin{aligned}
+I_{\Delta_u^\perp} &= \sum_{i=1}^n p_i (x_i^\top M u)^2 \\
+&= \sum_{i=1}^n p_i\, u^\top M x_i x_i^\top M u \\
+&= u^\top M \left(\sum_{i=1}^n p_i x_i x_i^\top\right) M u \\
+&= u^\top M V M u.
+\end{aligned}
+$$
+
+$\blacksquare$
 
 ## 3. Principe de l'ACP
 
