@@ -281,7 +281,7 @@ Claire Borrelli
 <section id="algorithme-1-le-tri-à-bulles" class="slide level2">
 <h2>Algorithme 1 : le tri à bulles</h2>
 <p><strong>Idée</strong> : parcourir la liste, comparer chaque paire d’éléments voisins, les échanger s’ils sont dans le mauvais ordre. Répéter jusqu’à ce que la liste soit triée — à chaque passage, le plus grand élément restant “remonte” à sa place, comme une bulle.</p>
-<div id="f55089e3" class="cell" data-execution_count="1">
+<div id="e90ebd1f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="kw">def</span> tri_bulles(liste):</span>
 <span id="cb1-2"><a aria-label="2"></a>    liste <span class="op">=</span> liste.copy()</span>
 <span id="cb1-3"><a aria-label="3"></a>    n <span class="op">=</span> <span class="bu">len</span>(liste)</span>
@@ -300,7 +300,7 @@ Claire Borrelli
 <section id="algorithme-2-le-tri-par-insertion" class="slide level2">
 <h2>Algorithme 2 : le tri par insertion</h2>
 <p><strong>Idée</strong> : construire la liste triée progressivement, en insérant chaque nouvel élément à la bonne place parmi ceux déjà triés — comme on trierait des cartes à jouer dans sa main.</p>
-<div id="fdc5413c" class="cell" data-execution_count="2">
+<div id="d7e2546c" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="kw">def</span> tri_insertion(liste):</span>
 <span id="cb3-2"><a aria-label="2"></a>    liste <span class="op">=</span> liste.copy()</span>
 <span id="cb3-3"><a aria-label="3"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(liste)):</span>
@@ -321,7 +321,7 @@ Claire Borrelli
 <section id="algorithme-3-le-tri-rapide-quicksort" class="slide level2">
 <h2>Algorithme 3 : le tri rapide (quicksort)</h2>
 <p><strong>Idée</strong> : choisir un pivot au hasard, séparer la liste en éléments plus petits / plus grands que le pivot, puis répéter récursivement sur chaque sous-liste.</p>
-<div id="b7ec57a8" class="cell" data-execution_count="3">
+<div id="8ca5c6d1" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a><span class="im">from</span> random <span class="im">import</span> randint</span>
 <span id="cb5-2"><a aria-label="2"></a></span>
 <span id="cb5-3"><a aria-label="3"></a><span class="kw">def</span> tri_rapide(liste):</span>
@@ -446,7 +446,7 @@ Claire Borrelli
 <section id="mesurer-le-temps-réel-dexécution" class="slide level2">
 <h2>Mesurer le temps réel d’exécution</h2>
 <p>Vérifions ces résultats théoriques en pratique, avec des listes aléatoires de tailles croissantes.</p>
-<div id="11892e1b" class="cell" data-execution_count="4">
+<div id="c022eed2" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a><span class="im">import</span> time</span>
 <span id="cb7-2"><a aria-label="2"></a><span class="im">import</span> random</span>
 <span id="cb7-3"><a aria-label="3"></a></span>
@@ -467,7 +467,7 @@ Claire Borrelli
 </section>
 <section id="visualisation" class="slide level2">
 <h2>Visualisation</h2>
-<div id="4e14251a" class="cell" data-execution_count="5">
+<div id="32f59f8b" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb8-2"><a aria-label="2"></a></span>
 <span id="cb8-3"><a aria-label="3"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.5</span>))</span>
