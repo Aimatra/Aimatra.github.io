@@ -262,7 +262,7 @@ Claire Borrelli
 <section id="principe" class="slide level2">
 <h2>Principe</h2>
 <p>Un tableau stocke des éléments dans des cases mémoire <strong>contiguës et numérotées</strong>. Connaître l’indice suffit pour accéder directement à un élément.</p>
-<div id="98047aec" class="cell" data-execution_count="1">
+<div id="d2d92b54" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a>notes <span class="op">=</span> [<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">9</span>, <span class="dv">17</span>, <span class="dv">14</span>]</span>
 <span id="cb1-2"><a aria-label="2"></a>notes[<span class="dv">2</span>]  <span class="co"># accès direct, O(1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
@@ -304,7 +304,7 @@ Claire Borrelli
 </section>
 <section id="vérification-empirique" class="slide level2">
 <h2>Vérification empirique</h2>
-<div id="8741286b" class="cell" data-execution_count="2">
+<div id="2fc9f25d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="im">import</span> time</span>
 <span id="cb3-2"><a aria-label="2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a aria-label="3"></a></span>
@@ -354,7 +354,7 @@ Claire Borrelli
 <section id="implémentation-en-python" class="slide level2">
 <h2>Implémentation en Python</h2>
 <p>Une liste Python fait très bien l’affaire : <code>append</code> = empiler, <code>pop()</code> = dépiler.</p>
-<div id="382c5ed9" class="cell" data-execution_count="3">
+<div id="6085401c" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a><span class="kw">class</span> Pile:</span>
 <span id="cb4-2"><a aria-label="2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
 <span id="cb4-3"><a aria-label="3"></a>        <span class="va">self</span>._donnees <span class="op">=</span> []</span>
@@ -395,7 +395,7 @@ Claire Borrelli
 </section>
 <section id="le-piège-dune-implémentation-naïve" class="slide level2">
 <h2>Le piège d’une implémentation naïve</h2>
-<div id="58d99072" class="cell" data-execution_count="4">
+<div id="619170af" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>file_naive <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
 <span id="cb6-2"><a aria-label="2"></a>file_naive.pop(<span class="dv">0</span>)  <span class="co"># retire le premier élément... mais décale tout le reste !</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -403,7 +403,7 @@ Claire Borrelli
 </div>
 </div>
 <p><code>pop(0)</code> sur une liste Python coûte <span class="math inline">\(O(n)\)</span>, car tous les éléments doivent être décalés d’une case. Pour une vraie file efficace, on utilise <code>collections.deque</code> :</p>
-<div id="e62908a2" class="cell" data-execution_count="5">
+<div id="bd6866c3" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
 <span id="cb8-2"><a aria-label="2"></a></span>
 <span id="cb8-3"><a aria-label="3"></a>guichet <span class="op">=</span> deque()</span>
@@ -424,7 +424,7 @@ Claire Borrelli
 <section id="principe-1" class="slide level2">
 <h2>Principe</h2>
 <p>Chaque élément (un <strong>maillon</strong>) connaît seulement l’élément suivant — comme des wagons de train reliés un à un, sans numérotation globale des places.</p>
-<div id="87e45b71" class="cell" data-execution_count="6">
+<div id="9299db81" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a><span class="kw">class</span> Maillon:</span>
 <span id="cb10-2"><a aria-label="2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, valeur, suivant<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb10-3"><a aria-label="3"></a>        <span class="va">self</span>.valeur <span class="op">=</span> valeur</span>
@@ -485,7 +485,7 @@ Claire Borrelli
 <section id="le-problème-stocker-des-paires-clé-valeur" class="slide level2">
 <h2>Le problème : stocker des paires clé-valeur</h2>
 <p>On veut retrouver rapidement une valeur à partir d’une clé — par exemple, la note d’un élève à partir de son nom.</p>
-<div id="490c17cf" class="cell" data-execution_count="7">
+<div id="c643ce46" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>notes_par_nom <span class="op">=</span> {<span class="st">"Claire"</span>: <span class="dv">17</span>, <span class="st">"Merlin"</span>: <span class="dv">14</span>, <span class="st">"Ting"</span>: <span class="dv">19</span>}</span>
 <span id="cb12-2"><a aria-label="2"></a>notes_par_nom[<span class="st">"Merlin"</span>]  <span class="co"># accès direct, en moyenne O(1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -507,7 +507,7 @@ Claire Borrelli
 </section>
 <section id="une-implémentation-simplifiée" class="slide level2">
 <h2>Une implémentation simplifiée</h2>
-<div id="f298009c" class="cell" data-execution_count="8">
+<div id="5274ac5b" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-label="1"></a><span class="kw">class</span> TableHachage:</span>
 <span id="cb14-2"><a aria-label="2"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, taille<span class="op">=</span><span class="dv">16</span>):</span>
 <span id="cb14-3"><a aria-label="3"></a>        <span class="va">self</span>._cases <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(taille)]</span>

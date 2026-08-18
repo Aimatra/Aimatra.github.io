@@ -260,7 +260,7 @@ Claire Borrelli
 </section>
 <section id="en-python" class="slide level2">
 <h2>En Python</h2>
-<div id="0b2f95ca" class="cell" data-execution_count="1">
+<div id="657fe952" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="kw">def</span> somme_recursive(n):</span>
 <span id="cb1-2"><a aria-label="2"></a>    <span class="cf">if</span> n <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb1-3"><a aria-label="3"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
@@ -285,7 +285,7 @@ Claire Borrelli
 <li><strong>le cas de base</strong> : une situation simple, résolue directement, sans nouvel appel — c’est ce qui arrête la récursion</li>
 <li><strong>le cas récursif</strong> : la fonction s’appelle elle-même sur une entrée plus petite, en se rapprochant du cas de base</li>
 </ul>
-<div id="52d711d0" class="cell" data-execution_count="2">
+<div id="98377e13" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a><span class="kw">def</span> fonction_recursive(entree):</span>
 <span id="cb3-2"><a aria-label="2"></a>    <span class="cf">if</span> condition_arret(entree):          <span class="co"># cas de base</span></span>
 <span id="cb3-3"><a aria-label="3"></a>        <span class="cf">return</span> valeur_directe</span>
@@ -295,7 +295,7 @@ Claire Borrelli
 </section>
 <section id="que-se-passe-t-il-sans-cas-de-base" class="slide level2">
 <h2>Que se passe-t-il sans cas de base ?</h2>
-<div id="02ec5352" class="cell" data-execution_count="3">
+<div id="499f4d29" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a><span class="kw">def</span> somme_sans_arret(n):</span>
 <span id="cb4-2"><a aria-label="2"></a>    <span class="cf">return</span> n <span class="op">+</span> somme_sans_arret(n <span class="op">-</span> <span class="dv">1</span>)  <span class="co"># ne s'arrête jamais !</span></span>
 <span id="cb4-3"><a aria-label="3"></a></span>
@@ -4247,7 +4247,7 @@ somme_recursive(3) = 3 + 3 = 6</code></pre>
 </section>
 <section id="la-profondeur-de-récursion-a-une-limite" class="slide level2">
 <h2>La profondeur de récursion a une limite</h2>
-<div id="77b8e2aa" class="cell" data-execution_count="4">
+<div id="2de325cc" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a><span class="im">import</span> sys</span>
 <span id="cb6-2"><a aria-label="2"></a><span class="bu">print</span>(<span class="st">"Limite par défaut :"</span>, sys.getrecursionlimit())</span>
 <span id="cb6-3"><a aria-label="3"></a></span>
@@ -10147,7 +10147,7 @@ somme_recursive(3) = 3 + 3 = 6</code></pre>
 <section id="deux-façons-décrire-la-même-chose" class="slide level2">
 <h2>Deux façons d’écrire la même chose</h2>
 <p>Tout ce qu’on peut faire récursivement, on peut aussi l’écrire avec une boucle — sans les limites de la pile d’appels.</p>
-<div id="bd4fdd5d" class="cell" data-execution_count="5">
+<div id="707ac692" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a><span class="kw">def</span> somme_iterative(n):</span>
 <span id="cb8-2"><a aria-label="2"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb8-3"><a aria-label="3"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">+</span> <span class="dv">1</span>):</span>
@@ -10176,7 +10176,7 @@ somme_recursive(3) = 3 + 3 = 6</code></pre>
 <section id="la-suite-de-fibonacci-version-naïve" class="slide level2">
 <h2>La suite de Fibonacci, version naïve</h2>
 <p><span class="math display">\[F(n) = \begin{cases} n &amp; \text{si } n \le 1 \\ F(n-1) + F(n-2) &amp; \text{sinon} \end{cases}\]</span></p>
-<div id="f0b5fed6" class="cell" data-execution_count="6">
+<div id="8443b779" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a><span class="kw">def</span> fib_naif(n):</span>
 <span id="cb10-2"><a aria-label="2"></a>    <span class="cf">if</span> n <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
 <span id="cb10-3"><a aria-label="3"></a>        <span class="cf">return</span> n</span>
@@ -10191,7 +10191,7 @@ somme_recursive(3) = 3 + 3 = 6</code></pre>
 </section>
 <section id="combien-dappels-sont-recalculés" class="slide level2">
 <h2>Combien d’appels sont recalculés ?</h2>
-<div id="8c33c669" class="cell" data-execution_count="7">
+<div id="f4c3db6d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>compteur <span class="op">=</span> {<span class="st">"appels"</span>: <span class="dv">0</span>}</span>
 <span id="cb12-2"><a aria-label="2"></a></span>
 <span id="cb12-3"><a aria-label="3"></a><span class="kw">def</span> fib_compte(n):</span>
@@ -10212,7 +10212,7 @@ somme_recursive(3) = 3 + 3 = 6</code></pre>
 <section id="la-solution-mémoïser" class="slide level2">
 <h2>La solution : mémoïser</h2>
 <p>On garde en mémoire les résultats déjà calculés, pour ne jamais refaire le même calcul deux fois.</p>
-<div id="5b7e741f" class="cell" data-execution_count="8">
+<div id="ac154cb0" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-label="1"></a><span class="kw">def</span> fib_memo(n, cache<span class="op">=</span>{}):</span>
 <span id="cb14-2"><a aria-label="2"></a>    <span class="cf">if</span> n <span class="kw">in</span> cache:</span>
 <span id="cb14-3"><a aria-label="3"></a>        <span class="cf">return</span> cache[n]</span>
@@ -10230,7 +10230,7 @@ somme_recursive(3) = 3 + 3 = 6</code></pre>
 </section>
 <section id="comparaison-des-temps-dexécution" class="slide level2">
 <h2>Comparaison des temps d’exécution</h2>
-<div id="2baae194" class="cell" data-execution_count="9">
+<div id="05f515b0" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-label="1"></a><span class="im">import</span> time</span>
 <span id="cb16-2"><a aria-label="2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb16-3"><a aria-label="3"></a></span>
