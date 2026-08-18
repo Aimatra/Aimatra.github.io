@@ -1,8 +1,0 @@
----
-title: "Exemple : titre de l'exposé"
-date: 2026-08-02
-description: "Contexte de l'exposé (cours concerné, date, co-auteurs éventuels)."
-categories: [économie]
----
-
-Résumé de l'exposé, slides ou document associé en lien ici.

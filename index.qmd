@@ -5,9 +5,9 @@ about:
   image: resources/photo.jpg
   links:
     - icon: github
-      href: https://github.com/TON-PSEUDO
+      href: https://github.com/Aimatra
     - icon: linkedin
-      href: https://www.linkedin.com/in/TON-PROFIL
+      href: https://www.linkedin.com/in/claire-borrelli-57306925b
     - icon: envelope
       href: mailto:claire.borrelli@sciencespo.fr
 ---

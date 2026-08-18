@@ -7,24 +7,18 @@
   },
   {
     "listing": "/exposes.html",
+    "items": []
+  },
+  {
+    "listing": "/cours.html",
     "items": [
-      "/exposes/exemple-expose.html"
+      "/cours/acp.html"
     ]
   },
   {
     "listing": "/datavis.html",
     "items": [
       "/datavis/exemple-datavis.html"
-    ]
-  },
-  {
-    "listing": "/cours.html",
-    "items": [
-      "/cours/acp.html",
-      "/cours/algo-structures-donnees.html",
-      "/cours/algo-analyse-recursive.html",
-      "/cours/algo-recursion.html",
-      "/cours/algo-tri-complexite.html"
     ]
   }
 ]

@@ -1,6 +1,6 @@
 ---
 title: "Analyse en Composantes Principales (ACP)"
-date: 2023-12-17
+date: 18/08/2026
 description: "Cours complet sur l'ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R."
 categories: [statistiques, analyse de données, ACP]
 ---
