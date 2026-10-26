@@ -16,4 +16,4 @@ Bonjour ! Je suis étudiante ingénieure à l'ENSAI (école de statistique) et j
 
 Ce site rassemble mes cours, mes exposés et quelques dataviz réalisées en R et en Python. Nouveau contenu ajouté régulièrement.
 
-Version anglaise disponible [ici](index-en.qmd).
+Pour la version anglaise, cliquez sur « EN » en haut à droite.

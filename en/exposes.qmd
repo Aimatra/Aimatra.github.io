@@ -1,0 +1,10 @@
+---
+title: "Talks"
+listing:
+  contents: "/exposes/*.qmd"
+  type: table
+  sort: "date desc"
+  fields: [title, date, description]
+---
+
+Presentations given during my studies.

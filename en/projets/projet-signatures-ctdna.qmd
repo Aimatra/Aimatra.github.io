@@ -1,0 +1,26 @@
+---
+title: "Signature theory in oncology"
+date: 2025-03-31
+description: "Second-year statistics project (ENSAI): detecting malignant tumors from circulating tumor DNA (ctDNA) using signature theory."
+categories: [statistics, oncology, classification]
+---
+
+## Context
+
+Second-year statistics project at ENSAI, carried out with Merlin Debeve, Ting Huang, Antoine Montzamir and Paulin Lemoine, under the supervision of Stéphane Chrétien (ERIC laboratory, Université Lyon 2).
+
+The goal: identifying malignant tumors early from the level of circulating tumor DNA (ctDNA) in the blood.
+
+## Approach
+
+- **Modeling the data**: simulation of ctDNA trajectories with a birth–death process, calibrated on cell birth and death rates from the literature, with censored data handled by imputation (MICE).
+- **Signature theory**: encoding the trajectories (seen as paths) into a series of statistics (the Chen/Lyons signature), which captures their dynamics rather than just comparing levels.
+- **Classification**: a test based on the Lévy area with false discovery rate control (Benjamini–Hochberg procedure), compared with SVM and GAM classifiers.
+
+## Main result
+
+Simply comparing average ctDNA levels is not enough to tell benign and malignant tumors apart, because the distributions overlap. The signature approach, which uses the shape of the trajectory rather than just its level, clearly improves classification, with explicit control of the false discovery rate.
+
+## Full report
+
+[Download the report (PDF, in English)](/resources/projets/signatures-ctdna.pdf)

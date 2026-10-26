@@ -1,0 +1,10 @@
+---
+title: "Courses"
+listing:
+  contents: "/cours/*.qmd"
+  type: table
+  sort: "date desc"
+  fields: [title, date, description]
+---
+
+Notes and slides from my courses at ENSAI and Sciences Po, re-explained in my own words. For now, they are only available in French.

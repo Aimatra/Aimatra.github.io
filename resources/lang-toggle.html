@@ -1,0 +1,63 @@
+<script>
+/* Bouton FR/EN : envoie vers la version équivalente de la page courante.
+   Les pages anglaises sont dans le dossier en/ avec le même nom que la page française.
+   Sur les pages anglaises, le menu est traduit et pointe vers les pages anglaises. */
+(function () {
+  var path = window.location.pathname;
+  if (path.slice(-1) === '/') path += 'index.html';
+  var isEn = path.indexOf('/en/') === 0;
+
+  var labels = {
+    'Accueil': 'Home', 'Cours': 'Courses', 'Projets': 'Projects',
+    'Exposés': 'Talks', 'Datavis': 'Data viz', 'CV': 'CV',
+    'Contact': 'Contact', 'Master thesis': 'Master thesis'
+  };
+
+  // Le bouton de langue : le lien « EN » à droite du menu
+  var toggle = null;
+  document.querySelectorAll('nav a.nav-link').forEach(function (a) {
+    var t = a.querySelector('.menu-text');
+    if (t && t.textContent.trim() === 'EN') toggle = a;
+  });
+
+  if (isEn) {
+    document.documentElement.lang = 'en';
+    var links = document.querySelectorAll('nav a.nav-link, nav a.navbar-brand');
+    links.forEach(function (a) {
+      if (a === toggle) return;
+      var url;
+      try { url = new URL(a.getAttribute('href'), window.location.href); } catch (e) { return; }
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname.indexOf('/en/') !== 0) a.setAttribute('href', '/en' + url.pathname);
+      var span = a.querySelector('.menu-text');
+      if (span) {
+        var t = span.textContent.trim();
+        if (labels[t]) span.textContent = labels[t];
+      }
+    });
+  }
+
+  if (!toggle) return;
+
+  var target = isEn ? path.slice(3) : '/en' + path;
+  // Si la page n'a pas (encore) d'équivalent, on va vers la rubrique ou l'accueil
+  var parts = path.split('/').filter(Boolean);
+  var fallback;
+  if (isEn) {
+    fallback = parts.length > 2 ? '/' + parts[1] + '.html' : '/index.html';
+  } else {
+    fallback = parts.length > 1 ? '/en/' + parts[0] + '.html' : '/en/index.html';
+  }
+
+  var span = toggle.querySelector('.menu-text');
+  if (span) span.textContent = isEn ? 'FR' : 'EN';
+  toggle.setAttribute('href', target);
+
+  toggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    fetch(target, { method: 'HEAD' })
+      .then(function (r) { window.location.href = r.ok ? target : fallback; })
+      .catch(function () { window.location.href = target; });
+  });
+})();
+</script>

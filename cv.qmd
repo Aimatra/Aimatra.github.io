@@ -2,5 +2,6 @@
 title: "CV"
 ---
 
-- [CV en français (PDF)](resources/cv/CV_fr.pdf)
-- [CV in English (PDF)](resources/cv/CV_en.pdf)
+[Télécharger mon CV (PDF, en anglais)](resources/cv/CV_en.pdf)
+
+<iframe src="resources/cv/CV_en.pdf" width="100%" height="1100" style="border: none;"></iframe>

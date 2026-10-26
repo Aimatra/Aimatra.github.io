@@ -794,7 +794,7 @@ d\ln k^*_{i,t} &amp;= \tfrac{1}{1-\alpha}\big(d\ln p_{s,t} - d\ln R^f_t\big) &am
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/Aimatra\.github\.io\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

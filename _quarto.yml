@@ -2,6 +2,8 @@ project:
   type: website
   output-dir: docs
 
+lang: fr
+
 website:
   title: "Claire Borrelli"
   navbar:
@@ -24,12 +26,13 @@ website:
         href: contact.qmd
     right:
       - text: "EN"
-        href: index-en.qmd
+        href: en/index.qmd
+        aria-label: "Switch language"
     tools:
       - icon: github
         menu:
           - text: Code source
-            href: https://github.com/TON-PSEUDO/TON-PSEUDO.github.io
+            href: https://github.com/Aimatra/Aimatra.github.io
   page-footer:
     center: "© Claire Borrelli"
 
@@ -38,3 +41,4 @@ format:
     theme: cosmo
     css: styles.css
     toc: false
+    include-after-body: resources/lang-toggle.html

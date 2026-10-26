@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-10-24">
+
+<title>Mortgage lending, credit crowding-out and firm size – Claire Borrelli</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Claire Borrelli</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Accueil</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cours.html"> 
+<span class="menu-text">Cours</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../master-thesis.html"> 
+<span class="menu-text">Master thesis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projets.html"> 
+<span class="menu-text">Projets</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../exposes.html"> 
+<span class="menu-text">Exposés</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../datavis.html"> 
+<span class="menu-text">Datavis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../en/index.html"> 
+<span class="menu-text">EN</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/Aimatra/Aimatra.github.io">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review">Literature review</a>
+  <ul class="collapse">
+  <li><a href="#mian-sufi-and-verner-2017-how-do-credit-supply-shocks-affect-the-real-economy-evidence-from-the-united-states-in-the-1980s-nber-wp-23802" id="toc-mian-sufi-and-verner-2017-how-do-credit-supply-shocks-affect-the-real-economy-evidence-from-the-united-states-in-the-1980s-nber-wp-23802" class="nav-link" data-scroll-target="#mian-sufi-and-verner-2017-how-do-credit-supply-shocks-affect-the-real-economy-evidence-from-the-united-states-in-the-1980s-nber-wp-23802">Mian, Sufi and Verner (2017), “How Do Credit Supply Shocks Affect the Real Economy? Evidence from the United States in the 1980s”, NBER WP 23802</a></li>
+  <li><a href="#chakraborty-goldstein-and-mackinlay-2019-housing-price-booms-and-crowding-out-effects-in-bank-lending" id="toc-chakraborty-goldstein-and-mackinlay-2019-housing-price-booms-and-crowding-out-effects-in-bank-lending" class="nav-link" data-scroll-target="#chakraborty-goldstein-and-mackinlay-2019-housing-price-booms-and-crowding-out-effects-in-bank-lending">Chakraborty, Goldstein and MacKinlay (2019), “Housing Price Booms and Crowding-Out Effects in Bank Lending”</a></li>
+  <li><a href="#müller-and-verner-2023-credit-allocation-and-macroeconomic-fluctuations-nber-wp-31420" id="toc-müller-and-verner-2023-credit-allocation-and-macroeconomic-fluctuations-nber-wp-31420" class="nav-link" data-scroll-target="#müller-and-verner-2023-credit-allocation-and-macroeconomic-fluctuations-nber-wp-31420">Müller and Verner (2023), “Credit Allocation and Macroeconomic Fluctuations”, NBER WP 31420</a></li>
+  <li><a href="#adelino-schoar-and-severino-2013-house-prices-collateral-and-self-employment-nber-wp-18868" id="toc-adelino-schoar-and-severino-2013-house-prices-collateral-and-self-employment-nber-wp-18868" class="nav-link" data-scroll-target="#adelino-schoar-and-severino-2013-house-prices-collateral-and-self-employment-nber-wp-18868">Adelino, Schoar and Severino (2013), “House Prices, Collateral and Self-Employment”, NBER WP 18868</a></li>
+  <li><a href="#jordà-schularick-and-taylor-2014-the-great-mortgaging-housing-finance-crises-and-business-cycles-nber-wp-20501" id="toc-jordà-schularick-and-taylor-2014-the-great-mortgaging-housing-finance-crises-and-business-cycles-nber-wp-20501" class="nav-link" data-scroll-target="#jordà-schularick-and-taylor-2014-the-great-mortgaging-housing-finance-crises-and-business-cycles-nber-wp-20501">Jordà, Schularick and Taylor (2014), “The Great Mortgaging: Housing Finance, Crises, and Business Cycles”, NBER WP 20501</a></li>
+  <li><a href="#bernstein-2023-bank-loans-and-the-real-economy-evidence-from-the-19th-century-masters-thesis" id="toc-bernstein-2023-bank-loans-and-the-real-economy-evidence-from-the-19th-century-masters-thesis" class="nav-link" data-scroll-target="#bernstein-2023-bank-loans-and-the-real-economy-evidence-from-the-19th-century-masters-thesis">Bernstein (2023), “Bank Loans and the Real Economy: Evidence from the 19th Century”, master’s thesis</a></li>
+  </ul></li>
+  <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a>
+  <ul class="collapse">
+  <li><a href="#notation" id="toc-notation" class="nav-link" data-scroll-target="#notation">Notation</a></li>
+  <li><a href="#the-bank-in-the-short-run" id="toc-the-bank-in-the-short-run" class="nav-link" data-scroll-target="#the-bank-in-the-short-run">The bank in the short run</a></li>
+  <li><a href="#the-bank-in-the-long-run" id="toc-the-bank-in-the-long-run" class="nav-link" data-scroll-target="#the-bank-in-the-long-run">The bank in the long run</a></li>
+  <li><a href="#extended-version-short-run" id="toc-extended-version-short-run" class="nav-link" data-scroll-target="#extended-version-short-run">Extended version, short run</a></li>
+  <li><a href="#extended-version-long-run" id="toc-extended-version-long-run" class="nav-link" data-scroll-target="#extended-version-long-run">Extended version, long run</a></li>
+  <li><a href="#firms" id="toc-firms" class="nav-link" data-scroll-target="#firms">Firms</a></li>
+  </ul></li>
+  <li><a href="#identification-strategy" id="toc-identification-strategy" class="nav-link" data-scroll-target="#identification-strategy">Identification strategy</a>
+  <ul class="collapse">
+  <li><a href="#what-we-want-to-measure" id="toc-what-we-want-to-measure" class="nav-link" data-scroll-target="#what-we-want-to-measure">What we want to measure</a></li>
+  <li><a href="#bank-exposure-to-booms-elsewhere" id="toc-bank-exposure-to-booms-elsewhere" class="nav-link" data-scroll-target="#bank-exposure-to-booms-elsewhere">Bank exposure to booms elsewhere</a></li>
+  <li><a href="#link-with-the-model" id="toc-link-with-the-model" class="nav-link" data-scroll-target="#link-with-the-model">Link with the model</a></li>
+  <li><a href="#step-1-the-bank-side" id="toc-step-1-the-bank-side" class="nav-link" data-scroll-target="#step-1-the-bank-side">Step 1: the bank side</a></li>
+  <li><a href="#step-2-the-effect-on-firms" id="toc-step-2-the-effect-on-firms" class="nav-link" data-scroll-target="#step-2-the-effect-on-firms">Step 2: the effect on firms</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  </ul></li>
+  <li><a href="#extensions" id="toc-extensions" class="nav-link" data-scroll-target="#extensions">Extensions</a>
+  <ul class="collapse">
+  <li><a href="#what-we-might-find" id="toc-what-we-might-find" class="nav-link" data-scroll-target="#what-we-might-find">What we might find</a></li>
+  <li><a href="#extending-the-model" id="toc-extending-the-model" class="nav-link" data-scroll-target="#extending-the-model">Extending the model</a></li>
+  <li><a href="#other-directions" id="toc-other-directions" class="nav-link" data-scroll-target="#other-directions">Other directions</a></li>
+  </ul></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mortgage lending, credit crowding-out and firm size</h1>
+<p class="subtitle lead">M2 thesis project, Sciences Po (work in progress)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 24, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Since the 1950s, the share of bank credit going to mortgages has kept rising. In the Jordà, Schularick and Taylor (JST) data, it goes from 38% to 62% of loans since 1960, while the share of business loans falls from 59% to 38%. The question I ask is whether this shift has durably crowded out credit to small firms, which depend on banks, to the benefit of large firms, which can borrow directly on bond markets.</p>
+<p>The mechanism I have in mind works as a chain with four links. Easy credit first flows into household demand and pushes up house prices. This makes mortgages more attractive to banks which, with limited capital, then charge firms a higher rate. Small firms, which have no access to markets, invest less or exit. Finally, this could persist over time, even outside booms, if banks keep a structural preference for mortgages.</p>
+<p>The first link is already well established in the literature; the model below covers the next three. The thesis itself would focus on the second and third: when real estate becomes more attractive to a bank, for reasons unrelated to its clients, do the small firms that borrow from it pay the price? This is the part that I think can be cleanly identified with public US data. The last link, long-run persistence and the connection to the global trend in JST, belongs to a broader research project.</p>
+<p>This page first presents the literature I have read, then the model, the identification strategy, a few extensions and finally the limitations I see at this stage.</p>
+</section>
+<section id="literature-review" class="level2">
+<h2 class="anchored" data-anchor-id="literature-review">Literature review</h2>
+<p>Six references served as my starting point. For each one, I summarize what it shows and then how it feeds into the project.</p>
+<section id="mian-sufi-and-verner-2017-how-do-credit-supply-shocks-affect-the-real-economy-evidence-from-the-united-states-in-the-1980s-nber-wp-23802" class="level3">
+<h3 class="anchored" data-anchor-id="mian-sufi-and-verner-2017-how-do-credit-supply-shocks-affect-the-real-economy-evidence-from-the-united-states-in-the-1980s-nber-wp-23802">Mian, Sufi and Verner (2017), “How Do Credit Supply Shocks Affect the Real Economy? Evidence from the United States in the 1980s”, NBER WP 23802</h3>
+<p>The paper studies the US credit boom of the 1980s. States more exposed to the credit expansion see a larger rise in household debt and in the relative price of non-tradable goods, housing first among them. The credit expansion works through the demand channel and has no effect on labor productivity.</p>
+<p>This raises a question: why doesn’t credit go more towards production? There is a collateral effect, but lending to firms generally requires more information, it is riskier, it offers less collateral when the firm rents its premises, and regulation, from Basel I to Basel III, penalizes it.</p>
+<p>For the project, this paper provides the first link: looser credit finances household demand and raises prices, without productivity gains. The reasons why credit does not go to production are precisely the ones I build into the bank model: default risk, collateral, information costs and regulatory risk weights.</p>
+</section>
+<section id="chakraborty-goldstein-and-mackinlay-2019-housing-price-booms-and-crowding-out-effects-in-bank-lending" class="level3">
+<h3 class="anchored" data-anchor-id="chakraborty-goldstein-and-mackinlay-2019-housing-price-booms-and-crowding-out-effects-in-bank-lending">Chakraborty, Goldstein and MacKinlay (2019), “Housing Price Booms and Crowding-Out Effects in Bank Lending”</h3>
+<p>Over 1988–2006, banks active in booming housing markets increase their mortgage lending and cut their commercial lending. Firms borrowing from these banks invest significantly less. The effect is stronger for firms that are more credit-constrained, and for banks that are more capital-constrained.</p>
+<p>This is the crowding-out mechanism itself, measured during a boom. I take up their idea of a capital-constrained bank trading off mortgages against firms. What I would like to add is the effect on firm size and over several years, not only on investment during the boom.</p>
+</section>
+<section id="müller-and-verner-2023-credit-allocation-and-macroeconomic-fluctuations-nber-wp-31420" class="level3">
+<h3 class="anchored" data-anchor-id="müller-and-verner-2023-credit-allocation-and-macroeconomic-fluctuations-nber-wp-31420">Müller and Verner (2023), “Credit Allocation and Macroeconomic Fluctuations”, NBER WP 31420</h3>
+<p>During credit booms, credit goes disproportionately to the non-tradable sector, that is, to activities sensitive to temporary increases in local demand (construction, retail, services). This definition depends on the scale of the boom: if the boom is global, credit flows towards real estate. Conversely, credit expansions towards the tradable sector come with lasting growth in output and productivity, without a higher risk of crisis, whereas credit to the non-tradable sector is amplified by the loop between credit and collateral values.</p>
+<p>For the project, this calls for caution: small non-tradable firms benefit from the boom through local demand, so they must be distinguished from small tradable firms, which should suffer crowding-out without compensation. The paper also suggests that, at the global scale, the relevant distinction becomes the one between land and productive capital.</p>
+</section>
+<section id="adelino-schoar-and-severino-2013-house-prices-collateral-and-self-employment-nber-wp-18868" class="level3">
+<h3 class="anchored" data-anchor-id="adelino-schoar-and-severino-2013-house-prices-collateral-and-self-employment-nber-wp-18868">Adelino, Schoar and Severino (2013), “House Prices, Collateral and Self-Employment”, NBER WP 18868</h3>
+<p>Before 2008, rising house prices made it easier for small businesses to grow employment. Where prices rose most, employment increased strongly in industries that require little start-up capital, including manufacturing, which rules out an explanation based on local demand alone. The proposed channel is collateral: the owner borrows by pledging their house. Employment data come from the County Business Patterns (US Census Bureau), by NAICS industry, and prices from the FHFA index. Identification relies on the elasticity of housing supply.</p>
+<p>This paper is both a tool and a counter-argument. A tool, because it uses the same data and the same instrument as my identification strategy. A counter-argument, because it shows that rising prices can instead help small firms. I will therefore need to control for local price growth to separate this channel from bank crowding-out.</p>
+</section>
+<section id="jordà-schularick-and-taylor-2014-the-great-mortgaging-housing-finance-crises-and-business-cycles-nber-wp-20501" class="level3">
+<h3 class="anchored" data-anchor-id="jordà-schularick-and-taylor-2014-the-great-mortgaging-housing-finance-crises-and-business-cycles-nber-wp-20501">Jordà, Schularick and Taylor (2014), “The Great Mortgaging: Housing Finance, Crises, and Business Cycles”, NBER WP 20501</h3>
+<p>The paper builds the JST database: 17 economies followed since the 1870s. The share of mortgages on bank balance sheets has almost doubled. This evolution depends heavily on each country’s legislation, as the comparison between the United States and Germany shows, and is therefore partly the result of policy choices, such as credit regulation in the 1950s. Empirically, the authors use a logit and the AUC to classify pre-crisis periods; I wonder whether the Lévy area could play a similar role.</p>
+<p>This is the starting stylized fact, the long-run shift towards mortgages that the last link tries to explain, and the database that will allow me to place the thesis results within the global trend.</p>
+</section>
+<section id="bernstein-2023-bank-loans-and-the-real-economy-evidence-from-the-19th-century-masters-thesis" class="level3">
+<h3 class="anchored" data-anchor-id="bernstein-2023-bank-loans-and-the-real-economy-evidence-from-the-19th-century-masters-thesis">Bernstein (2023), “Bank Loans and the Real Economy: Evidence from the 19th Century”, master’s thesis</h3>
+<p>A currency revaluation in the United States creates an exogenous shock to bank credit. Because credit was heavily regulated at the time, this shock translates into more lending to firms and higher total factor productivity. Credit controls do not necessarily lead to misallocation.</p>
+<p>This work shows that credit allocation to firms can be studied using a historical shock, and that regulation can steer credit towards production. It also gives a fairly concrete idea of what a master’s thesis can reasonably aim for on this kind of question.</p>
+</section>
+</section>
+<section id="the-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-model">The model</h2>
+<p>The model has two blocks: a bank that allocates its loans between mortgages and firms under a capital constraint, and firms that borrow either from the bank or on markets. The bank is written in the short run, when its capital is fixed, and in the long run, when it can choose it, first in a baseline version and then in an extended one. The framework draws on the mechanism of Chakraborty, Goldstein and MacKinlay, with a risk-weighted capital constraint as in the Basel accords.</p>
+<section id="notation" class="level3">
+<h3 class="anchored" data-anchor-id="notation">Notation</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(L^m_t,\ L^f_t\)</span></td>
+<td>Mortgage loans, loans to firms</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(S_t\)</span></td>
+<td>Safe asset (reserves, government bonds)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(D_t\)</span></td>
+<td>Deposits and other non-equity funding</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(N_t\)</span></td>
+<td>Equity</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R^m_t,\ R^f_t,\ R^s_t\)</span></td>
+<td>Rates on mortgages, on loans to firms, on the safe asset</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R^d_t\)</span></td>
+<td>Cost of non-equity funding</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R^e_t\)</span></td>
+<td>Return required by shareholders (<span class="math inline">\(R^e_t &gt; R^d_t\)</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\omega^m,\ \omega^f\)</span></td>
+<td>Regulatory risk weights (<span class="math inline">\(\omega^m &lt; \omega^f\)</span>; Basel I: 0.5 and 1)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\phi\)</span></td>
+<td>Maximum leverage on risk-weighted assets (Basel I: 1/0.08 = 12.5)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lambda_t\)</span></td>
+<td>Multiplier on the capital constraint: value of one extra euro of capital</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\delta^m,\ \delta^f\)</span></td>
+<td>Default probabilities</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\rho^m_t,\ \rho^f_t\)</span></td>
+<td>Recovery rates in case of default</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c^m,\ c^f\)</span></td>
+<td>Information costs per euro lent</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_t,\ \ell,\ \theta^m\)</span></td>
+<td>House price, loan-to-value ratio, share of value recovered after foreclosure</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R^b_t\)</span></td>
+<td>Bond rate, at which large firms borrow</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-bank-in-the-short-run" class="level3">
+<h3 class="anchored" data-anchor-id="the-bank-in-the-short-run">The bank in the short run</h3>
+<p>In the short run, equity <span class="math inline">\(N_t\)</span> is fixed: the bank cannot raise capital. It chooses its mortgages, its loans to firms, its safe assets and its deposits to maximize interest received net of interest paid, subject to two constraints: a balanced balance sheet, and risk-weighted loans that do not exceed <span class="math inline">\(\phi\)</span> times its equity.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t} \quad &amp; R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t &amp;&amp; \text{(interest received minus interest paid)} \\
+\text{s.t.} \quad &amp; L^m_t + L^f_t + S_t = N_t + D_t &amp;&amp; \text{(balance sheet)} \\
+&amp; \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t &amp;&amp; \text{(risk-weighted capital constraint)} \\
+&amp; L^m_t,\; L^f_t,\; S_t \geq 0
+\end{aligned}
+\]</span></p>
+<p>The balance sheet lets us eliminate deposits from the objective:</p>
+<p><span class="math display">\[
+\begin{aligned}
+D_t &amp;= L^m_t + L^f_t + S_t - N_t &amp;&amp; \text{(balance sheet rewritten)} \\
+\pi^B_t &amp;= R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t\,(L^m_t + L^f_t + S_t - N_t) &amp;&amp; \text{(substituting } D_t\text{)} \\
+&amp;= (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t &amp;&amp; \text{(collecting terms)}
+\end{aligned}
+\]</span></p>
+<p>The Lagrangian attaches the multiplier <span class="math inline">\(\lambda_t\)</span> to the capital constraint:</p>
+<p><span class="math display">\[
+\mathcal{L} = (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+\]</span></p>
+<p>First-order conditions:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial L^m_t} = R^m_t - R^d_t - \lambda_t\,\omega^m &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^m_t - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = R^f_t - R^d_t - \lambda_t\,\omega^f &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^f_t - R^d_t}{\omega^f} \\
+\frac{\partial \mathcal{L}}{\partial S_t} = R^s_t - R^d_t &amp;= 0 \;\Leftrightarrow\; R^s_t = R^d_t
+\end{aligned}
+\]</span></p>
+<p>Equating the two expressions for <span class="math inline">\(\lambda_t\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\underbrace{\frac{R^m_t - R^d_t}{\omega^m}}_{\substack{\text{return on one euro of capital}\\ \text{allocated to mortgages}}} &amp;= \underbrace{\frac{R^f_t - R^d_t}{\omega^f}}_{\substack{\text{return on one euro of capital}\\ \text{allocated to loans to firms}}} &amp;&amp; \text{(the two expressions for } \lambda_t\text{)} \\[12pt]
+\Leftrightarrow\; R^f_t &amp;= R^d_t + \underbrace{\frac{\omega^f}{\omega^m}}_{\substack{=\,2 \text{ under}\\ \text{Basel I}}} \underbrace{\big(R^m_t - R^d_t\big)}_{\substack{\text{mortgage}\\ \text{margin}}} &amp;&amp; \text{(multiplying by } \omega^f \text{ and solving for } R^f_t\text{)}
+\end{aligned}
+\]</span></p>
+<p>Each fraction measures what one euro of capital earns in each type of loan: the margin, divided by the capital the loan uses up. At the optimum, the bank is indifferent between the two uses, so the two returns are equal to <span class="math inline">\(\lambda_t\)</span>. With Basel I weights, the margin required from firms is twice the mortgage margin. The shock that triggers crowding-out is a rise in mortgage demand: with fixed capital, it raises <span class="math inline">\(R^m_t\)</span>, and therefore <span class="math inline">\(R^f_t\)</span>.</p>
+<p>On the quantity side, the binding constraint directly gives crowding-out:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\omega^m L^m_t + \omega^f L^f_t &amp;= \phi N_t &amp;&amp; \text{(binding constraint)} \\
+\omega^m\, dL^m_t + \omega^f\, dL^f_t &amp;= 0 &amp;&amp; \text{(differentiating, with } dN_t = 0\text{)} \\
+\Leftrightarrow\; dL^f_t &amp;= -\underbrace{\frac{\omega^m}{\omega^f}}_{\substack{=\,0.5 \text{ under}\\ \text{Basel I}}}\, dL^m_t &amp;&amp; \text{(solving for } dL^f_t\text{)}
+\end{aligned}
+\]</span></p>
+<p>Each extra euro of mortgages therefore removes 50 cents of loans to firms. Note that it is the rigidity of capital that creates crowding-out: with equal weights, it would still exist. The weights only set the gap between the two rates and the exchange rate between the two types of loans.</p>
+<p>In practice, banks keep a buffer above the regulatory minimum. I therefore interpret <span class="math inline">\(\phi\)</span> as the bank’s target ratio: since raising capital is costly in the short run, the bank behaves as if the constraint were binding. This yields a testable prediction: crowding-out should be stronger for banks with a thin buffer.</p>
+</section>
+<section id="the-bank-in-the-long-run" class="level3">
+<h3 class="anchored" data-anchor-id="the-bank-in-the-long-run">The bank in the long run</h3>
+<p>In the long run, equity becomes a choice variable, and shareholders require a return <span class="math inline">\(R^e_t\)</span> above the cost of deposits.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t,\;N_t} \quad &amp; R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t - R^e_t N_t &amp;&amp; \text{(shareholders must also be paid)} \\
+\text{s.t.} \quad &amp; L^m_t + L^f_t + S_t = N_t + D_t &amp;&amp; \text{(balance sheet)} \\
+&amp; \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t &amp;&amp; \text{(capital constraint)} \\
+&amp; L^m_t,\; L^f_t,\; S_t,\; N_t \geq 0
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\pi^B_t &amp;= R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t\,(L^m_t + L^f_t + S_t - N_t) - R^e_t N_t &amp;&amp; \text{(substituting } D_t\text{)} \\
+&amp;= (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t - (R^e_t - R^d_t)N_t &amp;&amp; \text{(the } N_t \text{ terms combine)} \\[8pt]
+\mathcal{L} &amp;= \pi^B_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t) &amp;&amp; \text{(Lagrangian)}
+\end{aligned}
+\]</span></p>
+<p>The first-order conditions are the same as in the short run, plus one condition on equity:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial N_t} = -(R^e_t - R^d_t) + \lambda_t\,\phi &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^e_t - R^d_t}{\phi} \\
+\frac{\partial \mathcal{L}}{\partial L^m_t} = R^m_t - R^d_t - \lambda_t\,\omega^m &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^m_t - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = R^f_t - R^d_t - \lambda_t\,\omega^f &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^f_t - R^d_t}{\omega^f}
+\end{aligned}
+\]</span></p>
+<p>The condition on <span class="math inline">\(N_t\)</span> pins down <span class="math inline">\(\lambda_t\)</span> from given parameters. Substituting it into the other two:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{R^m_t - R^d_t}{\omega^m} &amp;= \frac{R^e_t - R^d_t}{\phi} &amp;&amp; \text{(conditions on } L^m_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; R^m_t &amp;= R^d_t + \underbrace{\frac{\omega^m}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro of mortgage}}} &amp;&amp; \text{(multiplying by } \omega^m\text{)} \\[12pt]
+\frac{R^f_t - R^d_t}{\omega^f} &amp;= \frac{R^e_t - R^d_t}{\phi} &amp;&amp; \text{(conditions on } L^f_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; R^f_t &amp;= R^d_t + \underbrace{\frac{\omega^f}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro lent to firms}}} &amp;&amp; \text{(multiplying by } \omega^f\text{)}
+\end{aligned}
+\]</span></p>
+<p>The short-run condition still holds (dividing one equation by the other gives it back), but two things change. First, the relative disadvantage of firms persists: as long as <span class="math inline">\(\omega^f &gt; \omega^m\)</span>, they permanently pay a higher margin than mortgages, for instance 0.8% versus 0.4% with <span class="math inline">\(R^e_t - R^d_t = 10\%\)</span> and <span class="math inline">\(\phi = 12.5\)</span>. This could help explain a durably high mortgage share. Second, crowding-out in levels disappears: the rate charged to firms no longer depends on <span class="math inline">\(R^m_t\)</span> or on <span class="math inline">\(\omega^m\)</span>. A rise in mortgage demand leads the bank to raise capital rather than cut its loans to firms:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\omega^m\, dL^m_t + \omega^f\, dL^f_t &amp;= \phi\, dN_t &amp;&amp; \text{(differentiating, } N_t \text{ adjusts)} \\
+\omega^m\, dL^m_t &amp;= \phi\, dN_t &amp;&amp; \text{(the firm rate does not move, so } dL^f_t = 0\text{)} \\
+\Leftrightarrow\; dN_t &amp;= \underbrace{\frac{\omega^m}{\phi}\, dL^m_t}_{\substack{\text{new capital finances}\\ \text{the extra mortgages}}} &amp;&amp; \text{(dividing by } \phi\text{)}
+\end{aligned}
+\]</span></p>
+<p>This long run assumes the bank can raise as much capital as it wants at a constant cost, which is obviously a simplification. The two versions should therefore be read as two polar cases: an infinite cost of capital in the short run, a constant one in the long run. Reality most likely lies somewhere in between.</p>
+</section>
+<section id="extended-version-short-run" class="level3">
+<h3 class="anchored" data-anchor-id="extended-version-short-run">Extended version, short run</h3>
+<p>Basel weights are only one reason to prefer mortgages. The extended version adds three elements for each type of loan. The first is a default probability, <span class="math inline">\(\delta^m\)</span> for mortgages and <span class="math inline">\(\delta^f\)</span> for firms. The second is a recovery rate, that is, what the bank recovers per euro lent in case of default: <span class="math inline">\(\rho^m_t\)</span> for mortgages, which depends on the expected future house price, and <span class="math inline">\(\rho^f_t\)</span> for firms, whose assets are hard to resell. The third is an information cost per euro lent: <span class="math inline">\(c^f\)</span> for firms, whose projects must each be assessed, and <span class="math inline">\(c^m\)</span> for mortgages, which is lower because they are standardized.</p>
+<p>The mortgage recovery rate depends on house prices:</p>
+<p><span class="math display">\[
+\rho^m_t = \underbrace{\theta^m}_{\substack{\text{share recovered}\\ \text{after foreclosure}}} \; \underbrace{\frac{\mathbb{E}_t[P_{t+1}]}{\ell\, P_t}}_{\substack{\text{expected value of the house}\\ \text{per euro lent}}}
+\]</span></p>
+<p>Let <span class="math inline">\(A^m_t\)</span> and <span class="math inline">\(A^f_t\)</span> denote the average return on one euro lent:</p>
+<p><span class="math display">\[
+A^m_t = \underbrace{(1-\delta^m)\,R^m_t}_{\text{repaid}} + \underbrace{\delta^m \rho^m_t}_{\substack{\text{collateral sold}\\ \text{in case of default}}} \qquad\qquad A^f_t = \underbrace{(1-\delta^f)\,R^f_t}_{\text{repaid}} + \underbrace{\delta^f \rho^f_t}_{\substack{\text{collateral sold}\\ \text{in case of default}}}
+\]</span></p>
+<p>The program is the same as before, with these average returns and the information costs:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t} \quad &amp; (A^m_t - c^m)\,L^m_t + (A^f_t - c^f)\,L^f_t + R^s_t S_t - R^d_t D_t \\
+\text{s.t.} \quad &amp; L^m_t + L^f_t + S_t = N_t + D_t &amp;&amp; \text{(balance sheet)} \\
+&amp; \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t &amp;&amp; \text{(capital constraint)} \\
+&amp; L^m_t,\; L^f_t,\; S_t \geq 0
+\end{aligned}
+\]</span></p>
+<p>Eliminating <span class="math inline">\(D_t\)</span> with the balance sheet, as above:</p>
+<p><span class="math display">\[
+\mathcal{L} = (A^m_t - c^m - R^d_t)L^m_t + (A^f_t - c^f - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+\]</span></p>
+<p>First-order conditions:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial L^m_t} = A^m_t - c^m - R^d_t - \lambda_t\,\omega^m &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{A^m_t - c^m - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = A^f_t - c^f - R^d_t - \lambda_t\,\omega^f &amp;= 0 \;\Leftrightarrow\; \lambda_t = \frac{A^f_t - c^f - R^d_t}{\omega^f} \\
+\frac{\partial \mathcal{L}}{\partial S_t} = R^s_t - R^d_t &amp;= 0 \;\Leftrightarrow\; R^s_t = R^d_t
+\end{aligned}
+\]</span></p>
+<p>Equating the two expressions for <span class="math inline">\(\lambda_t\)</span> and solving for the firm rate:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{A^f_t - c^f - R^d_t}{\omega^f} &amp;= \frac{A^m_t - c^m - R^d_t}{\omega^m} &amp;&amp; \text{(the two expressions for } \lambda_t\text{)} \\
+\Leftrightarrow\; A^f_t &amp;= R^d_t + c^f + \frac{\omega^f}{\omega^m}\big(A^m_t - c^m - R^d_t\big) &amp;&amp; \text{(multiplying by } \omega^f \text{ and solving)} \\[6pt]
+\Leftrightarrow\; (1-\delta^f)\,R^f_t &amp;= \underbrace{R^d_t}_{\substack{\text{funding}\\ \text{cost}}} + \underbrace{c^f}_{\substack{\text{information}\\ \text{cost}}} - \underbrace{\delta^f \rho^f_t}_{\substack{\text{recovered}\\ \text{in default}}} + \underbrace{\frac{\omega^f}{\omega^m}\big(A^m_t - c^m - R^d_t\big)}_{\substack{\text{what the same capital would}\\ \text{earn in mortgages}}} &amp;&amp; \text{(substituting } A^f_t\text{)}
+\end{aligned}
+\]</span></p>
+<p>Substituting <span class="math inline">\(A^m_t\)</span> and <span class="math inline">\(\rho^m_t\)</span>, house prices appear explicitly:</p>
+<p><span class="math display">\[
+R^f_t = \frac{1}{1-\delta^f}\Big[R^d_t + c^f - \delta^f \rho^f_t + \frac{\omega^f}{\omega^m}\Big(\underbrace{(1-\delta^m)R^m_t}_{\substack{\text{mortgage}\\ \text{rate}}} + \underbrace{\delta^m \theta^m \frac{\mathbb{E}_t[P_{t+1}]}{\ell P_t}}_{\substack{\text{expected}\\ \text{price growth}}} - c^m - R^d_t\Big)\Big]
+\]</span></p>
+<p>The rate charged to firms covers the funding cost and the information cost, minus what the bank recovers in default, plus the opportunity cost of not putting that capital into mortgages. Anything that makes mortgages more profitable therefore crowds out firms: a higher mortgage rate, but also simply higher expected house prices, which raise collateral values even if the mortgage rate does not move. The ratio of risk weights amplifies the effect. The negative coefficient on <span class="math inline">\(R^d_t\)</span> in the expanded form is not a paradox: when the funding cost rises, the mortgage rate rises too, and the firm rate does increase overall.</p>
+</section>
+<section id="extended-version-long-run" class="level3">
+<h3 class="anchored" data-anchor-id="extended-version-long-run">Extended version, long run</h3>
+<p>Same program, with capital chosen by the bank and the return required by shareholders:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t,\;N_t} \quad &amp; (A^m_t - c^m)\,L^m_t + (A^f_t - c^f)\,L^f_t + R^s_t S_t - R^d_t D_t - R^e_t N_t \\
+\text{s.t.} \quad &amp; L^m_t + L^f_t + S_t = N_t + D_t &amp;&amp; \text{(balance sheet)} \\
+&amp; \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t &amp;&amp; \text{(capital constraint)} \\
+&amp; L^m_t,\; L^f_t,\; S_t,\; N_t \geq 0
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L} = (A^m_t - c^m - R^d_t)L^m_t + (A^f_t - c^f - R^d_t)L^f_t + (R^s_t - R^d_t)S_t - (R^e_t - R^d_t)N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+\]</span></p>
+<p>The conditions on <span class="math inline">\(L^m_t\)</span>, <span class="math inline">\(L^f_t\)</span> and <span class="math inline">\(S_t\)</span> are unchanged. The condition on equity is added:</p>
+<p><span class="math display">\[
+\frac{\partial \mathcal{L}}{\partial N_t} = -(R^e_t - R^d_t) + \lambda_t\,\phi = 0 \;\Leftrightarrow\; \lambda_t = \frac{R^e_t - R^d_t}{\phi}
+\]</span></p>
+<p>Substituting <span class="math inline">\(\lambda_t\)</span> into the conditions on <span class="math inline">\(L^f_t\)</span> and <span class="math inline">\(L^m_t\)</span> and solving for the two rates:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{A^f_t - c^f - R^d_t}{\omega^f} &amp;= \frac{R^e_t - R^d_t}{\phi} &amp;&amp; \text{(conditions on } L^f_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; (1-\delta^f)\,R^f_t &amp;= R^d_t + c^f - \delta^f \rho^f_t + \underbrace{\frac{\omega^f}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro lent to firms}}} &amp;&amp; \text{(multiplying by } \omega^f \text{ and solving)} \\[12pt]
+\frac{A^m_t - c^m - R^d_t}{\omega^m} &amp;= \frac{R^e_t - R^d_t}{\phi} &amp;&amp; \text{(conditions on } L^m_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; (1-\delta^m)\,R^m_t &amp;= R^d_t + c^m - \underbrace{\delta^m \rho^m_t}_{\substack{\text{depends on}\\ \text{expected prices}}} + \underbrace{\frac{\omega^m}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro of mortgage}}} &amp;&amp; \text{(same steps)}
+\end{aligned}
+\]</span></p>
+<p>The firm rate no longer contains <span class="math inline">\(R^m_t\)</span> or <span class="math inline">\(\rho^m_t\)</span>: in the long run, neither a housing boom nor expectations of rising prices change the rate firms pay. However, firms remain durably disadvantaged by their risk weight, their default risk, collateral that is hard to resell and their information cost. This is what I call a structural preference of banks for mortgages, independent of booms. The mortgage equation also reveals a loop: if the bank expects prices to rise, <span class="math inline">\(\rho^m_t\)</span> increases and it accepts a lower mortgage rate, which supports housing demand, and therefore prices.</p>
+</section>
+<section id="firms" class="level3">
+<h3 class="anchored" data-anchor-id="firms">Firms</h3>
+<p>The firm block translates the rise in the bank rate into effects on the size and number of firms, and introduces the distinction between tradable (T) and non-tradable (NT) firms. A firm <span class="math inline">\(i\)</span> has productivity <span class="math inline">\(z_i\)</span> and produces with capital, with decreasing returns (<span class="math inline">\(0 &lt; \alpha &lt; 1\)</span>). It borrows all of its capital at rate <span class="math inline">\(R_t\)</span>, which equals <span class="math inline">\(R^f_t\)</span> if it goes through the bank and <span class="math inline">\(R^b_t\)</span> if it issues bonds. The price of the tradable good is set outside the region, the price of the non-tradable good by local equilibrium.</p>
+<p><span class="math display">\[
+y_{i,t} = z_i\, k_{i,t}^{\alpha} \qquad\qquad p_{T,t} = 1 \qquad\qquad p_{NT,t} \text{ set by local equilibrium}
+\]</span></p>
+<p>The tradable firm chooses its capital to maximize profit:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\max_{k_{i,t} \geq 0} \quad &amp; \pi^T_{i,t} = z_i\, k_{i,t}^{\alpha} - R_t\, k_{i,t} \\[6pt]
+\frac{\partial \pi^T_{i,t}}{\partial k_{i,t}} = \alpha\, z_i\, k_{i,t}^{\alpha-1} - R_t &amp;= 0 \\
+\Leftrightarrow\; k^{T*}_{i,t} &amp;= \Big(\frac{\alpha\, z_i}{R_t}\Big)^{\frac{1}{1-\alpha}} &amp;&amp; \text{(raising to the power } \tfrac{1}{\alpha-1}\text{)} \\
+\pi^{T*}_{i,t} &amp;= (1-\alpha)\, z_i\,(k^{T*}_{i,t})^{\alpha} &amp;&amp; \text{(since } R_t k^{T*}_{i,t} = \alpha z_i (k^{T*}_{i,t})^{\alpha}\text{)} \\
+&amp;= (1-\alpha)\, z_i^{\frac{1}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} &amp;&amp; \text{(substituting } k^{T*}_{i,t}\text{)}
+\end{aligned}
+\]</span></p>
+<p>The non-tradable firm does the same computation with the local price, which it takes as given:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\max_{k_{i,t} \geq 0} \quad &amp; \pi^{NT}_{i,t} = p_{NT,t}\, z_i\, k_{i,t}^{\alpha} - R_t\, k_{i,t} \\[6pt]
+\Rightarrow\; k^{NT*}_{i,t} &amp;= \Big(\frac{\alpha\, p_{NT,t}\, z_i}{R_t}\Big)^{\frac{1}{1-\alpha}}, \qquad \pi^{NT*}_{i,t} = (1-\alpha)\,\big(p_{NT,t}\, z_i\big)^{\frac{1}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} &amp;&amp; \text{(same steps)}
+\end{aligned}
+\]</span></p>
+<p>The firm chooses bonds if the gain from a lower rate exceeds the fixed issuance cost <span class="math inline">\(F\)</span>. This gain increases with productivity while <span class="math inline">\(F\)</span> is fixed: above some threshold, firms switch to bonds, and these are the large firms. A bank-dependent firm stays in business only if its profit covers a fixed operating cost <span class="math inline">\(c^o\)</span>, and this survival threshold rises with <span class="math inline">\(R^f_t\)</span>.</p>
+<p><span class="math display">\[
+\underbrace{\max\Big\{\, \pi^*_{i,t}(R^f_t)\;,\;\; \pi^*_{i,t}(R^b_t) - F \,\Big\}}_{\text{bank or bonds}} \qquad\qquad \underbrace{\pi^*_{i,t}(R^f_t) \geq c^o \;\Leftrightarrow\; z_i \geq z^{\min}_{s,t}(R^f_t)}_{\substack{\text{survival: the productivity threshold}\\ \text{rises with the bank rate}}}
+\]</span></p>
+<p>In the non-tradable market, households spend a share <span class="math inline">\(\beta\)</span> of their expenditure <span class="math inline">\(E_t\)</span> on non-tradable goods, and <span class="math inline">\(Z\)</span> denotes the aggregate productivity of the sector:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Y_{NT,t} &amp;= \sum_i z_i\,(k^{NT*}_{i,t})^{\alpha} = p_{NT,t}^{\frac{\alpha}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} Z &amp;&amp; \text{(with } Z = \textstyle\sum_i z_i^{\frac{1}{1-\alpha}}\text{)} \\
+p_{NT,t}\, Y_{NT,t} &amp;= \beta\, E_t &amp;&amp; \text{(household spending = firm sales)} \\
+\Leftrightarrow\; p_{NT,t} &amp;= \Big[\frac{\beta E_t}{Z}\Big(\frac{R_t}{\alpha}\Big)^{\frac{\alpha}{1-\alpha}}\Big]^{1-\alpha} &amp;&amp; \text{(solving for the price)} \\
+\Rightarrow\; d\ln p_{NT,t} &amp;= \underbrace{(1-\alpha)\, d\ln E_t}_{\substack{\text{local demand}\\ \text{raises the price}}} + \underbrace{\alpha\, d\ln R_t}_{\substack{\text{so does the}\\ \text{cost of credit}}} &amp;&amp; \text{(taking logs and differentiating)}
+\end{aligned}
+\]</span></p>
+<p>For a small firm borrowing from the bank, the effect of a higher bank rate is then:</p>
+<p><span class="math display">\[
+\begin{aligned}
+d\ln k^*_{i,t} &amp;= \tfrac{1}{1-\alpha}\big(d\ln p_{s,t} - d\ln R^f_t\big) &amp;&amp; \text{(log of } k^*\text{)} \\[6pt]
+\text{Tradable:}\quad d\ln k^{T*}_{i,t} &amp;= \underbrace{-\tfrac{1}{1-\alpha}\, d\ln R^f_t}_{\substack{\text{fixed price: only the rate matters,}\\ \text{with no compensation}}} &amp;&amp; \text{(since } d\ln p_{T,t} = 0\text{)} \\[6pt]
+\text{Non-tradable:}\quad d\ln k^{NT*}_{i,t} &amp;= \underbrace{d\ln E_t}_{\substack{\text{gains from}\\ \text{local demand}}} - \underbrace{d\ln R^f_t}_{\substack{\text{loses from}\\ \text{the rate}}} &amp;&amp; \text{(substituting } d\ln p_{NT,t} \text{ and simplifying)}
+\end{aligned}
+\]</span></p>
+<p>Large firms borrow at <span class="math inline">\(R^b_t\)</span>, which does not move. During a credit boom, when the bank rate and local spending rise together, the small tradable firm bears the full rate increase without compensation, while the small non-tradable firm can grow if local spending rises faster than the rate. Without a local boom, that is, with unchanged local spending, both small firms lose, the tradable one more so: the relevant difference becomes the one between small and large firms. This is precisely the setting of the empirical test.</p>
+</section>
+</section>
+<section id="identification-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="identification-strategy">Identification strategy</h2>
+<p>Identification targets the second and third links: when real estate becomes more attractive to a bank, for reasons unrelated to its client firms, do these firms, and especially the small ones, pay the price? The last link, long-run persistence, is for now carried by the model.</p>
+<section id="what-we-want-to-measure" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-want-to-measure">What we want to measure</h3>
+<p>The goal is not to estimate each parameter of the model separately, but to check that the effects it predicts show up, with the expected shape. On the bank side, the short-run model predicts that banks pushed towards real estate increase their mortgage lending and cut their lending to small businesses. On the firm side, it predicts lower activity for small bank-dependent firms, but not for large ones. Since crowding-out only exists when the capital constraint binds, it should be stronger for poorly capitalized banks. Finally, following the effect over several years makes it possible to tell the short run from the long run: if the effect fades out, capital has adjusted; if it persists, something prevents that adjustment.</p>
+</section>
+<section id="bank-exposure-to-booms-elsewhere" class="level3">
+<h3 class="anchored" data-anchor-id="bank-exposure-to-booms-elsewhere">Bank exposure to booms elsewhere</h3>
+<p>In a county where house prices are soaring, everything moves at once: local activity, local demand, the value of business owners’ homes. Directly comparing counties where prices rise with counties where they do not would therefore not isolate the effect I am interested in. The idea is instead to find what pushes a county’s banks towards real estate while nothing changes in that county: housing booms in the other regions where these banks operate. A bank present in both Toledo and Miami that sees house prices soar in Miami concentrates its lending there and, if its capital is constrained, lends less to small firms in Toledo.</p>
+<p><span class="math display">\[
+\text{Expo}_{c,t} = \sum_b \underbrace{s_{b,c}}_{\substack{\text{share of bank } b \text{ in small}\\ \text{business lending in county } c}} \sum_{j \neq c} \underbrace{w_{b,j}}_{\substack{\text{weight of county } j\\ \text{in the deposits of } b}} \; \underbrace{\Delta HPI_{j,t}}_{\substack{\text{house price}\\ \text{growth in } j}}
+\]</span></p>
+<p>Each bank’s share is measured at the start of the period with CRA data, the weights of other counties with FDIC deposits (Summary of Deposits), and price growth with the FHFA index. For example, if bank A accounts for 60% of small business lending in Toledo and experiences a 14.9% boom in its other counties, and bank B for 40% with a 2% boom, Toledo’s exposure is 0.6 × 14.9% + 0.4 × 2%, or about 9.7%.</p>
+<p>An endogeneity problem remains: if prices rise in Miami because Miami’s economy is doing well, the bank may also earn more there, which would help it lend more everywhere. I therefore use the Saiz (2010) instrument, which measures constraints on construction in each metropolitan area (geography, zoning regulation), and keep only the part of price growth explained by these constraints:</p>
+<p><span class="math display">\[
+\Delta HPI_{j,t} = a_t + b_t\, \underbrace{\frac{1}{e_j}}_{\substack{\text{construction constraints}\\ \text{in } j \text{ (Saiz)}}} + u_{j,t}
+\]</span></p>
+<p>Where housing supply is rigid, the same increase in demand translates into a larger price increase. This component of price growth is, in principle, independent of local economic conditions.</p>
+</section>
+<section id="link-with-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="link-with-the-model">Link with the model</h3>
+<p>In the model, exposure raises the expected return on mortgages <span class="math inline">\(A^m_t\)</span> for the county’s banks, through the mortgage rate and the expected value of collateral, without changing anything for the county’s firms. With fixed capital, this raises the rate charged to firms <span class="math inline">\(R^f_t\)</span> and lowers lending to them. On the firm side, since the boom happens elsewhere, local spending does not move: all small bank-dependent firms should lose relative to large firms, which borrow at <span class="math inline">\(R^b_t\)</span>.</p>
+</section>
+<section id="step-1-the-bank-side" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-the-bank-side">Step 1: the bank side</h3>
+<p>The first step checks whether exposure increases the mortgage lending of the county’s banks (HMDA, Call Reports) and reduces their small business lending (CRA). The ratio of the two effects measures the crowding-out slope, which the model links to the ratio of risk weights. I then check whether the effect is concentrated among banks with the lowest capital ratios, which directly tests the role of the capital constraint.</p>
+</section>
+<section id="step-2-the-effect-on-firms" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-the-effect-on-firms">Step 2: the effect on firms</h3>
+<p>A small firm that gets less credit from its bank can turn to another one. Step 2 therefore checks that the drop in credit has real effects. Each observation is a group of establishments in the same county <span class="math inline">\(c\)</span>, the same industry <span class="math inline">\(s\)</span> and the same size class <span class="math inline">\(k\)</span>, followed <span class="math inline">\(h\)</span> years after the shock, from 1 to 15 years:</p>
+<p><span class="math display">\[
+\underbrace{Y_{c,s,k,t+h} - Y_{c,s,k,t-1}}_{\substack{\text{change in employment or in the number}\\ \text{of establishments over } h \text{ years}}} = \underbrace{\beta_h\, \text{Expo}_{c,t} \times \text{Small}_k}_{\substack{\text{effect of exposure on small}\\ \text{establishments relative to large ones}}} + \underbrace{\theta_h\, \Delta HPI_{c,t} \times \text{Small}_k}_{\substack{\text{local price growth:}\\ \text{owner's home channel}}} + \underbrace{\delta_{c,t}}_{\substack{\text{everything affecting}\\ \text{the whole county}}} + \underbrace{\mu_{s,k,t}}_{\substack{\text{national trends by}\\ \text{industry and size}}} + \varepsilon_{c,s,k,t+h}
+\]</span></p>
+<p>The coefficient of interest <span class="math inline">\(\beta_h\)</span> compares small establishments with large ones within the same county, across more or less exposed counties; the model predicts it to be negative. The county × year fixed effect absorbs everything that affects the county as a whole, such as a recession or local demand. The industry × size × year fixed effect absorbs national trends specific to each industry and size class. The local price growth term captures the Adelino, Schoar and Severino channel, so that it is not confused with bank crowding-out. If <span class="math inline">\(Y\)</span> is the number of establishments, a decline corresponds to the survival threshold in the model.</p>
+<p>Since the shock does not create a local boom, the central comparison is between small and large firms. The tradable/non-tradable distinction serves as a robustness check: the regression is re-estimated on tradable industries only (manufacturing), whose demand does not depend on local conditions.</p>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>All the data used are public and free.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>What I use</th>
+<th>Level and period</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://m.nber.org/ftp/cbp/">County Business Patterns</a> (Census)</td>
+<td>Establishments and employment by size class and industry (NAICS)</td>
+<td>County, annual, since the 1980s</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.ffiec.gov/craadweb/naaginfs.htm">CRA</a> (FFIEC)</td>
+<td>Small business lending by bank and county</td>
+<td>Since 1996</td>
+</tr>
+<tr class="odd">
+<td>HMDA (FFIEC)</td>
+<td>Mortgage lending by bank and area</td>
+<td>Since the 1990s</td>
+</tr>
+<tr class="even">
+<td>Summary of Deposits (FDIC)</td>
+<td>Deposits by branch: where each bank operates</td>
+<td>Annual, since 1994</td>
+</tr>
+<tr class="odd">
+<td>Call Reports (FFIEC)</td>
+<td>Bank balance sheets: capital, mortgage lending, business lending</td>
+<td>Quarterly, long period</td>
+</tr>
+<tr class="even">
+<td>FHFA index</td>
+<td>House prices by county or metropolitan area</td>
+<td>Since the 1970s to 1990s depending on the level</td>
+</tr>
+<tr class="odd">
+<td>Saiz elasticity</td>
+<td>Construction constraints by metropolitan area</td>
+<td>One value per area</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.nber.org/research/data/jorda-schularick-taylor-macrohistory">JST Macrohistory</a></td>
+<td>Mortgage and non-mortgage credit, 17 countries since 1870</td>
+<td>Country × year</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="extensions" class="level2">
+<h2 class="anchored" data-anchor-id="extensions">Extensions</h2>
+<p>These extensions go beyond the scope of the thesis and rather sketch the broader research project I would like to pursue.</p>
+<section id="what-we-might-find" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-might-find">What we might find</h3>
+<p>Several outcomes are possible, and each would say something different about the model. If small establishments in exposed counties lose ground relative to large ones, and the gap then closes after a few years, this would match the short-run model followed by banks adjusting their capital. If the gap does not close, one would need to explain why capital does not adjust, or why exiting firms do not come back, which brings us to the last link. If the effect is concentrated among poorly capitalized banks, this would be a good sign that the capital constraint is indeed what drives crowding-out. Finally, no effect on firms while banks cut their lending would mean that small firms find credit elsewhere, which would be a result in itself.</p>
+</section>
+<section id="extending-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="extending-the-model">Extending the model</h3>
+<p>The first extension would be to complete the last link. The long-run model explains a durably high mortgage share, but not yet a lasting decline in the level of credit to small firms. This requires a friction: a cost of capital that rises with bank size, tightening regulation, or firms that exited during the short-run phase and do not come back because of high entry costs. With a cost of capital that depends on the amount raised, the condition on equity becomes:</p>
+<p><span class="math display">\[
+\lambda_t = \frac{\overbrace{R^e_t(N_t) + R^{e\prime}_t(N_t)\, N_t}^{\substack{\text{marginal cost of capital,}\\ \text{increasing in } N_t}} - R^d_t}{\phi}
+\]</span></p>
+<p>A housing boom then pushes the bank to raise capital, which increases its cost, and hence <span class="math inline">\(\lambda_t\)</span> and the firm rate: crowding-out is partial but does not disappear. The two current versions are its limit cases.</p>
+<p>The second extension would be to endogenize the loop between prices and collateral, by adding an equation linking house prices to mortgage credit when housing supply is rigid. The rise in <span class="math inline">\(\rho^m_t\)</span> would then no longer be exogenous but generated by the model. The third would be to introduce the collateral channel on the firm side, by capping a small firm’s borrowing at a fraction of the value of its owner’s home. This would make it possible to separate, in the model as in the data, bank crowding-out from the effect highlighted by Adelino, Schoar and Severino.</p>
+</section>
+<section id="other-directions" class="level3">
+<h3 class="anchored" data-anchor-id="other-directions">Other directions</h3>
+<p>Basel I (1988) set the risk weight on mortgages at half that of business loans. In the model, this corresponds to a fall in <span class="math inline">\(\omega^m\)</span>, which raises the rate charged to firms in the short run: banks that were already close to their constraint in 1988 should have reacted the most. This historical part would rely on bank balance sheets, since county-level data start later.</p>
+<p>One could also move from the relative effect across counties to the global trend observed in JST. At the global scale, the relevant distinction becomes the one between land and productive capital. The idea would be to compare countries by the intensity of their shift towards mortgages, while being careful about the direction of causality: credit may have gone to real estate because firms demanded less of it. Germany, where business credit has grown faster than household credit, would be an interesting point of comparison.</p>
+<p>Finally, the Lévy area could be used to describe the order in which mortgage credit and business credit move, in the spirit of the logit and AUC in Jordà, Schularick and Taylor, with conclusions about prediction rather than causality.</p>
+</section>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>On the data side, the CRA only covers banks above a certain size threshold, whereas small local banks lend a lot to small firms. It only starts in 1996, which limits the period studied. The County Business Patterns count establishments, not firms: a large firm can have small establishments, which blurs the comparison between small and large. The Saiz instrument is debated, since construction constraints could themselves be related to demand. Finally, JST only covers bank credit, and therefore underestimates securitized mortgages, especially in the United States.</p>
+<p>On the methods side, the test measures relative effects across counties: a boom common to the whole country drops out of the comparison, and the aggregate effect cannot be inferred directly. On the model side, the long run assumes banks can raise as much capital as they want at a constant cost, which is a strong assumption, and house prices remain exogenous.</p>
+<p>Anyway, there is still a lot of work to do, but that is also what makes the project fun. If you have comments or ideas, I would be glad to hear them!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+/* Bouton FR/EN : envoie vers la version équivalente de la page courante.
+   Les pages anglaises sont dans le dossier en/ avec le même nom que la page française.
+   Sur les pages anglaises, le menu est traduit et pointe vers les pages anglaises. */
+(function () {
+  var path = window.location.pathname;
+  if (path.slice(-1) === '/') path += 'index.html';
+  var isEn = path.indexOf('/en/') === 0;
+
+  var labels = {
+    'Accueil': 'Home', 'Cours': 'Courses', 'Projets': 'Projects',
+    'Exposés': 'Talks', 'Datavis': 'Data viz', 'CV': 'CV',
+    'Contact': 'Contact', 'Master thesis': 'Master thesis'
+  };
+
+  // Le bouton de langue : le lien « EN » à droite du menu
+  var toggle = null;
+  document.querySelectorAll('nav a.nav-link').forEach(function (a) {
+    var t = a.querySelector('.menu-text');
+    if (t && t.textContent.trim() === 'EN') toggle = a;
+  });
+
+  if (isEn) {
+    document.documentElement.lang = 'en';
+    var links = document.querySelectorAll('nav a.nav-link, nav a.navbar-brand');
+    links.forEach(function (a) {
+      if (a === toggle) return;
+      var url;
+      try { url = new URL(a.getAttribute('href'), window.location.href); } catch (e) { return; }
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname.indexOf('/en/') !== 0) a.setAttribute('href', '/en' + url.pathname);
+      var span = a.querySelector('.menu-text');
+      if (span) {
+        var t = span.textContent.trim();
+        if (labels[t]) span.textContent = labels[t];
+      }
+    });
+  }
+
+  if (!toggle) return;
+
+  var target = isEn ? path.slice(3) : '/en' + path;
+  // Si la page n'a pas (encore) d'équivalent, on va vers la rubrique ou l'accueil
+  var parts = path.split('/').filter(Boolean);
+  var fallback;
+  if (isEn) {
+    fallback = parts.length > 2 ? '/' + parts[1] + '.html' : '/index.html';
+  } else {
+    fallback = parts.length > 1 ? '/en/' + parts[0] + '.html' : '/en/index.html';
+  }
+
+  var span = toggle.querySelector('.menu-text');
+  if (span) span.textContent = isEn ? 'FR' : 'EN';
+  toggle.setAttribute('href', target);
+
+  toggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    fetch(target, { method: 'HEAD' })
+      .then(function (r) { window.location.href = r.ok ? target : fallback; })
+      .catch(function () { window.location.href = target; });
+  });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© Claire Borrelli</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

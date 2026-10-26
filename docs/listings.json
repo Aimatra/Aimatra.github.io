@@ -2,12 +2,15 @@
   {
     "listing": "/projets.html",
     "items": [
+      "/en/projets/projet-signatures-ctdna.html",
       "/projets/projet-signatures-ctdna.html"
     ]
   },
   {
-    "listing": "/exposes.html",
-    "items": []
+    "listing": "/datavis.html",
+    "items": [
+      "/datavis/exemple-datavis.html"
+    ]
   },
   {
     "listing": "/cours.html",
@@ -16,9 +19,25 @@
     ]
   },
   {
-    "listing": "/datavis.html",
+    "listing": "/exposes.html",
+    "items": []
+  },
+  {
+    "listing": "/en/projets.html",
     "items": [
-      "/datavis/exemple-datavis.html"
+      "/en/projets/projet-signatures-ctdna.html"
     ]
+  },
+  {
+    "listing": "/en/exposes.html",
+    "items": []
+  },
+  {
+    "listing": "/en/cours.html",
+    "items": []
+  },
+  {
+    "listing": "/en/datavis.html",
+    "items": []
   }
 ]

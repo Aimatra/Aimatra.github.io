@@ -1,0 +1,454 @@
+---
+title: "Mortgage lending, credit crowding-out and firm size"
+subtitle: "M2 thesis project, Sciences Po (work in progress)"
+date: 2026-10-24
+toc: true
+toc-title: "Contents"
+number-sections: false
+---
+
+## Introduction
+
+Since the 1950s, the share of bank credit going to mortgages has kept rising. In the Jordà, Schularick and Taylor (JST) data, it goes from 38% to 62% of loans since 1960, while the share of business loans falls from 59% to 38%. The question I ask is whether this shift has durably crowded out credit to small firms, which depend on banks, to the benefit of large firms, which can borrow directly on bond markets.
+
+The mechanism I have in mind works as a chain with four links. Easy credit first flows into household demand and pushes up house prices. This makes mortgages more attractive to banks which, with limited capital, then charge firms a higher rate. Small firms, which have no access to markets, invest less or exit. Finally, this could persist over time, even outside booms, if banks keep a structural preference for mortgages.
+
+The first link is already well established in the literature; the model below covers the next three. The thesis itself would focus on the second and third: when real estate becomes more attractive to a bank, for reasons unrelated to its clients, do the small firms that borrow from it pay the price? This is the part that I think can be cleanly identified with public US data. The last link, long-run persistence and the connection to the global trend in JST, belongs to a broader research project.
+
+This page first presents the literature I have read, then the model, the identification strategy, a few extensions and finally the limitations I see at this stage.
+
+## Literature review
+
+Six references served as my starting point. For each one, I summarize what it shows and then how it feeds into the project.
+
+### Mian, Sufi and Verner (2017), "How Do Credit Supply Shocks Affect the Real Economy? Evidence from the United States in the 1980s", NBER WP 23802
+
+The paper studies the US credit boom of the 1980s. States more exposed to the credit expansion see a larger rise in household debt and in the relative price of non-tradable goods, housing first among them. The credit expansion works through the demand channel and has no effect on labor productivity.
+
+This raises a question: why doesn't credit go more towards production? There is a collateral effect, but lending to firms generally requires more information, it is riskier, it offers less collateral when the firm rents its premises, and regulation, from Basel I to Basel III, penalizes it.
+
+For the project, this paper provides the first link: looser credit finances household demand and raises prices, without productivity gains. The reasons why credit does not go to production are precisely the ones I build into the bank model: default risk, collateral, information costs and regulatory risk weights.
+
+### Chakraborty, Goldstein and MacKinlay (2019), "Housing Price Booms and Crowding-Out Effects in Bank Lending"
+
+Over 1988–2006, banks active in booming housing markets increase their mortgage lending and cut their commercial lending. Firms borrowing from these banks invest significantly less. The effect is stronger for firms that are more credit-constrained, and for banks that are more capital-constrained.
+
+This is the crowding-out mechanism itself, measured during a boom. I take up their idea of a capital-constrained bank trading off mortgages against firms. What I would like to add is the effect on firm size and over several years, not only on investment during the boom.
+
+### Müller and Verner (2023), "Credit Allocation and Macroeconomic Fluctuations", NBER WP 31420
+
+During credit booms, credit goes disproportionately to the non-tradable sector, that is, to activities sensitive to temporary increases in local demand (construction, retail, services). This definition depends on the scale of the boom: if the boom is global, credit flows towards real estate. Conversely, credit expansions towards the tradable sector come with lasting growth in output and productivity, without a higher risk of crisis, whereas credit to the non-tradable sector is amplified by the loop between credit and collateral values.
+
+For the project, this calls for caution: small non-tradable firms benefit from the boom through local demand, so they must be distinguished from small tradable firms, which should suffer crowding-out without compensation. The paper also suggests that, at the global scale, the relevant distinction becomes the one between land and productive capital.
+
+### Adelino, Schoar and Severino (2013), "House Prices, Collateral and Self-Employment", NBER WP 18868
+
+Before 2008, rising house prices made it easier for small businesses to grow employment. Where prices rose most, employment increased strongly in industries that require little start-up capital, including manufacturing, which rules out an explanation based on local demand alone. The proposed channel is collateral: the owner borrows by pledging their house. Employment data come from the County Business Patterns (US Census Bureau), by NAICS industry, and prices from the FHFA index. Identification relies on the elasticity of housing supply.
+
+This paper is both a tool and a counter-argument. A tool, because it uses the same data and the same instrument as my identification strategy. A counter-argument, because it shows that rising prices can instead help small firms. I will therefore need to control for local price growth to separate this channel from bank crowding-out.
+
+### Jordà, Schularick and Taylor (2014), "The Great Mortgaging: Housing Finance, Crises, and Business Cycles", NBER WP 20501
+
+The paper builds the JST database: 17 economies followed since the 1870s. The share of mortgages on bank balance sheets has almost doubled. This evolution depends heavily on each country's legislation, as the comparison between the United States and Germany shows, and is therefore partly the result of policy choices, such as credit regulation in the 1950s. Empirically, the authors use a logit and the AUC to classify pre-crisis periods; I wonder whether the Lévy area could play a similar role.
+
+This is the starting stylized fact, the long-run shift towards mortgages that the last link tries to explain, and the database that will allow me to place the thesis results within the global trend.
+
+### Bernstein (2023), "Bank Loans and the Real Economy: Evidence from the 19th Century", master's thesis
+
+A currency revaluation in the United States creates an exogenous shock to bank credit. Because credit was heavily regulated at the time, this shock translates into more lending to firms and higher total factor productivity. Credit controls do not necessarily lead to misallocation.
+
+This work shows that credit allocation to firms can be studied using a historical shock, and that regulation can steer credit towards production. It also gives a fairly concrete idea of what a master's thesis can reasonably aim for on this kind of question.
+
+## The model
+
+The model has two blocks: a bank that allocates its loans between mortgages and firms under a capital constraint, and firms that borrow either from the bank or on markets. The bank is written in the short run, when its capital is fixed, and in the long run, when it can choose it, first in a baseline version and then in an extended one. The framework draws on the mechanism of Chakraborty, Goldstein and MacKinlay, with a risk-weighted capital constraint as in the Basel accords.
+
+### Notation
+
+| Symbol | Meaning |
+|---|---|
+| $L^m_t,\ L^f_t$ | Mortgage loans, loans to firms |
+| $S_t$ | Safe asset (reserves, government bonds) |
+| $D_t$ | Deposits and other non-equity funding |
+| $N_t$ | Equity |
+| $R^m_t,\ R^f_t,\ R^s_t$ | Rates on mortgages, on loans to firms, on the safe asset |
+| $R^d_t$ | Cost of non-equity funding |
+| $R^e_t$ | Return required by shareholders ($R^e_t > R^d_t$) |
+| $\omega^m,\ \omega^f$ | Regulatory risk weights ($\omega^m < \omega^f$; Basel I: 0.5 and 1) |
+| $\phi$ | Maximum leverage on risk-weighted assets (Basel I: 1/0.08 = 12.5) |
+| $\lambda_t$ | Multiplier on the capital constraint: value of one extra euro of capital |
+| $\delta^m,\ \delta^f$ | Default probabilities |
+| $\rho^m_t,\ \rho^f_t$ | Recovery rates in case of default |
+| $c^m,\ c^f$ | Information costs per euro lent |
+| $P_t,\ \ell,\ \theta^m$ | House price, loan-to-value ratio, share of value recovered after foreclosure |
+| $R^b_t$ | Bond rate, at which large firms borrow |
+
+### The bank in the short run
+
+In the short run, equity $N_t$ is fixed: the bank cannot raise capital. It chooses its mortgages, its loans to firms, its safe assets and its deposits to maximize interest received net of interest paid, subject to two constraints: a balanced balance sheet, and risk-weighted loans that do not exceed $\phi$ times its equity.
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t} \quad & R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t && \text{(interest received minus interest paid)} \\
+\text{s.t.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(balance sheet)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(risk-weighted capital constraint)} \\
+& L^m_t,\; L^f_t,\; S_t \geq 0
+\end{aligned}
+$$
+
+The balance sheet lets us eliminate deposits from the objective:
+
+$$
+\begin{aligned}
+D_t &= L^m_t + L^f_t + S_t - N_t && \text{(balance sheet rewritten)} \\
+\pi^B_t &= R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t\,(L^m_t + L^f_t + S_t - N_t) && \text{(substituting } D_t\text{)} \\
+&= (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t && \text{(collecting terms)}
+\end{aligned}
+$$
+
+The Lagrangian attaches the multiplier $\lambda_t$ to the capital constraint:
+
+$$
+\mathcal{L} = (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+$$
+
+First-order conditions:
+
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial L^m_t} = R^m_t - R^d_t - \lambda_t\,\omega^m &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^m_t - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = R^f_t - R^d_t - \lambda_t\,\omega^f &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^f_t - R^d_t}{\omega^f} \\
+\frac{\partial \mathcal{L}}{\partial S_t} = R^s_t - R^d_t &= 0 \;\Leftrightarrow\; R^s_t = R^d_t
+\end{aligned}
+$$
+
+Equating the two expressions for $\lambda_t$:
+
+$$
+\begin{aligned}
+\underbrace{\frac{R^m_t - R^d_t}{\omega^m}}_{\substack{\text{return on one euro of capital}\\ \text{allocated to mortgages}}} &= \underbrace{\frac{R^f_t - R^d_t}{\omega^f}}_{\substack{\text{return on one euro of capital}\\ \text{allocated to loans to firms}}} && \text{(the two expressions for } \lambda_t\text{)} \\[12pt]
+\Leftrightarrow\; R^f_t &= R^d_t + \underbrace{\frac{\omega^f}{\omega^m}}_{\substack{=\,2 \text{ under}\\ \text{Basel I}}} \underbrace{\big(R^m_t - R^d_t\big)}_{\substack{\text{mortgage}\\ \text{margin}}} && \text{(multiplying by } \omega^f \text{ and solving for } R^f_t\text{)}
+\end{aligned}
+$$
+
+Each fraction measures what one euro of capital earns in each type of loan: the margin, divided by the capital the loan uses up. At the optimum, the bank is indifferent between the two uses, so the two returns are equal to $\lambda_t$. With Basel I weights, the margin required from firms is twice the mortgage margin. The shock that triggers crowding-out is a rise in mortgage demand: with fixed capital, it raises $R^m_t$, and therefore $R^f_t$.
+
+On the quantity side, the binding constraint directly gives crowding-out:
+
+$$
+\begin{aligned}
+\omega^m L^m_t + \omega^f L^f_t &= \phi N_t && \text{(binding constraint)} \\
+\omega^m\, dL^m_t + \omega^f\, dL^f_t &= 0 && \text{(differentiating, with } dN_t = 0\text{)} \\
+\Leftrightarrow\; dL^f_t &= -\underbrace{\frac{\omega^m}{\omega^f}}_{\substack{=\,0.5 \text{ under}\\ \text{Basel I}}}\, dL^m_t && \text{(solving for } dL^f_t\text{)}
+\end{aligned}
+$$
+
+Each extra euro of mortgages therefore removes 50 cents of loans to firms. Note that it is the rigidity of capital that creates crowding-out: with equal weights, it would still exist. The weights only set the gap between the two rates and the exchange rate between the two types of loans.
+
+In practice, banks keep a buffer above the regulatory minimum. I therefore interpret $\phi$ as the bank's target ratio: since raising capital is costly in the short run, the bank behaves as if the constraint were binding. This yields a testable prediction: crowding-out should be stronger for banks with a thin buffer.
+
+### The bank in the long run
+
+In the long run, equity becomes a choice variable, and shareholders require a return $R^e_t$ above the cost of deposits.
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t,\;N_t} \quad & R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t - R^e_t N_t && \text{(shareholders must also be paid)} \\
+\text{s.t.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(balance sheet)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(capital constraint)} \\
+& L^m_t,\; L^f_t,\; S_t,\; N_t \geq 0
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\pi^B_t &= R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t\,(L^m_t + L^f_t + S_t - N_t) - R^e_t N_t && \text{(substituting } D_t\text{)} \\
+&= (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t - (R^e_t - R^d_t)N_t && \text{(the } N_t \text{ terms combine)} \\[8pt]
+\mathcal{L} &= \pi^B_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t) && \text{(Lagrangian)}
+\end{aligned}
+$$
+
+The first-order conditions are the same as in the short run, plus one condition on equity:
+
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial N_t} = -(R^e_t - R^d_t) + \lambda_t\,\phi &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^e_t - R^d_t}{\phi} \\
+\frac{\partial \mathcal{L}}{\partial L^m_t} = R^m_t - R^d_t - \lambda_t\,\omega^m &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^m_t - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = R^f_t - R^d_t - \lambda_t\,\omega^f &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^f_t - R^d_t}{\omega^f}
+\end{aligned}
+$$
+
+The condition on $N_t$ pins down $\lambda_t$ from given parameters. Substituting it into the other two:
+
+$$
+\begin{aligned}
+\frac{R^m_t - R^d_t}{\omega^m} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions on } L^m_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; R^m_t &= R^d_t + \underbrace{\frac{\omega^m}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro of mortgage}}} && \text{(multiplying by } \omega^m\text{)} \\[12pt]
+\frac{R^f_t - R^d_t}{\omega^f} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions on } L^f_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; R^f_t &= R^d_t + \underbrace{\frac{\omega^f}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro lent to firms}}} && \text{(multiplying by } \omega^f\text{)}
+\end{aligned}
+$$
+
+The short-run condition still holds (dividing one equation by the other gives it back), but two things change. First, the relative disadvantage of firms persists: as long as $\omega^f > \omega^m$, they permanently pay a higher margin than mortgages, for instance 0.8% versus 0.4% with $R^e_t - R^d_t = 10\%$ and $\phi = 12.5$. This could help explain a durably high mortgage share. Second, crowding-out in levels disappears: the rate charged to firms no longer depends on $R^m_t$ or on $\omega^m$. A rise in mortgage demand leads the bank to raise capital rather than cut its loans to firms:
+
+$$
+\begin{aligned}
+\omega^m\, dL^m_t + \omega^f\, dL^f_t &= \phi\, dN_t && \text{(differentiating, } N_t \text{ adjusts)} \\
+\omega^m\, dL^m_t &= \phi\, dN_t && \text{(the firm rate does not move, so } dL^f_t = 0\text{)} \\
+\Leftrightarrow\; dN_t &= \underbrace{\frac{\omega^m}{\phi}\, dL^m_t}_{\substack{\text{new capital finances}\\ \text{the extra mortgages}}} && \text{(dividing by } \phi\text{)}
+\end{aligned}
+$$
+
+This long run assumes the bank can raise as much capital as it wants at a constant cost, which is obviously a simplification. The two versions should therefore be read as two polar cases: an infinite cost of capital in the short run, a constant one in the long run. Reality most likely lies somewhere in between.
+
+### Extended version, short run
+
+Basel weights are only one reason to prefer mortgages. The extended version adds three elements for each type of loan. The first is a default probability, $\delta^m$ for mortgages and $\delta^f$ for firms. The second is a recovery rate, that is, what the bank recovers per euro lent in case of default: $\rho^m_t$ for mortgages, which depends on the expected future house price, and $\rho^f_t$ for firms, whose assets are hard to resell. The third is an information cost per euro lent: $c^f$ for firms, whose projects must each be assessed, and $c^m$ for mortgages, which is lower because they are standardized.
+
+The mortgage recovery rate depends on house prices:
+
+$$
+\rho^m_t = \underbrace{\theta^m}_{\substack{\text{share recovered}\\ \text{after foreclosure}}} \; \underbrace{\frac{\mathbb{E}_t[P_{t+1}]}{\ell\, P_t}}_{\substack{\text{expected value of the house}\\ \text{per euro lent}}}
+$$
+
+Let $A^m_t$ and $A^f_t$ denote the average return on one euro lent:
+
+$$
+A^m_t = \underbrace{(1-\delta^m)\,R^m_t}_{\text{repaid}} + \underbrace{\delta^m \rho^m_t}_{\substack{\text{collateral sold}\\ \text{in case of default}}} \qquad\qquad A^f_t = \underbrace{(1-\delta^f)\,R^f_t}_{\text{repaid}} + \underbrace{\delta^f \rho^f_t}_{\substack{\text{collateral sold}\\ \text{in case of default}}}
+$$
+
+The program is the same as before, with these average returns and the information costs:
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t} \quad & (A^m_t - c^m)\,L^m_t + (A^f_t - c^f)\,L^f_t + R^s_t S_t - R^d_t D_t \\
+\text{s.t.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(balance sheet)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(capital constraint)} \\
+& L^m_t,\; L^f_t,\; S_t \geq 0
+\end{aligned}
+$$
+
+Eliminating $D_t$ with the balance sheet, as above:
+
+$$
+\mathcal{L} = (A^m_t - c^m - R^d_t)L^m_t + (A^f_t - c^f - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+$$
+
+First-order conditions:
+
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial L^m_t} = A^m_t - c^m - R^d_t - \lambda_t\,\omega^m &= 0 \;\Leftrightarrow\; \lambda_t = \frac{A^m_t - c^m - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = A^f_t - c^f - R^d_t - \lambda_t\,\omega^f &= 0 \;\Leftrightarrow\; \lambda_t = \frac{A^f_t - c^f - R^d_t}{\omega^f} \\
+\frac{\partial \mathcal{L}}{\partial S_t} = R^s_t - R^d_t &= 0 \;\Leftrightarrow\; R^s_t = R^d_t
+\end{aligned}
+$$
+
+Equating the two expressions for $\lambda_t$ and solving for the firm rate:
+
+$$
+\begin{aligned}
+\frac{A^f_t - c^f - R^d_t}{\omega^f} &= \frac{A^m_t - c^m - R^d_t}{\omega^m} && \text{(the two expressions for } \lambda_t\text{)} \\
+\Leftrightarrow\; A^f_t &= R^d_t + c^f + \frac{\omega^f}{\omega^m}\big(A^m_t - c^m - R^d_t\big) && \text{(multiplying by } \omega^f \text{ and solving)} \\[6pt]
+\Leftrightarrow\; (1-\delta^f)\,R^f_t &= \underbrace{R^d_t}_{\substack{\text{funding}\\ \text{cost}}} + \underbrace{c^f}_{\substack{\text{information}\\ \text{cost}}} - \underbrace{\delta^f \rho^f_t}_{\substack{\text{recovered}\\ \text{in default}}} + \underbrace{\frac{\omega^f}{\omega^m}\big(A^m_t - c^m - R^d_t\big)}_{\substack{\text{what the same capital would}\\ \text{earn in mortgages}}} && \text{(substituting } A^f_t\text{)}
+\end{aligned}
+$$
+
+Substituting $A^m_t$ and $\rho^m_t$, house prices appear explicitly:
+
+$$
+R^f_t = \frac{1}{1-\delta^f}\Big[R^d_t + c^f - \delta^f \rho^f_t + \frac{\omega^f}{\omega^m}\Big(\underbrace{(1-\delta^m)R^m_t}_{\substack{\text{mortgage}\\ \text{rate}}} + \underbrace{\delta^m \theta^m \frac{\mathbb{E}_t[P_{t+1}]}{\ell P_t}}_{\substack{\text{expected}\\ \text{price growth}}} - c^m - R^d_t\Big)\Big]
+$$
+
+The rate charged to firms covers the funding cost and the information cost, minus what the bank recovers in default, plus the opportunity cost of not putting that capital into mortgages. Anything that makes mortgages more profitable therefore crowds out firms: a higher mortgage rate, but also simply higher expected house prices, which raise collateral values even if the mortgage rate does not move. The ratio of risk weights amplifies the effect. The negative coefficient on $R^d_t$ in the expanded form is not a paradox: when the funding cost rises, the mortgage rate rises too, and the firm rate does increase overall.
+
+### Extended version, long run
+
+Same program, with capital chosen by the bank and the return required by shareholders:
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t,\;N_t} \quad & (A^m_t - c^m)\,L^m_t + (A^f_t - c^f)\,L^f_t + R^s_t S_t - R^d_t D_t - R^e_t N_t \\
+\text{s.t.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(balance sheet)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(capital constraint)} \\
+& L^m_t,\; L^f_t,\; S_t,\; N_t \geq 0
+\end{aligned}
+$$
+
+$$
+\mathcal{L} = (A^m_t - c^m - R^d_t)L^m_t + (A^f_t - c^f - R^d_t)L^f_t + (R^s_t - R^d_t)S_t - (R^e_t - R^d_t)N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+$$
+
+The conditions on $L^m_t$, $L^f_t$ and $S_t$ are unchanged. The condition on equity is added:
+
+$$
+\frac{\partial \mathcal{L}}{\partial N_t} = -(R^e_t - R^d_t) + \lambda_t\,\phi = 0 \;\Leftrightarrow\; \lambda_t = \frac{R^e_t - R^d_t}{\phi}
+$$
+
+Substituting $\lambda_t$ into the conditions on $L^f_t$ and $L^m_t$ and solving for the two rates:
+
+$$
+\begin{aligned}
+\frac{A^f_t - c^f - R^d_t}{\omega^f} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions on } L^f_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; (1-\delta^f)\,R^f_t &= R^d_t + c^f - \delta^f \rho^f_t + \underbrace{\frac{\omega^f}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro lent to firms}}} && \text{(multiplying by } \omega^f \text{ and solving)} \\[12pt]
+\frac{A^m_t - c^m - R^d_t}{\omega^m} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions on } L^m_t \text{ and } N_t\text{)} \\
+\Leftrightarrow\; (1-\delta^m)\,R^m_t &= R^d_t + c^m - \underbrace{\delta^m \rho^m_t}_{\substack{\text{depends on}\\ \text{expected prices}}} + \underbrace{\frac{\omega^m}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{cost of the capital used}\\ \text{by one euro of mortgage}}} && \text{(same steps)}
+\end{aligned}
+$$
+
+The firm rate no longer contains $R^m_t$ or $\rho^m_t$: in the long run, neither a housing boom nor expectations of rising prices change the rate firms pay. However, firms remain durably disadvantaged by their risk weight, their default risk, collateral that is hard to resell and their information cost. This is what I call a structural preference of banks for mortgages, independent of booms. The mortgage equation also reveals a loop: if the bank expects prices to rise, $\rho^m_t$ increases and it accepts a lower mortgage rate, which supports housing demand, and therefore prices.
+
+### Firms
+
+The firm block translates the rise in the bank rate into effects on the size and number of firms, and introduces the distinction between tradable (T) and non-tradable (NT) firms. A firm $i$ has productivity $z_i$ and produces with capital, with decreasing returns ($0 < \alpha < 1$). It borrows all of its capital at rate $R_t$, which equals $R^f_t$ if it goes through the bank and $R^b_t$ if it issues bonds. The price of the tradable good is set outside the region, the price of the non-tradable good by local equilibrium.
+
+$$
+y_{i,t} = z_i\, k_{i,t}^{\alpha} \qquad\qquad p_{T,t} = 1 \qquad\qquad p_{NT,t} \text{ set by local equilibrium}
+$$
+
+The tradable firm chooses its capital to maximize profit:
+
+$$
+\begin{aligned}
+\max_{k_{i,t} \geq 0} \quad & \pi^T_{i,t} = z_i\, k_{i,t}^{\alpha} - R_t\, k_{i,t} \\[6pt]
+\frac{\partial \pi^T_{i,t}}{\partial k_{i,t}} = \alpha\, z_i\, k_{i,t}^{\alpha-1} - R_t &= 0 \\
+\Leftrightarrow\; k^{T*}_{i,t} &= \Big(\frac{\alpha\, z_i}{R_t}\Big)^{\frac{1}{1-\alpha}} && \text{(raising to the power } \tfrac{1}{\alpha-1}\text{)} \\
+\pi^{T*}_{i,t} &= (1-\alpha)\, z_i\,(k^{T*}_{i,t})^{\alpha} && \text{(since } R_t k^{T*}_{i,t} = \alpha z_i (k^{T*}_{i,t})^{\alpha}\text{)} \\
+&= (1-\alpha)\, z_i^{\frac{1}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} && \text{(substituting } k^{T*}_{i,t}\text{)}
+\end{aligned}
+$$
+
+The non-tradable firm does the same computation with the local price, which it takes as given:
+
+$$
+\begin{aligned}
+\max_{k_{i,t} \geq 0} \quad & \pi^{NT}_{i,t} = p_{NT,t}\, z_i\, k_{i,t}^{\alpha} - R_t\, k_{i,t} \\[6pt]
+\Rightarrow\; k^{NT*}_{i,t} &= \Big(\frac{\alpha\, p_{NT,t}\, z_i}{R_t}\Big)^{\frac{1}{1-\alpha}}, \qquad \pi^{NT*}_{i,t} = (1-\alpha)\,\big(p_{NT,t}\, z_i\big)^{\frac{1}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} && \text{(same steps)}
+\end{aligned}
+$$
+
+The firm chooses bonds if the gain from a lower rate exceeds the fixed issuance cost $F$. This gain increases with productivity while $F$ is fixed: above some threshold, firms switch to bonds, and these are the large firms. A bank-dependent firm stays in business only if its profit covers a fixed operating cost $c^o$, and this survival threshold rises with $R^f_t$.
+
+$$
+\underbrace{\max\Big\{\, \pi^*_{i,t}(R^f_t)\;,\;\; \pi^*_{i,t}(R^b_t) - F \,\Big\}}_{\text{bank or bonds}} \qquad\qquad \underbrace{\pi^*_{i,t}(R^f_t) \geq c^o \;\Leftrightarrow\; z_i \geq z^{\min}_{s,t}(R^f_t)}_{\substack{\text{survival: the productivity threshold}\\ \text{rises with the bank rate}}}
+$$
+
+In the non-tradable market, households spend a share $\beta$ of their expenditure $E_t$ on non-tradable goods, and $Z$ denotes the aggregate productivity of the sector:
+
+$$
+\begin{aligned}
+Y_{NT,t} &= \sum_i z_i\,(k^{NT*}_{i,t})^{\alpha} = p_{NT,t}^{\frac{\alpha}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} Z && \text{(with } Z = \textstyle\sum_i z_i^{\frac{1}{1-\alpha}}\text{)} \\
+p_{NT,t}\, Y_{NT,t} &= \beta\, E_t && \text{(household spending = firm sales)} \\
+\Leftrightarrow\; p_{NT,t} &= \Big[\frac{\beta E_t}{Z}\Big(\frac{R_t}{\alpha}\Big)^{\frac{\alpha}{1-\alpha}}\Big]^{1-\alpha} && \text{(solving for the price)} \\
+\Rightarrow\; d\ln p_{NT,t} &= \underbrace{(1-\alpha)\, d\ln E_t}_{\substack{\text{local demand}\\ \text{raises the price}}} + \underbrace{\alpha\, d\ln R_t}_{\substack{\text{so does the}\\ \text{cost of credit}}} && \text{(taking logs and differentiating)}
+\end{aligned}
+$$
+
+For a small firm borrowing from the bank, the effect of a higher bank rate is then:
+
+$$
+\begin{aligned}
+d\ln k^*_{i,t} &= \tfrac{1}{1-\alpha}\big(d\ln p_{s,t} - d\ln R^f_t\big) && \text{(log of } k^*\text{)} \\[6pt]
+\text{Tradable:}\quad d\ln k^{T*}_{i,t} &= \underbrace{-\tfrac{1}{1-\alpha}\, d\ln R^f_t}_{\substack{\text{fixed price: only the rate matters,}\\ \text{with no compensation}}} && \text{(since } d\ln p_{T,t} = 0\text{)} \\[6pt]
+\text{Non-tradable:}\quad d\ln k^{NT*}_{i,t} &= \underbrace{d\ln E_t}_{\substack{\text{gains from}\\ \text{local demand}}} - \underbrace{d\ln R^f_t}_{\substack{\text{loses from}\\ \text{the rate}}} && \text{(substituting } d\ln p_{NT,t} \text{ and simplifying)}
+\end{aligned}
+$$
+
+Large firms borrow at $R^b_t$, which does not move. During a credit boom, when the bank rate and local spending rise together, the small tradable firm bears the full rate increase without compensation, while the small non-tradable firm can grow if local spending rises faster than the rate. Without a local boom, that is, with unchanged local spending, both small firms lose, the tradable one more so: the relevant difference becomes the one between small and large firms. This is precisely the setting of the empirical test.
+
+## Identification strategy
+
+Identification targets the second and third links: when real estate becomes more attractive to a bank, for reasons unrelated to its client firms, do these firms, and especially the small ones, pay the price? The last link, long-run persistence, is for now carried by the model.
+
+### What we want to measure
+
+The goal is not to estimate each parameter of the model separately, but to check that the effects it predicts show up, with the expected shape. On the bank side, the short-run model predicts that banks pushed towards real estate increase their mortgage lending and cut their lending to small businesses. On the firm side, it predicts lower activity for small bank-dependent firms, but not for large ones. Since crowding-out only exists when the capital constraint binds, it should be stronger for poorly capitalized banks. Finally, following the effect over several years makes it possible to tell the short run from the long run: if the effect fades out, capital has adjusted; if it persists, something prevents that adjustment.
+
+### Bank exposure to booms elsewhere
+
+In a county where house prices are soaring, everything moves at once: local activity, local demand, the value of business owners' homes. Directly comparing counties where prices rise with counties where they do not would therefore not isolate the effect I am interested in. The idea is instead to find what pushes a county's banks towards real estate while nothing changes in that county: housing booms in the other regions where these banks operate. A bank present in both Toledo and Miami that sees house prices soar in Miami concentrates its lending there and, if its capital is constrained, lends less to small firms in Toledo.
+
+$$
+\text{Expo}_{c,t} = \sum_b \underbrace{s_{b,c}}_{\substack{\text{share of bank } b \text{ in small}\\ \text{business lending in county } c}} \sum_{j \neq c} \underbrace{w_{b,j}}_{\substack{\text{weight of county } j\\ \text{in the deposits of } b}} \; \underbrace{\Delta HPI_{j,t}}_{\substack{\text{house price}\\ \text{growth in } j}}
+$$
+
+Each bank's share is measured at the start of the period with CRA data, the weights of other counties with FDIC deposits (Summary of Deposits), and price growth with the FHFA index. For example, if bank A accounts for 60% of small business lending in Toledo and experiences a 14.9% boom in its other counties, and bank B for 40% with a 2% boom, Toledo's exposure is 0.6 × 14.9% + 0.4 × 2%, or about 9.7%.
+
+An endogeneity problem remains: if prices rise in Miami because Miami's economy is doing well, the bank may also earn more there, which would help it lend more everywhere. I therefore use the Saiz (2010) instrument, which measures constraints on construction in each metropolitan area (geography, zoning regulation), and keep only the part of price growth explained by these constraints:
+
+$$
+\Delta HPI_{j,t} = a_t + b_t\, \underbrace{\frac{1}{e_j}}_{\substack{\text{construction constraints}\\ \text{in } j \text{ (Saiz)}}} + u_{j,t}
+$$
+
+Where housing supply is rigid, the same increase in demand translates into a larger price increase. This component of price growth is, in principle, independent of local economic conditions.
+
+### Link with the model
+
+In the model, exposure raises the expected return on mortgages $A^m_t$ for the county's banks, through the mortgage rate and the expected value of collateral, without changing anything for the county's firms. With fixed capital, this raises the rate charged to firms $R^f_t$ and lowers lending to them. On the firm side, since the boom happens elsewhere, local spending does not move: all small bank-dependent firms should lose relative to large firms, which borrow at $R^b_t$.
+
+### Step 1: the bank side
+
+The first step checks whether exposure increases the mortgage lending of the county's banks (HMDA, Call Reports) and reduces their small business lending (CRA). The ratio of the two effects measures the crowding-out slope, which the model links to the ratio of risk weights. I then check whether the effect is concentrated among banks with the lowest capital ratios, which directly tests the role of the capital constraint.
+
+### Step 2: the effect on firms
+
+A small firm that gets less credit from its bank can turn to another one. Step 2 therefore checks that the drop in credit has real effects. Each observation is a group of establishments in the same county $c$, the same industry $s$ and the same size class $k$, followed $h$ years after the shock, from 1 to 15 years:
+
+$$
+\underbrace{Y_{c,s,k,t+h} - Y_{c,s,k,t-1}}_{\substack{\text{change in employment or in the number}\\ \text{of establishments over } h \text{ years}}} = \underbrace{\beta_h\, \text{Expo}_{c,t} \times \text{Small}_k}_{\substack{\text{effect of exposure on small}\\ \text{establishments relative to large ones}}} + \underbrace{\theta_h\, \Delta HPI_{c,t} \times \text{Small}_k}_{\substack{\text{local price growth:}\\ \text{owner's home channel}}} + \underbrace{\delta_{c,t}}_{\substack{\text{everything affecting}\\ \text{the whole county}}} + \underbrace{\mu_{s,k,t}}_{\substack{\text{national trends by}\\ \text{industry and size}}} + \varepsilon_{c,s,k,t+h}
+$$
+
+The coefficient of interest $\beta_h$ compares small establishments with large ones within the same county, across more or less exposed counties; the model predicts it to be negative. The county × year fixed effect absorbs everything that affects the county as a whole, such as a recession or local demand. The industry × size × year fixed effect absorbs national trends specific to each industry and size class. The local price growth term captures the Adelino, Schoar and Severino channel, so that it is not confused with bank crowding-out. If $Y$ is the number of establishments, a decline corresponds to the survival threshold in the model.
+
+Since the shock does not create a local boom, the central comparison is between small and large firms. The tradable/non-tradable distinction serves as a robustness check: the regression is re-estimated on tradable industries only (manufacturing), whose demand does not depend on local conditions.
+
+### Data
+
+All the data used are public and free.
+
+| Dataset | What I use | Level and period |
+|---|---|---|
+| [County Business Patterns](https://m.nber.org/ftp/cbp/) (Census) | Establishments and employment by size class and industry (NAICS) | County, annual, since the 1980s |
+| [CRA](https://www.ffiec.gov/craadweb/naaginfs.htm) (FFIEC) | Small business lending by bank and county | Since 1996 |
+| HMDA (FFIEC) | Mortgage lending by bank and area | Since the 1990s |
+| Summary of Deposits (FDIC) | Deposits by branch: where each bank operates | Annual, since 1994 |
+| Call Reports (FFIEC) | Bank balance sheets: capital, mortgage lending, business lending | Quarterly, long period |
+| FHFA index | House prices by county or metropolitan area | Since the 1970s to 1990s depending on the level |
+| Saiz elasticity | Construction constraints by metropolitan area | One value per area |
+| [JST Macrohistory](https://www.nber.org/research/data/jorda-schularick-taylor-macrohistory) | Mortgage and non-mortgage credit, 17 countries since 1870 | Country × year |
+
+## Extensions
+
+These extensions go beyond the scope of the thesis and rather sketch the broader research project I would like to pursue.
+
+### What we might find
+
+Several outcomes are possible, and each would say something different about the model. If small establishments in exposed counties lose ground relative to large ones, and the gap then closes after a few years, this would match the short-run model followed by banks adjusting their capital. If the gap does not close, one would need to explain why capital does not adjust, or why exiting firms do not come back, which brings us to the last link. If the effect is concentrated among poorly capitalized banks, this would be a good sign that the capital constraint is indeed what drives crowding-out. Finally, no effect on firms while banks cut their lending would mean that small firms find credit elsewhere, which would be a result in itself.
+
+### Extending the model
+
+The first extension would be to complete the last link. The long-run model explains a durably high mortgage share, but not yet a lasting decline in the level of credit to small firms. This requires a friction: a cost of capital that rises with bank size, tightening regulation, or firms that exited during the short-run phase and do not come back because of high entry costs. With a cost of capital that depends on the amount raised, the condition on equity becomes:
+
+$$
+\lambda_t = \frac{\overbrace{R^e_t(N_t) + R^{e\prime}_t(N_t)\, N_t}^{\substack{\text{marginal cost of capital,}\\ \text{increasing in } N_t}} - R^d_t}{\phi}
+$$
+
+A housing boom then pushes the bank to raise capital, which increases its cost, and hence $\lambda_t$ and the firm rate: crowding-out is partial but does not disappear. The two current versions are its limit cases.
+
+The second extension would be to endogenize the loop between prices and collateral, by adding an equation linking house prices to mortgage credit when housing supply is rigid. The rise in $\rho^m_t$ would then no longer be exogenous but generated by the model. The third would be to introduce the collateral channel on the firm side, by capping a small firm's borrowing at a fraction of the value of its owner's home. This would make it possible to separate, in the model as in the data, bank crowding-out from the effect highlighted by Adelino, Schoar and Severino.
+
+### Other directions
+
+Basel I (1988) set the risk weight on mortgages at half that of business loans. In the model, this corresponds to a fall in $\omega^m$, which raises the rate charged to firms in the short run: banks that were already close to their constraint in 1988 should have reacted the most. This historical part would rely on bank balance sheets, since county-level data start later.
+
+One could also move from the relative effect across counties to the global trend observed in JST. At the global scale, the relevant distinction becomes the one between land and productive capital. The idea would be to compare countries by the intensity of their shift towards mortgages, while being careful about the direction of causality: credit may have gone to real estate because firms demanded less of it. Germany, where business credit has grown faster than household credit, would be an interesting point of comparison.
+
+Finally, the Lévy area could be used to describe the order in which mortgage credit and business credit move, in the spirit of the logit and AUC in Jordà, Schularick and Taylor, with conclusions about prediction rather than causality.
+
+## Limitations
+
+On the data side, the CRA only covers banks above a certain size threshold, whereas small local banks lend a lot to small firms. It only starts in 1996, which limits the period studied. The County Business Patterns count establishments, not firms: a large firm can have small establishments, which blurs the comparison between small and large. The Saiz instrument is debated, since construction constraints could themselves be related to demand. Finally, JST only covers bank credit, and therefore underestimates securitized mortgages, especially in the United States.
+
+On the methods side, the test measures relative effects across counties: a boom common to the whole country drops out of the comparison, and the aggregate effect cannot be inferred directly. On the model side, the long run assumes banks can raise as much capital as they want at a constant cost, which is a strong assumption, and house prices remain exogenous.
+
+Anyway, there is still a lot of work to do, but that is also what makes the project fun. If you have comments or ideas, I would be glad to hear them!
