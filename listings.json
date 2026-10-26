@@ -6,8 +6,10 @@
     ]
   },
   {
-    "listing": "/exposes.html",
-    "items": []
+    "listing": "/datavis.html",
+    "items": [
+      "/datavis/exemple-datavis.html"
+    ]
   },
   {
     "listing": "/cours.html",
@@ -16,9 +18,7 @@
     ]
   },
   {
-    "listing": "/datavis.html",
-    "items": [
-      "/datavis/exemple-datavis.html"
-    ]
+    "listing": "/exposes.html",
+    "items": []
   }
 ]
