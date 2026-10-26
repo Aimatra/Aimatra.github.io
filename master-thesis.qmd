@@ -1,0 +1,452 @@
+---
+title: "Crédit hypothécaire, éviction du crédit et taille des firmes"
+subtitle: "Projet de mémoire de M2, Sciences Po"
+date: 2026-10-24
+toc: true
+toc-title: "Sommaire"
+number-sections: false
+---
+
+## Introduction
+
+Depuis les années 1950, la part du crédit bancaire qui va aux prêts hypothécaires n'a pas cessé de monter. Dans les données de Jordà, Schularick et Taylor (JST), elle passe de 38 % à 62 % des prêts depuis 1960, tandis que la part des prêts aux entreprises tombe de 59 % à 38 %. La question que je pose est de savoir si ce déplacement a durablement évincé le crédit aux petites firmes, qui dépendent des banques, au profit des grandes, qui peuvent se financer sur les marchés obligataires.
+
+Le mécanisme envisagé se lit comme une chaîne. Le crédit facile passe d'abord par la demande des ménages et fait monter les prix de l'immobilier. Cette hausse rend l'hypothécaire plus attrayant pour les banques qui, avec un capital limité, demandent alors un taux plus élevé aux firmes. Les petites firmes, qui ne peuvent pas aller sur les marchés, investissent moins ou disparaissent. Enfin, ce mouvement pourrait se maintenir dans la durée, même en dehors des booms, parce que les banques gardent une préférence structurelle pour l'hypothécaire.
+
+Le premier maillon de cette chaîne vient de la littérature, le modèle présenté plus bas couvre les trois suivants. Dans mon mémoire, je n'en testerais que deux, le deuxième et le troisième : quand l'immobilier devient plus attrayant pour une banque, pour une raison qui n'a rien à voir avec ses clients, les petites firmes qui empruntent auprès d'elle en paient-elles le prix ? C'est la partie que l'on peut identifier proprement avec des données publiques américaines. Le dernier maillon, la persistance de long terme et le passage à la tendance globale observée dans JST, relève d'un projet de recherche plus large.
+
+La page présente d'abord la littérature lue, puis le modèle, la stratégie d'identification, les extensions possibles et enfin les limites.
+
+## Revue de littérature
+
+Six références servent de point de départ. Pour chacune, je résume ce qu'elle montre, puis la façon dont elle sert le projet.
+
+### Mian, Sufi et Verner (2017), « How Do Credit Supply Shocks Affect the Real Economy? Evidence from the United States in the 1980s », NBER WP 23802
+
+Le papier étudie le boom du crédit des années 1980 aux États-Unis. Les États les plus exposés à l'expansion du crédit connaissent une hausse plus forte de la dette des ménages et du prix relatif des biens non échangeables, typiquement le logement. L'expansion du crédit passe par le canal de la demande et n'a pas d'effet sur la productivité du travail.
+
+Cela pose une question : pourquoi le crédit ne va-t-il pas vers la production ? Il existe bien un effet de garantie, mais le crédit aux firmes demande en général plus d'information, il est plus risqué, il offre moins de garantie quand la firme est locataire de ses locaux, et la réglementation de Bâle I à III le pénalise.
+
+Pour le projet, ce papier fournit le premier maillon : le crédit relâché finance la demande des ménages et fait monter les prix, sans gain de productivité. Les raisons pour lesquelles le crédit ne va pas à la production sont celles que je reprends dans le modèle de banque : le risque de défaut, la garantie, le coût d'information et les poids de risque réglementaires.
+
+### Chakraborty, Goldstein et MacKinlay (2019), « Housing Price Booms and Crowding-Out Effects in Bank Lending »
+
+Sur la période 1988–2006, les banques actives sur des marchés immobiliers dynamiques augmentent leurs prêts hypothécaires et réduisent leurs prêts commerciaux. Les firmes qui empruntent à ces banques investissent nettement moins. L'effet est plus marqué pour les firmes les plus contraintes dans leur accès au crédit, et pour les banques les plus contraintes en capital.
+
+Pour le projet, c'est le mécanisme d'éviction lui-même, mesuré pendant un boom. Je reprends l'idée d'une banque contrainte en capital qui arbitre entre l'hypothécaire et les firmes, mais en regardant l'effet sur la taille des firmes et sur plusieurs années, pas seulement sur l'investissement pendant le boom.
+
+### Müller et Verner (2023), « Credit Allocation and Macroeconomic Fluctuations », NBER WP 31420
+
+Pendant les booms de crédit, le crédit va de façon disproportionnée au secteur non échangeable, c'est-à-dire au secteur sensible à la hausse temporaire de la demande locale. Cette définition dépend de l'échelle du boom que l'on regarde : si le boom est complètement mondial, le crédit ira de façon disproportionnée vers l'immobilier. À l'inverse, les expansions du crédit vers le secteur échangeable s'accompagnent d'une croissance durable de la production et de la productivité, sans risque plus élevé de crise financière, alors que le crédit au non échangeable est amplifié par la boucle entre le crédit et la valeur des garanties. Il faut donc faire attention : les petites firmes du non échangeable profitent pleinement du boom, et doivent être bien séparées des autres.
+
+Pour le projet, ce papier justifie de séparer les firmes échangeables des non échangeables : ce sont les petites firmes échangeables qui devraient subir l'éviction sans profiter de la demande locale. Il suggère aussi que, vue à l'échelle mondiale, la distinction qui compte devient celle entre le foncier et le capital productif.
+
+### Adelino, Schoar et Severino (2013), « House Prices, Collateral and Self-Employment », NBER WP 18868
+
+Avant 2008, la hausse des prix immobiliers a facilité l'emploi dans les petites entreprises. Là où les prix montent le plus, l'emploi augmente fortement dans les secteurs qui demandent peu de capital de départ, et aussi dans l'industrie manufacturière, ce qui écarte l'explication par la demande locale et sépare cet effet du canal de la demande agrégée. Les données d'emploi viennent des County Business Patterns (US Census Bureau), par secteur NAICS, et les prix immobiliers de l'indice FHFA (Federal Housing Finance Agency). L'identification passe par un instrument : l'élasticité de l'offre de logements à la demande.
+
+Pour le projet, ce papier est à la fois un outil et un contre-argument. Un outil, parce qu'il utilise les mêmes données et le même instrument que ma stratégie d'identification. Un contre-argument, parce qu'il montre que la hausse des prix peut aider les petites firmes, en passant par la maison du dirigeant utilisée comme garantie. Dans la régression, il faudra donc contrôler la hausse des prix locale pour séparer ce canal de l'éviction par les banques.
+
+### Jordà, Schularick et Taylor (2014), « The Great Mortgaging: Housing Finance, Crises, and Business Cycles », NBER WP 20501
+
+Le papier construit la base JST : 17 économies depuis les années 1870. La part des prêts hypothécaires dans le bilan des banques a presque doublé depuis 1870. Cette évolution dépend de la législation de chaque pays, comme le montre la comparaison entre les États-Unis et l'Allemagne, et relève en grande partie de choix, par exemple la réglementation du crédit des années 1950. Empiriquement, les auteurs utilisent un logit et l'AUC pour classer les périodes avant crise ; on pourrait faire la même chose avec des aires de Lévy.
+
+Pour le projet, c'est le fait de départ : la bascule de long terme vers l'hypothécaire, que le dernier maillon cherche à expliquer. C'est aussi la base qui permettra de replacer le résultat du mémoire dans la tendance globale.
+
+### Bernstein (2023), « Bank Loans and the Real Economy: Evidence from the 19th Century », mémoire de master
+
+Une réévaluation de la monnaie aux États-Unis crée un choc extérieur sur le crédit bancaire. Comme le crédit est alors très réglementé, ce choc se traduit par plus de prêts aux firmes et une hausse de la productivité globale des facteurs. Les contrôles réglementaires sur le crédit ne s'accompagnent donc pas forcément d'une mauvaise allocation.
+
+Pour le projet, ce mémoire montre qu'on peut étudier l'allocation du crédit aux firmes à partir d'un choc historique, et que la réglementation peut orienter le crédit vers la production. Il donne aussi une idée de ce qu'un mémoire de master peut faire sur ce type de question.
+
+## Le modèle
+
+Le modèle a deux blocs : une banque qui répartit ses prêts entre l'hypothécaire et les firmes sous une contrainte de capital, et des firmes qui empruntent soit à la banque, soit sur les marchés. La banque est écrite à court terme, quand son capital est fixé, puis à long terme, quand elle peut le choisir, d'abord dans une version de base puis dans une version enrichie. Le cadre reprend le mécanisme de Chakraborty, Goldstein et MacKinlay, avec une contrainte de capital pondérée par le risque comme dans les accords de Bâle.
+
+### Notations
+
+| Symbole | Signification |
+|---|---|
+| $L^m_t,\ L^f_t$ | Prêts hypothécaires, prêts aux firmes |
+| $S_t$ | Actif sûr (réserves, obligations d'État) |
+| $D_t$ | Dépôts et autres financements non actionnaires |
+| $N_t$ | Fonds propres |
+| $R^m_t,\ R^f_t,\ R^s_t$ | Taux des prêts hypothécaires, des prêts aux firmes, de l'actif sûr |
+| $R^d_t$ | Coût de financement hors fonds propres |
+| $R^e_t$ | Rendement exigé par les actionnaires ($R^e_t > R^d_t$) |
+| $\omega^m,\ \omega^f$ | Poids de risque réglementaires ($\omega^m < \omega^f$ ; Bâle I : 0,5 et 1) |
+| $\phi$ | Levier maximal sur les actifs pondérés (Bâle I : 1/0,08 = 12,5) |
+| $\lambda_t$ | Multiplicateur de la contrainte de capital : valeur d'un euro de capital en plus |
+| $\delta^m,\ \delta^f$ | Probabilités de défaut |
+| $\rho^m_t,\ \rho^f_t$ | Taux de récupération en cas de défaut |
+| $c^m,\ c^f$ | Coûts d'information par euro prêté |
+| $P_t,\ \ell,\ \theta^m$ | Prix de l'immobilier, part du prix financée par le prêt, part de la valeur récupérée après saisie |
+| $R^b_t$ | Taux obligataire, auquel empruntent les grandes firmes |
+
+### La banque à court terme
+
+À court terme, les fonds propres $N_t$ sont fixés : la banque ne peut pas lever de capital. Elle choisit ses prêts hypothécaires, ses prêts aux firmes, son actif sûr et ses dépôts pour maximiser ses intérêts reçus moins ses intérêts versés, sous deux contraintes : son bilan doit être équilibré, et ses prêts, pondérés par leur risque, ne peuvent pas dépasser $\phi$ fois ses fonds propres.
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t} \quad & R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t && \text{(intérêts reçus moins intérêts versés)} \\
+\text{s.c.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(bilan)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(contrainte de capital pondérée par le risque)} \\
+& L^m_t,\; L^f_t,\; S_t \geq 0
+\end{aligned}
+$$
+
+On utilise le bilan pour remplacer les dépôts dans l'objectif :
+
+$$
+\begin{aligned}
+D_t &= L^m_t + L^f_t + S_t - N_t && \text{(bilan réécrit)} \\
+\pi^B_t &= R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t\,(L^m_t + L^f_t + S_t - N_t) && \text{(en remplaçant } D_t\text{)} \\
+&= (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t && \text{(en regroupant)}
+\end{aligned}
+$$
+
+Le lagrangien associe le multiplicateur $\lambda_t$ à la contrainte de capital :
+
+$$
+\mathcal{L} = (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+$$
+
+Les conditions de premier ordre :
+
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial L^m_t} = R^m_t - R^d_t - \lambda_t\,\omega^m &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^m_t - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = R^f_t - R^d_t - \lambda_t\,\omega^f &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^f_t - R^d_t}{\omega^f} \\
+\frac{\partial \mathcal{L}}{\partial S_t} = R^s_t - R^d_t &= 0 \;\Leftrightarrow\; R^s_t = R^d_t
+\end{aligned}
+$$
+
+En égalisant les deux expressions de $\lambda_t$ :
+
+$$
+\begin{aligned}
+\underbrace{\frac{R^m_t - R^d_t}{\omega^m}}_{\substack{\text{rendement d'un euro de capital}\\ \text{placé dans l'hypothécaire}}} &= \underbrace{\frac{R^f_t - R^d_t}{\omega^f}}_{\substack{\text{rendement d'un euro de capital}\\ \text{placé dans les prêts aux firmes}}} && \text{(les deux expressions de } \lambda_t\text{)} \\[12pt]
+\Leftrightarrow\; R^f_t &= R^d_t + \underbrace{\frac{\omega^f}{\omega^m}}_{\substack{=\,2 \text{ avec}\\ \text{Bâle I}}} \underbrace{\big(R^m_t - R^d_t\big)}_{\substack{\text{marge de}\\ \text{l'hypothécaire}}} && \text{(en multipliant par } \omega^f \text{ et en isolant } R^f_t\text{)}
+\end{aligned}
+$$
+
+Chaque fraction est ce que rapporte un euro de capital placé dans un type de prêt : la marge, divisée par le capital que le prêt consomme. À l'optimum, la banque doit être indifférente entre les deux usages, donc les deux rendements sont égaux et valent $\lambda_t$. Avec les poids de Bâle I, la marge exigée des firmes est le double de celle de l'hypothécaire. Le choc qui déclenche l'éviction est une hausse de la demande de prêts immobiliers : avec un capital fixé, elle fait monter $R^m_t$, et donc $R^f_t$.
+
+Côté quantités, la contrainte saturée donne directement l'éviction :
+
+$$
+\begin{aligned}
+\omega^m L^m_t + \omega^f L^f_t &= \phi N_t && \text{(contrainte saturée)} \\
+\omega^m\, dL^m_t + \omega^f\, dL^f_t &= 0 && \text{(en différentiant, avec } dN_t = 0\text{)} \\
+\Leftrightarrow\; dL^f_t &= -\underbrace{\frac{\omega^m}{\omega^f}}_{\substack{=\,0{,}5 \text{ avec}\\ \text{Bâle I}}}\, dL^m_t && \text{(en isolant } dL^f_t\text{)}
+\end{aligned}
+$$
+
+Chaque euro d'hypothécaire en plus retire 50 centimes de prêts aux firmes. Ce qui crée l'éviction, c'est que la capacité de prêt est fixe : avec des poids égaux, elle existerait quand même. Les poids fixent seulement l'écart entre les deux taux et le taux d'échange entre les deux prêts.
+
+En pratique, les banques gardent un coussin au-dessus du minimum réglementaire. Je lis donc $\phi$ comme le ratio que vise la banque : comme lever du capital coûte cher à court terme, elle se comporte comme si la contrainte était saturée. Cela donne un test du mécanisme : l'éviction doit être plus forte chez les banques qui ont peu de coussin.
+
+### La banque à long terme
+
+À long terme, les fonds propres deviennent un choix, et les actionnaires exigent un rendement $R^e_t$ plus élevé que le coût des dépôts.
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t,\;N_t} \quad & R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t - R^e_t N_t && \text{(on paie aussi les actionnaires)} \\
+\text{s.c.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(bilan)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(contrainte de capital)} \\
+& L^m_t,\; L^f_t,\; S_t,\; N_t \geq 0
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\pi^B_t &= R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t\,(L^m_t + L^f_t + S_t - N_t) - R^e_t N_t && \text{(en remplaçant } D_t\text{)} \\
+&= (R^m_t - R^d_t)L^m_t + (R^f_t - R^d_t)L^f_t + (R^s_t - R^d_t)S_t - (R^e_t - R^d_t)N_t && \text{(les termes en } N_t \text{ se regroupent)} \\[8pt]
+\mathcal{L} &= \pi^B_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t) && \text{(lagrangien)}
+\end{aligned}
+$$
+
+Les conditions de premier ordre sont les mêmes qu'à court terme, avec une condition en plus sur les fonds propres :
+
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial N_t} = -(R^e_t - R^d_t) + \lambda_t\,\phi &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^e_t - R^d_t}{\phi} \\
+\frac{\partial \mathcal{L}}{\partial L^m_t} = R^m_t - R^d_t - \lambda_t\,\omega^m &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^m_t - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = R^f_t - R^d_t - \lambda_t\,\omega^f &= 0 \;\Leftrightarrow\; \lambda_t = \frac{R^f_t - R^d_t}{\omega^f}
+\end{aligned}
+$$
+
+La condition sur $N_t$ fixe $\lambda_t$ à partir d'éléments donnés. On la remplace dans les deux autres :
+
+$$
+\begin{aligned}
+\frac{R^m_t - R^d_t}{\omega^m} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions sur } L^m_t \text{ et } N_t\text{)} \\
+\Leftrightarrow\; R^m_t &= R^d_t + \underbrace{\frac{\omega^m}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{coût du capital consommé}\\ \text{par un euro d'hypothécaire}}} && \text{(en multipliant par } \omega^m\text{)} \\[12pt]
+\frac{R^f_t - R^d_t}{\omega^f} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions sur } L^f_t \text{ et } N_t\text{)} \\
+\Leftrightarrow\; R^f_t &= R^d_t + \underbrace{\frac{\omega^f}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{coût du capital consommé}\\ \text{par un euro prêté aux firmes}}} && \text{(en multipliant par } \omega^f\text{)}
+\end{aligned}
+$$
+
+La condition de court terme reste vraie : on la retrouve en divisant une équation par l'autre. Mais il faut distinguer deux choses. D'abord, le désavantage relatif des firmes persiste : tant que $\omega^f > \omega^m$, elles paient en permanence une marge plus élevée que l'hypothécaire, par exemple 0,8 % contre 0,4 % avec $R^e_t - R^d_t = 10\,\%$ et $\phi = 12{,}5$. Cela peut expliquer une part de l'hypothécaire durablement haute. Ensuite, l'éviction en niveau disparaît : le taux des firmes ne dépend plus ni de $R^m_t$ ni de $\omega^m$. Une hausse de la demande immobilière pousse la banque à lever du capital au lieu de prendre sur les prêts aux firmes :
+
+$$
+\begin{aligned}
+\omega^m\, dL^m_t + \omega^f\, dL^f_t &= \phi\, dN_t && \text{(en différentiant, } N_t \text{ s'ajuste)} \\
+\omega^m\, dL^m_t &= \phi\, dN_t && \text{(le taux des firmes ne bouge pas, donc } dL^f_t = 0\text{)} \\
+\Leftrightarrow\; dN_t &= \underbrace{\frac{\omega^m}{\phi}\, dL^m_t}_{\substack{\text{le capital nouveau finance}\\ \text{l'hypothécaire en plus}}} && \text{(en divisant par } \phi\text{)}
+\end{aligned}
+$$
+
+Ce long terme suppose qu'on peut lever autant de capital qu'on veut à coût constant. Les deux versions sont donc deux cas extrêmes : un coût du capital infini à court terme, constant à long terme.
+
+### Version enrichie à court terme
+
+Les poids de Bâle ne sont qu'une des raisons de préférer l'hypothécaire. La version enrichie ajoute trois éléments pour chaque type de prêt. Le premier est une probabilité de défaut, $\delta^m$ pour l'hypothécaire et $\delta^f$ pour les firmes. Le deuxième est un taux de récupération, ce que la banque récupère par euro prêté en cas de défaut : $\rho^m_t$ pour l'hypothécaire, lié au prix futur attendu de la maison, et $\rho^f_t$ pour les firmes, dont la garantie se revend mal. Le troisième est un coût d'information par euro prêté : $c^f$ pour les firmes, qui demandent d'étudier chaque projet, et $c^m$ pour l'hypothécaire, faible parce que standardisé.
+
+Le taux de récupération de l'hypothécaire dépend du prix de l'immobilier :
+
+$$
+\rho^m_t = \underbrace{\theta^m}_{\substack{\text{part récupérée}\\ \text{après saisie}}} \; \underbrace{\frac{\mathbb{E}_t[P_{t+1}]}{\ell\, P_t}}_{\substack{\text{valeur attendue de la maison}\\ \text{par euro prêté}}}
+$$
+
+On note $A^m_t$ et $A^f_t$ ce que rapporte en moyenne un euro prêté :
+
+$$
+A^m_t = \underbrace{(1-\delta^m)\,R^m_t}_{\text{remboursé}} + \underbrace{\delta^m \rho^m_t}_{\substack{\text{garantie revendue}\\ \text{en cas de défaut}}} \qquad\qquad A^f_t = \underbrace{(1-\delta^f)\,R^f_t}_{\text{remboursé}} + \underbrace{\delta^f \rho^f_t}_{\substack{\text{garantie revendue}\\ \text{en cas de défaut}}}
+$$
+
+Le programme est le même qu'avant, avec ces rendements moyens et les coûts d'information :
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t} \quad & (A^m_t - c^m)\,L^m_t + (A^f_t - c^f)\,L^f_t + R^s_t S_t - R^d_t D_t \\
+\text{s.c.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(bilan)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(contrainte de capital)} \\
+& L^m_t,\; L^f_t,\; S_t \geq 0
+\end{aligned}
+$$
+
+En remplaçant $D_t$ grâce au bilan, comme plus haut :
+
+$$
+\mathcal{L} = (A^m_t - c^m - R^d_t)L^m_t + (A^f_t - c^f - R^d_t)L^f_t + (R^s_t - R^d_t)S_t + R^d_t N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+$$
+
+Les conditions de premier ordre :
+
+$$
+\begin{aligned}
+\frac{\partial \mathcal{L}}{\partial L^m_t} = A^m_t - c^m - R^d_t - \lambda_t\,\omega^m &= 0 \;\Leftrightarrow\; \lambda_t = \frac{A^m_t - c^m - R^d_t}{\omega^m} \\
+\frac{\partial \mathcal{L}}{\partial L^f_t} = A^f_t - c^f - R^d_t - \lambda_t\,\omega^f &= 0 \;\Leftrightarrow\; \lambda_t = \frac{A^f_t - c^f - R^d_t}{\omega^f} \\
+\frac{\partial \mathcal{L}}{\partial S_t} = R^s_t - R^d_t &= 0 \;\Leftrightarrow\; R^s_t = R^d_t
+\end{aligned}
+$$
+
+En égalisant les deux expressions de $\lambda_t$ et en isolant le taux des firmes :
+
+$$
+\begin{aligned}
+\frac{A^f_t - c^f - R^d_t}{\omega^f} &= \frac{A^m_t - c^m - R^d_t}{\omega^m} && \text{(les deux expressions de } \lambda_t\text{)} \\
+\Leftrightarrow\; A^f_t &= R^d_t + c^f + \frac{\omega^f}{\omega^m}\big(A^m_t - c^m - R^d_t\big) && \text{(en multipliant par } \omega^f \text{ et en isolant)} \\[6pt]
+\Leftrightarrow\; (1-\delta^f)\,R^f_t &= \underbrace{R^d_t}_{\substack{\text{coût de}\\ \text{financement}}} + \underbrace{c^f}_{\substack{\text{coût}\\ \text{d'information}}} - \underbrace{\delta^f \rho^f_t}_{\substack{\text{récupéré en}\\ \text{cas de défaut}}} + \underbrace{\frac{\omega^f}{\omega^m}\big(A^m_t - c^m - R^d_t\big)}_{\substack{\text{ce que rapporterait le même capital}\\ \text{placé dans l'hypothécaire}}} && \text{(en remplaçant } A^f_t\text{)}
+\end{aligned}
+$$
+
+En remplaçant $A^m_t$ et $\rho^m_t$, on voit apparaître le prix de l'immobilier :
+
+$$
+R^f_t = \frac{1}{1-\delta^f}\Big[R^d_t + c^f - \delta^f \rho^f_t + \frac{\omega^f}{\omega^m}\Big(\underbrace{(1-\delta^m)R^m_t}_{\substack{\text{taux}\\ \text{hypothécaire}}} + \underbrace{\delta^m \theta^m \frac{\mathbb{E}_t[P_{t+1}]}{\ell P_t}}_{\substack{\text{hausse attendue}\\ \text{des prix}}} - c^m - R^d_t\Big)\Big]
+$$
+
+Le taux exigé des firmes couvre le coût de financement et le coût d'information, moins ce que la banque récupère en cas de défaut, plus ce que la banque perd en ne plaçant pas ce capital dans l'hypothécaire. Tout ce qui rend l'hypothécaire plus rentable évince donc les firmes : une hausse du taux hypothécaire, mais aussi une hausse anticipée des prix immobiliers, qui fait monter la valeur de la garantie même si le taux hypothécaire ne bouge pas. Le rapport des poids de risque amplifie cet effet. Le coefficient négatif devant $R^d_t$ dans la forme développée n'est pas un paradoxe : quand le coût de financement monte, le taux hypothécaire monte aussi, et le taux des firmes monte bien au total.
+
+### Version enrichie à long terme
+
+Même programme, avec le capital choisi et le rendement exigé par les actionnaires :
+
+$$
+\begin{aligned}
+\max_{L^m_t,\;L^f_t,\;S_t,\;D_t,\;N_t} \quad & (A^m_t - c^m)\,L^m_t + (A^f_t - c^f)\,L^f_t + R^s_t S_t - R^d_t D_t - R^e_t N_t \\
+\text{s.c.} \quad & L^m_t + L^f_t + S_t = N_t + D_t && \text{(bilan)} \\
+& \omega^m L^m_t + \omega^f L^f_t \leq \phi N_t && \text{(contrainte de capital)} \\
+& L^m_t,\; L^f_t,\; S_t,\; N_t \geq 0
+\end{aligned}
+$$
+
+$$
+\mathcal{L} = (A^m_t - c^m - R^d_t)L^m_t + (A^f_t - c^f - R^d_t)L^f_t + (R^s_t - R^d_t)S_t - (R^e_t - R^d_t)N_t + \lambda_t\,(\phi N_t - \omega^m L^m_t - \omega^f L^f_t)
+$$
+
+Les conditions sur $L^m_t$, $L^f_t$ et $S_t$ sont les mêmes qu'à court terme. S'y ajoute celle sur les fonds propres :
+
+$$
+\frac{\partial \mathcal{L}}{\partial N_t} = -(R^e_t - R^d_t) + \lambda_t\,\phi = 0 \;\Leftrightarrow\; \lambda_t = \frac{R^e_t - R^d_t}{\phi}
+$$
+
+Cette expression ne contient que des éléments donnés. On la remplace dans les conditions sur $L^f_t$ et $L^m_t$, et on résout pour les deux taux déterminés dans le modèle :
+
+$$
+\begin{aligned}
+\frac{A^f_t - c^f - R^d_t}{\omega^f} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions sur } L^f_t \text{ et } N_t\text{)} \\
+\Leftrightarrow\; (1-\delta^f)\,R^f_t &= R^d_t + c^f - \delta^f \rho^f_t + \underbrace{\frac{\omega^f}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{coût du capital consommé}\\ \text{par un euro prêté aux firmes}}} && \text{(en multipliant par } \omega^f \text{ et en isolant)} \\[12pt]
+\frac{A^m_t - c^m - R^d_t}{\omega^m} &= \frac{R^e_t - R^d_t}{\phi} && \text{(conditions sur } L^m_t \text{ et } N_t\text{)} \\
+\Leftrightarrow\; (1-\delta^m)\,R^m_t &= R^d_t + c^m - \underbrace{\delta^m \rho^m_t}_{\substack{\text{dépend des prix}\\ \text{attendus}}} + \underbrace{\frac{\omega^m}{\phi}\big(R^e_t - R^d_t\big)}_{\substack{\text{coût du capital consommé}\\ \text{par un euro d'hypothécaire}}} && \text{(même calcul)}
+\end{aligned}
+$$
+
+Le taux des firmes ne contient plus ni $R^m_t$ ni $\rho^m_t$ : à long terme, ni un boom immobilier ni des anticipations de hausse des prix ne changent le taux payé par les firmes. En revanche, les firmes restent durablement désavantagées par leur poids de risque, leur risque de défaut, leur garantie difficile à revendre et leur coût d'information. C'est une préférence structurelle des banques pour l'hypothécaire, en dehors de tout boom. L'équation de l'hypothécaire montre aussi une boucle : si la banque anticipe une hausse des prix, $\rho^m_t$ monte et elle accepte un taux hypothécaire plus bas, ce qui nourrit la demande de logements, donc les prix.
+
+### La firme
+
+Le bloc firme traduit la hausse du taux bancaire en effets sur la taille et le nombre des firmes, et fait apparaître la distinction entre firmes échangeables (T) et non échangeables (NT). Une firme $i$ a une productivité $z_i$ et produit avec du capital, à rendements décroissants ($0 < \alpha < 1$). Elle emprunte tout son capital au taux $R_t$, qui vaut $R^f_t$ si elle passe par la banque et $R^b_t$ si elle émet des obligations. Le prix du bien échangeable est fixé hors de la région, celui du bien non échangeable par l'équilibre local.
+
+$$
+y_{i,t} = z_i\, k_{i,t}^{\alpha} \qquad\qquad p_{T,t} = 1 \qquad\qquad p_{NT,t} \text{ déterminé par l'équilibre local}
+$$
+
+La firme échangeable choisit son capital pour maximiser son profit :
+
+$$
+\begin{aligned}
+\max_{k_{i,t} \geq 0} \quad & \pi^T_{i,t} = z_i\, k_{i,t}^{\alpha} - R_t\, k_{i,t} \\[6pt]
+\frac{\partial \pi^T_{i,t}}{\partial k_{i,t}} = \alpha\, z_i\, k_{i,t}^{\alpha-1} - R_t &= 0 \\
+\Leftrightarrow\; k^{T*}_{i,t} &= \Big(\frac{\alpha\, z_i}{R_t}\Big)^{\frac{1}{1-\alpha}} && \text{(en passant à la puissance } \tfrac{1}{\alpha-1}\text{)} \\
+\pi^{T*}_{i,t} &= (1-\alpha)\, z_i\,(k^{T*}_{i,t})^{\alpha} && \text{(car } R_t k^{T*}_{i,t} = \alpha z_i (k^{T*}_{i,t})^{\alpha}\text{)} \\
+&= (1-\alpha)\, z_i^{\frac{1}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} && \text{(en remplaçant } k^{T*}_{i,t}\text{)}
+\end{aligned}
+$$
+
+La firme non échangeable fait le même calcul avec le prix local, qu'elle prend comme donné :
+
+$$
+\begin{aligned}
+\max_{k_{i,t} \geq 0} \quad & \pi^{NT}_{i,t} = p_{NT,t}\, z_i\, k_{i,t}^{\alpha} - R_t\, k_{i,t} \\[6pt]
+\Rightarrow\; k^{NT*}_{i,t} &= \Big(\frac{\alpha\, p_{NT,t}\, z_i}{R_t}\Big)^{\frac{1}{1-\alpha}}, \qquad \pi^{NT*}_{i,t} = (1-\alpha)\,\big(p_{NT,t}\, z_i\big)^{\frac{1}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} && \text{(même calcul)}
+\end{aligned}
+$$
+
+La firme choisit les obligations si le gain d'un taux plus bas dépasse le coût fixe d'émission $F$. Ce gain augmente avec la productivité alors que $F$ est fixe : au-dessus d'un certain seuil, les firmes passent aux obligations, ce sont les grandes. Une firme qui dépend de la banque ne reste en activité que si son profit couvre un coût fixe de fonctionnement $c^o$, et ce seuil de survie monte avec $R^f_t$.
+
+$$
+\underbrace{\max\Big\{\, \pi^*_{i,t}(R^f_t)\;,\;\; \pi^*_{i,t}(R^b_t) - F \,\Big\}}_{\text{banque ou obligations}} \qquad\qquad \underbrace{\pi^*_{i,t}(R^f_t) \geq c^o \;\Leftrightarrow\; z_i \geq z^{\min}_{s,t}(R^f_t)}_{\substack{\text{survie : le seuil de productivité}\\ \text{monte avec le taux bancaire}}}
+$$
+
+Sur le marché non échangeable, les ménages consacrent une part $\beta$ de leur dépense $E_t$ aux biens non échangeables, et on note $Z$ la productivité totale du secteur :
+
+$$
+\begin{aligned}
+Y_{NT,t} &= \sum_i z_i\,(k^{NT*}_{i,t})^{\alpha} = p_{NT,t}^{\frac{\alpha}{1-\alpha}} \Big(\frac{\alpha}{R_t}\Big)^{\frac{\alpha}{1-\alpha}} Z && \text{(avec } Z = \textstyle\sum_i z_i^{\frac{1}{1-\alpha}}\text{)} \\
+p_{NT,t}\, Y_{NT,t} &= \beta\, E_t && \text{(dépense des ménages = ventes des firmes)} \\
+\Leftrightarrow\; p_{NT,t} &= \Big[\frac{\beta E_t}{Z}\Big(\frac{R_t}{\alpha}\Big)^{\frac{\alpha}{1-\alpha}}\Big]^{1-\alpha} && \text{(en isolant le prix)} \\
+\Rightarrow\; d\ln p_{NT,t} &= \underbrace{(1-\alpha)\, d\ln E_t}_{\substack{\text{la demande locale}\\ \text{fait monter le prix}}} + \underbrace{\alpha\, d\ln R_t}_{\substack{\text{le coût du crédit}\\ \text{aussi}}} && \text{(en passant au logarithme puis en différentiant)}
+\end{aligned}
+$$
+
+Pour une petite firme qui emprunte à la banque, l'effet d'une hausse du taux bancaire est alors :
+
+$$
+\begin{aligned}
+d\ln k^*_{i,t} &= \tfrac{1}{1-\alpha}\big(d\ln p_{s,t} - d\ln R^f_t\big) && \text{(logarithme de } k^*\text{)} \\[6pt]
+\text{Échangeable :}\quad d\ln k^{T*}_{i,t} &= \underbrace{-\tfrac{1}{1-\alpha}\, d\ln R^f_t}_{\substack{\text{prix fixe : seul le taux joue,}\\ \text{sans compensation}}} && \text{(car } d\ln p_{T,t} = 0\text{)} \\[6pt]
+\text{Non échangeable :}\quad d\ln k^{NT*}_{i,t} &= \underbrace{d\ln E_t}_{\substack{\text{gagne avec la}\\ \text{demande locale}}} - \underbrace{d\ln R^f_t}_{\substack{\text{perd avec}\\ \text{le taux}}} && \text{(en remplaçant } d\ln p_{NT,t} \text{ et en simplifiant)}
+\end{aligned}
+$$
+
+Les grandes firmes empruntent à $R^b_t$, qui ne bouge pas. Pendant un boom de crédit, où le taux bancaire et la dépense locale montent ensemble, la petite firme échangeable subit toute la hausse du taux sans compensation, tandis que la petite firme non échangeable grossit si la dépense locale monte plus vite que le taux. Sans boom local, c'est-à-dire quand la dépense locale ne bouge pas, les deux petites firmes perdent, et l'échangeable davantage : la différence qui compte devient celle entre petites et grandes firmes. C'est le cas du test empirique.
+
+## La stratégie d'identification
+
+L'identification teste le deuxième et le troisième maillon : quand l'immobilier devient plus attrayant pour une banque, pour une raison sans rapport avec ses firmes clientes, ces firmes, et surtout les petites, en paient-elles le prix ? Le dernier maillon, la persistance de long terme, reste porté par le modèle.
+
+### Ce que je cherche à mesurer
+
+Il ne s'agit pas d'estimer chaque paramètre du modèle séparément, mais des effets que le modèle relie entre eux, en vérifiant qu'ils ont la forme prévue. Côté banque, le modèle de court terme prévoit que les banques poussées vers l'immobilier augmentent leurs prêts hypothécaires et réduisent leurs prêts aux petites entreprises. Côté firmes, il prévoit une baisse de l'activité des petites firmes qui dépendent de la banque, mais pas des grandes. L'éviction n'existe que si la contrainte de capital est saturée : elle doit donc être plus forte chez les banques peu capitalisées. Enfin, en suivant l'effet sur plusieurs années, on peut distinguer le court du long terme : si l'effet revient à zéro, le capital s'est ajusté ; s'il persiste, quelque chose empêche cet ajustement.
+
+### L'exposition des banques aux booms d'ailleurs
+
+Dans un comté où l'immobilier flambe, tout change en même temps : l'économie locale, la demande locale, la valeur de la maison des dirigeants. On ne peut donc pas comparer simplement les comtés où les prix montent à ceux où ils ne montent pas. Mon idée est de trouver ce qui pousse les banques d'un comté vers l'immobilier sans que rien ne change dans ce comté : les booms immobiliers dans les autres régions où ces banques ont des agences. Une banque présente à Toledo et à Miami, qui voit l'immobilier flamber à Miami, y concentre ses prêts et, si son capital est limité, prête moins aux petites firmes de Toledo.
+
+$$
+\text{Expo}_{c,t} = \sum_b \underbrace{s_{b,c}}_{\substack{\text{part de la banque } b \text{ dans}\\ \text{les prêts aux PME du comté } c}} \sum_{j \neq c} \underbrace{w_{b,j}}_{\substack{\text{poids du comté } j\\ \text{dans les dépôts de } b}} \; \underbrace{\Delta HPI_{j,t}}_{\substack{\text{hausse des prix}\\ \text{immobiliers en } j}}
+$$
+
+La part de chaque banque est mesurée en début de période avec les données du CRA, les poids des autres comtés avec les dépôts de la FDIC (Summary of Deposits), et la hausse des prix avec l'indice FHFA. Par exemple, si la banque A fait 60 % des prêts aux PME de Toledo et voit un boom de 14,9 % dans ses autres comtés, et la banque B 40 % avec un boom de 2 %, l'exposition de Toledo vaut 0,6 × 14,9 % + 0,4 × 2 %, soit environ 9,7 %.
+
+Reste un problème : si les prix montent à Miami parce que l'économie de Miami va bien, la banque y gagne peut-être aussi plus d'argent, ce qui l'aiderait à prêter plus partout. J'utilise donc l'instrument de Saiz (2010), qui mesure la difficulté de construire dans chaque zone urbaine (terrains inutilisables, règles d'urbanisme). Seule est gardée la partie de la hausse des prix expliquée par cette difficulté :
+
+$$
+\Delta HPI_{j,t} = a_t + b_t\, \underbrace{\frac{1}{e_j}}_{\substack{\text{difficulté de construire}\\ \text{en } j \text{ (Saiz)}}} + u_{j,t}
+$$
+
+Là où l'on construit difficilement, une même hausse de la demande fait plus monter les prix. Cette partie de la hausse ne dépend pas de la bonne santé de l'économie locale.
+
+### Le lien avec le modèle
+
+Dans le modèle, l'exposition fait monter le rendement attendu de l'hypothécaire $A^m_t$ pour les banques du comté, par le taux hypothécaire et par la valeur attendue des garanties, sans que rien ne change pour les firmes du comté. Avec un capital fixé, cela fait monter le taux exigé des firmes $R^f_t$ et baisser les prêts aux firmes. Côté firmes, comme le boom a lieu ailleurs, la dépense locale ne bouge pas : toutes les petites firmes dépendantes de la banque doivent perdre par rapport aux grandes, qui empruntent à $R^b_t$.
+
+### Étape 1 : le côté banque
+
+La première étape regarde si l'exposition augmente les prêts immobiliers des banques du comté (HMDA, Call Reports) et réduit leurs prêts aux petites entreprises (CRA). Le rapport des deux mesure la pente d'éviction, que le modèle relie au rapport des poids de risque. On vérifie ensuite si l'effet est concentré chez les banques au ratio de capital le plus faible, ce qui teste la contrainte de capital.
+
+### Étape 2 : l'effet sur les firmes
+
+Une petite firme qui reçoit moins de crédit de sa banque peut se tourner vers une autre. L'étape 2 vérifie que la baisse de crédit a des conséquences réelles. Chaque observation est un groupe d'établissements d'un même comté $c$, d'un même secteur $s$ et d'une même classe de taille $k$, suivi $h$ années après le choc, de 1 à 15 ans :
+
+$$
+\underbrace{Y_{c,s,k,t+h} - Y_{c,s,k,t-1}}_{\substack{\text{évolution de l'emploi ou du nombre}\\ \text{d'établissements sur } h \text{ ans}}} = \underbrace{\beta_h\, \text{Expo}_{c,t} \times \text{Petite}_k}_{\substack{\text{effet de l'exposition sur les petits}\\ \text{établissements par rapport aux grands}}} + \underbrace{\theta_h\, \Delta HPI_{c,t} \times \text{Petite}_k}_{\substack{\text{hausse des prix locale :}\\ \text{canal de la maison du dirigeant}}} + \underbrace{\delta_{c,t}}_{\substack{\text{tout ce qui touche}\\ \text{le comté entier}}} + \underbrace{\mu_{s,k,t}}_{\substack{\text{tendances nationales par}\\ \text{secteur et taille}}} + \varepsilon_{c,s,k,t+h}
+$$
+
+Le coefficient $\beta_h$ compare les petits établissements aux grands du même comté, entre des comtés plus ou moins exposés, et le modèle prévoit qu'il soit négatif. L'effet fixe comté × année retire tout ce qui touche le comté entier, comme une récession ou la demande locale. L'effet fixe secteur × taille × année retire les tendances nationales propres à chaque secteur et à chaque taille. Le terme en hausse des prix locale reprend le canal d'Adelino, Schoar et Severino, pour qu'il ne soit pas confondu avec l'éviction par les banques. Si $Y$ est le nombre d'établissements, une baisse correspond au seuil de survie du modèle.
+
+Dans ce test, le choc ne crée aucun boom local puisque le boom est ailleurs. La comparaison centrale est donc entre petites et grandes firmes. La distinction entre échangeable et non échangeable sert de vérification : la régression est réestimée sur les seuls secteurs échangeables, l'industrie manufacturière, dont la demande ne dépend pas de ce qui se passe localement.
+
+### Données
+
+Toutes les données sont publiques et gratuites.
+
+| Base | Ce qu'on y prend | Niveau et période |
+|---|---|---|
+| [County Business Patterns](https://m.nber.org/ftp/cbp/) (Census) | Établissements et emploi par classe de taille et par secteur (NAICS) | Comté, annuel, depuis les années 1980 |
+| [CRA](https://www.ffiec.gov/craadweb/naaginfs.htm) (FFIEC) | Prêts aux petites entreprises par banque et par comté | Depuis 1996 |
+| HMDA (FFIEC) | Prêts immobiliers par banque et par zone | Depuis les années 1990 |
+| Summary of Deposits (FDIC) | Dépôts par agence : où chaque banque est présente | Annuel, depuis 1994 |
+| Call Reports (FFIEC) | Bilans bancaires : capital, prêts immobiliers, prêts aux entreprises | Trimestriel, longue période |
+| Indice FHFA | Prix immobiliers par comté ou zone urbaine | Depuis les années 1970 à 1990 selon le niveau |
+| Élasticité de Saiz | Difficulté de construire par zone urbaine | Une valeur par zone |
+| [JST Macrohistory](https://www.nber.org/research/data/jorda-schularick-taylor-macrohistory) | Crédit hypothécaire et non hypothécaire, 17 pays depuis 1870 | Pays × année |
+
+## Extensions
+
+Ces extensions dépassent le mémoire et dessinent le projet de recherche plus large que j'aimerais poursuivre.
+
+### Ce qu'on pourrait trouver
+
+Plusieurs résultats sont possibles, et chacun dirait quelque chose de différent sur le modèle. Si les petits établissements des comtés exposés perdent par rapport aux grands, puis que l'écart se referme au bout de quelques années, cela correspond au modèle de court terme suivi d'un ajustement du capital des banques. Si l'écart ne se referme pas, il faut une raison pour laquelle le capital ne s'ajuste pas, ou pour laquelle les firmes sorties ne reviennent pas, ce qui renvoie au dernier maillon. Si l'effet est concentré chez les banques peu capitalisées, cela confirme que c'est bien la contrainte de capital qui crée l'éviction. Enfin, une absence d'effet sur les firmes alors que les banques réduisent leurs prêts voudrait dire que les petites firmes trouvent du crédit ailleurs, ce qui serait un résultat en soi.
+
+### Étendre le modèle
+
+La première extension est de compléter le dernier maillon. Le modèle de long terme explique une part de l'hypothécaire durablement haute, mais pas encore une baisse du crédit aux petites firmes en niveau sur la durée. Il faut pour cela une friction : un coût du capital qui monte quand la banque grossit, une réglementation qui se resserre, ou des firmes sorties pendant la phase de court terme qui ne reviennent pas parce que le coût d'entrée est élevé. Avec un coût du capital qui dépend du capital levé, la condition sur les fonds propres devient :
+
+$$
+\lambda_t = \frac{\overbrace{R^e_t(N_t) + R^{e\prime}_t(N_t)\, N_t}^{\substack{\text{coût d'un euro de capital en plus,}\\ \text{qui monte avec } N_t}} - R^d_t}{\phi}
+$$
+
+Un boom immobilier pousse alors la banque à lever du capital, ce qui en fait monter le coût, donc $\lambda_t$ et le taux des firmes : l'éviction est partielle mais ne disparaît pas. Les deux versions actuelles en sont les cas extrêmes.
+
+La deuxième extension est de fermer la boucle entre prix et garantie, en ajoutant une équation qui relie le prix de l'immobilier au crédit hypothécaire quand l'offre de logements est rigide. La hausse de $\rho^m_t$ ne serait alors plus donnée mais produite par le modèle. La troisième est d'ajouter le canal de garantie dans la firme, en limitant ce qu'une petite firme peut emprunter à une fraction de la valeur de la maison de son dirigeant. Cela permettrait de séparer dans le modèle, comme dans les données, l'éviction par les banques et l'effet mis en avant par Adelino, Schoar et Severino.
+
+### D'autres pistes
+
+Bâle I (1988) a fait passer le poids de l'hypothécaire à la moitié de celui des prêts aux entreprises. Dans le modèle, c'est une baisse de $\omega^m$, qui fait monter le taux exigé des firmes à court terme : les banques déjà proches de leur contrainte en 1988 devraient avoir le plus réagi. Ce volet historique passerait par les bilans bancaires, puisque les données par comté commencent plus tard.
+
+On pourrait aussi passer de l'effet relatif entre comtés à la tendance globale observée dans JST. À l'échelle mondiale, la distinction qui compte devient celle entre foncier et capital productif. Il s'agirait de comparer les pays selon l'intensité de la bascule vers l'hypothécaire, en faisant attention au sens de la causalité : le crédit est peut-être allé à l'immobilier parce que les firmes en demandaient moins. L'Allemagne, où le crédit aux entreprises progresse plus que celui aux ménages, serait un cas de comparaison intéressant.
+
+Enfin, l'aire de Lévy pourrait servir à décrire l'ordre dans lequel bougent le crédit hypothécaire et le crédit aux firmes, comme le logit et l'AUC dans le papier de Jordà, Schularick et Taylor, avec des conclusions de prédiction et non de causalité.
+
+## Limites
+
+Côté données, le CRA ne couvre que les banques assez grandes, alors que les petites banques locales prêtent beaucoup aux petites firmes. Il ne commence qu'en 1996, ce qui limite la période étudiée. Les County Business Patterns comptent des établissements et non des firmes : une grande firme peut avoir de petits établissements, ce qui brouille la comparaison entre petites et grandes. L'instrument de Saiz est discuté, car la difficulté de construire pourrait elle-même être liée à la demande. Enfin, JST ne compte que le crédit bancaire, et sous-estime donc l'hypothécaire titrisé, surtout aux États-Unis.
+
+Côté méthode, le test mesure des effets relatifs entre comtés : un boom commun à tout le pays disparaît de la comparaison, et l'on ne peut pas en tirer directement l'effet sur l'ensemble de l'économie. Côté modèle, le long terme suppose que les banques peuvent lever autant de capital qu'elles veulent à coût constant, ce qui est une hypothèse extrême, et le prix de l'immobilier y est encore donné et non expliqué.

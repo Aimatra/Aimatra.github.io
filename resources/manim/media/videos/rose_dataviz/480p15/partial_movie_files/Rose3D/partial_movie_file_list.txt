@@ -1,0 +1,3 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/borre/Documents/PROJETS/website/resources/manim/media/videos/rose_dataviz/480p15/partial_movie_files/Rose3D/1911716058_2633339390_1458029976.mp4'
+file 'file:C:/Users/borre/Documents/PROJETS/website/resources/manim/media/videos/rose_dataviz/480p15/partial_movie_files/Rose3D/1473975622_4289458087_2942569040.mp4'
