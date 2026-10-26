@@ -18,8 +18,6 @@ website:
         href: projets.qmd
       - text: "Exposés"
         href: exposes.qmd
-      - text: "Datavis"
-        href: datavis.qmd
       - text: "CV"
         href: cv.qmd
       - text: "Contact"
