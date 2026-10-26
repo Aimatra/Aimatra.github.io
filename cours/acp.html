@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2027-06-08">
 <meta name="description" content="Cours complet sur l’ACP : nuage de points pesants, inertie, théorème de Huygens, résolution du problème, indicateurs de qualité, exemple appliqué en R.">
 
 <title>Analyse en Composantes Principales (ACP) – Claire Borrelli</title>
@@ -97,17 +96,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
   }
 }</script>
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
@@ -171,8 +170,8 @@ window.Quarto = {
     <span class="navbar-title">Claire Borrelli</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Recherche"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Basculer la navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -212,7 +211,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index-en.html"> 
+    <a class="nav-link" href="../en/index.html"> 
 <span class="menu-text">EN</span></a>
   </li>  
 </ul>
@@ -222,7 +221,7 @@ window.Quarto = {
       <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
-            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/TON-PSEUDO/TON-PSEUDO.github.io">
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/Aimatra/Aimatra.github.io">
             Code source
             </a>
           </li>
@@ -261,9 +260,9 @@ window.Quarto = {
 
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 8, 2027</p>
+      <p class="date">8 juin 2027</p>
     </div>
   </div>
   
@@ -280,23 +279,23 @@ window.Quarto = {
 <p>Prenons un jeu de données décrivant plusieurs pays selon leur PIB par habitant, leur taux de chômage, l’inflation, la dette publique et l’indice de Gini. Les données sont en 5 dimensions, et nous ne sommes capables d’en visualiser que 3 au mieux. Comment, dans ce cas, identifier des tendances ou des groupes ?</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="oowvcsfyqk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#oowvcsfyqk table {
+<div id="qtyviksajh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qtyviksajh table {
   font-family: 'Georgia, serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#oowvcsfyqk thead, #oowvcsfyqk tbody, #oowvcsfyqk tfoot, #oowvcsfyqk tr, #oowvcsfyqk td, #oowvcsfyqk th {
+#qtyviksajh thead, #qtyviksajh tbody, #qtyviksajh tfoot, #qtyviksajh tr, #qtyviksajh td, #qtyviksajh th {
   border-style: none;
 }
 
-#oowvcsfyqk p {
+#qtyviksajh p {
   margin: 0;
   padding: 0;
 }
 
-#oowvcsfyqk .gt_table {
+#qtyviksajh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -322,12 +321,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_caption {
+#qtyviksajh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#oowvcsfyqk .gt_title {
+#qtyviksajh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -339,7 +338,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#oowvcsfyqk .gt_subtitle {
+#qtyviksajh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -351,7 +350,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#oowvcsfyqk .gt_heading {
+#qtyviksajh .gt_heading {
   background-color: rgba(255, 255, 255, 0);
   text-align: center;
   border-bottom-color: rgba(255, 255, 255, 0);
@@ -363,13 +362,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_bottom_border {
+#qtyviksajh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_col_headings {
+#qtyviksajh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -384,7 +383,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_col_heading {
+#qtyviksajh .gt_col_heading {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -404,7 +403,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#oowvcsfyqk .gt_column_spanner_outer {
+#qtyviksajh .gt_column_spanner_outer {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -416,15 +415,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#oowvcsfyqk .gt_column_spanner_outer:first-child {
+#qtyviksajh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#oowvcsfyqk .gt_column_spanner_outer:last-child {
+#qtyviksajh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#oowvcsfyqk .gt_column_spanner {
+#qtyviksajh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -436,11 +435,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#oowvcsfyqk .gt_spanner_row {
+#qtyviksajh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#oowvcsfyqk .gt_group_heading {
+#qtyviksajh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -466,7 +465,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#oowvcsfyqk .gt_empty_group_heading {
+#qtyviksajh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
@@ -481,15 +480,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#oowvcsfyqk .gt_from_md > :first-child {
+#qtyviksajh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#oowvcsfyqk .gt_from_md > :last-child {
+#qtyviksajh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#oowvcsfyqk .gt_row {
+#qtyviksajh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -508,7 +507,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#oowvcsfyqk .gt_stub {
+#qtyviksajh .gt_stub {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -521,7 +520,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#oowvcsfyqk .gt_stub_row_group {
+#qtyviksajh .gt_stub_row_group {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   font-size: 100%;
@@ -535,15 +534,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#oowvcsfyqk .gt_row_group_first td {
+#qtyviksajh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#oowvcsfyqk .gt_row_group_first th {
+#qtyviksajh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#oowvcsfyqk .gt_summary_row {
+#qtyviksajh .gt_summary_row {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   text-transform: inherit;
@@ -553,16 +552,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#oowvcsfyqk .gt_first_summary_row {
+#qtyviksajh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_first_summary_row.thick {
+#qtyviksajh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#oowvcsfyqk .gt_last_summary_row {
+#qtyviksajh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -572,7 +571,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_grand_summary_row {
+#qtyviksajh .gt_grand_summary_row {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   text-transform: inherit;
@@ -582,7 +581,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#oowvcsfyqk .gt_first_grand_summary_row {
+#qtyviksajh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -592,7 +591,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_last_grand_summary_row_top {
+#qtyviksajh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -602,11 +601,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_striped {
+#qtyviksajh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#oowvcsfyqk .gt_table_body {
+#qtyviksajh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -615,7 +614,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_footnotes {
+#qtyviksajh .gt_footnotes {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   border-bottom-style: none;
@@ -629,7 +628,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_footnote {
+#qtyviksajh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -638,7 +637,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#oowvcsfyqk .gt_sourcenotes {
+#qtyviksajh .gt_sourcenotes {
   color: #333333;
   background-color: rgba(255, 255, 255, 0);
   border-bottom-style: none;
@@ -652,7 +651,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#oowvcsfyqk .gt_sourcenote {
+#qtyviksajh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -660,72 +659,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#oowvcsfyqk .gt_left {
+#qtyviksajh .gt_left {
   text-align: left;
 }
 
-#oowvcsfyqk .gt_center {
+#qtyviksajh .gt_center {
   text-align: center;
 }
 
-#oowvcsfyqk .gt_right {
+#qtyviksajh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#oowvcsfyqk .gt_font_normal {
+#qtyviksajh .gt_font_normal {
   font-weight: normal;
 }
 
-#oowvcsfyqk .gt_font_bold {
+#qtyviksajh .gt_font_bold {
   font-weight: bold;
 }
 
-#oowvcsfyqk .gt_font_italic {
+#qtyviksajh .gt_font_italic {
   font-style: italic;
 }
 
-#oowvcsfyqk .gt_super {
+#qtyviksajh .gt_super {
   font-size: 65%;
 }
 
-#oowvcsfyqk .gt_footnote_marks {
+#qtyviksajh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#oowvcsfyqk .gt_asterisk {
+#qtyviksajh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#oowvcsfyqk .gt_indent_1 {
+#qtyviksajh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#oowvcsfyqk .gt_indent_2 {
+#qtyviksajh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#oowvcsfyqk .gt_indent_3 {
+#qtyviksajh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#oowvcsfyqk .gt_indent_4 {
+#qtyviksajh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#oowvcsfyqk .gt_indent_5 {
+#qtyviksajh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#oowvcsfyqk .katex-display {
+#qtyviksajh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#oowvcsfyqk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qtyviksajh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -798,8 +797,8 @@ window.Quarto = {
 </div>
 <div class="cell" data-layout-align="left">
 <div class="cell-output-display">
-<div id="htmlwidget-1c324343d15aedf61045" style="width:100%;height:650px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1c324343d15aedf61045">{"x":{"visdat":{"2c245d082d07":["function () ","plotlyVisDat"]},"cur_data":"2c245d082d07","attrs":{"2c245d082d07":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":2,"color":{},"colorscale":"Rainbow"},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"width":600,"height":600,"margin":{"b":40,"l":60,"t":25,"r":10},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","scene":{"bgcolor":"rgba(0,0,0,0)","xaxis":{"title":"PIB"},"yaxis":{"title":"Chomage"},"zaxis":{"title":"Inflation"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1.5525355079717469,-1.2963155972477103,1.2961739570724398,0.72490896351730116,-1.6523311441806832,0.7006635567613706,-1.4002680496327469,1.3431136130228125,-0.35935694973168986,0.74069574503329594,1.0217876555285534,0.9729238920216442,-0.61462339033504387,-0.67113306402803685,-1.1230599395906451,0.16701507355612211,-0.067302780658073158,-0.017746401958008595,0.35191071162222548,0.94924690798803024,-0.32761777983928375,-0.12272647824790306,0.95357383608491431,-1.8042395930506854,0.27729579898814194,-0.10360460003553584,-0.19214348687193669,0.85209511152927653,0.98852049426781652,0.89398246418128646,0.46538806714011144,0.89232156078439651,-0.12347673034898271,0.48792425281523583,0.79773674712005971,-0.54910599121937453,2.1553515438928659,0.92194669326960466,1.5212949233413475,-1.4514832174530266,0.048677981737294589,-0.31942791715932367,0.64603552833377054,0.00075024773773329156,0.78350047495140673,-1.2206703881565357,0.1730684367877687,-0.92432654228950928,-2.2887549826705196,-0.32552474770220785,-0.41740682720834449,-0.26669358684018957,-0.10849432116291394,0.7252171084102178,-1.1006858294971966,0.78627645456100048,0.41253907724887329,-0.78748296795501949,0.91391823764870372,-0.0097311633487923814,-0.16519922051800248,0.57393630013532682,0.21298105793575281,0.20536025055371959,-0.96972967770596097,-0.25823630076778187,1.218098356577449,-0.28385677889892669,2.3720572391627672,0.96313504864569233,0.42680643938564772,-0.78429137723872555,-0.94307878730658656,-1.3377139413347376,0.23703837033811398,-0.51857683356071316,1.6227647853035922,0.046521737014461884,-1.4330211774562709,0.092728217238086982,-0.86839476729824772,2.5300762768966067,-0.30226798464839766,-0.084167826356991576,0.21424435074192866,-0.049144434678621153,-0.9484280856414512,-0.075580800794426167,0.63236016138255646,0.24076492157595894,-0.048044734579335516,-0.18715620100054223,0.55786856660444128,-0.00073898704949157314,-2.2197537323120029,1.1013062165744074,0.62612176281838772,-1.4475326019146897,1.1023840285618056,-1.5142524971582414],"y":[-0.30385484382456013,-1.9179525932278789,-0.46265876504004699,2.2028164866925488,-0.16977589234839235,-0.47615379087814813,-0.51899696263017558,-0.78672748682026572,-0.68879912263645904,-1.3995520473145453,0.61962589574374594,0.35703696392672807,2.2057619546598128,-0.77385527016401923,1.3300350241798384,-0.035859968925307566,-1.0113072398229355,0.80871822605582189,0.3140032103826168,-0.49771938031646046,0.20320632349973611,-0.43356149144163503,-1.3927089997405087,0.47787909042283139,0.12728908547009612,1.2274658691903091,-0.65464411755678975,-0.22939886219809016,-0.027032833297486215,-1.2713388798947107,0.50770392797557395,0.37807349501254917,0.065882129035808534,-0.74554320609964886,0.32248298667612751,0.79187341747042739,0.50840519083978597,0.091602643918255608,-0.13926436854100224,-0.45913442818124572,0.69617907692527625,-0.55187901744195655,-0.92927010240707419,-0.47382749715155442,-1.1315921948630907,0.05861383321693555,-0.14997378283514734,-0.46110424010926498,-1.3437750574046285,0.22805858865126158,1.5686233812625583,0.55672438792191392,0.2412858174587485,-0.031430227263755502,0.28666816039704762,1.0802971126761585,2.4383089402265918,-0.73504792362701521,-0.5520968077771421,0.70359812313504544,0.40354783566987129,-0.063239750621370383,0.86555999293352237,0.30702750474580182,-0.28547963610364091,-0.087639666458610044,-0.038256583289875308,-0.55312793876162702,0.45910968234890703,0.67125837723726234,0.17513028347267318,1.3647017393647671,-0.52993853740248431,0.26373441134635023,2.4056579936596423,1.4419173535327958,-0.56424321048399473,0.3806867353131288,0.42790874098062498,-0.23656123549150457,-0.043316300586424772,1.1145936006757635,0.45492872154433606,-0.22675606373260437,-0.066802146649642166,-0.37675304298031442,-2.4142830093632877,2.491026026733536,1.0506762158498137,0.060075672522776312,0.52754742737042559,-0.060235959184540444,1.7918702765971652,-0.49083629639532178,0.52526038848875556,-0.96098531403708209,-1.2133698800342232,0.82462551719843424,-0.78820434137687834,2.1368747192593065],"z":[0.43430981867991236,-0.70776675254847077,0.011992237604026564,-1.6583794001849428,-0.41901779902991104,0.84764540801333021,0.57191877157508253,1.5434364462758716,0.2382088661827283,-1.7873213556779386,0.00035367834056180143,1.7522763769525227,0.80675984357169872,0.50396285592569379,1.4255170433892652,1.347521403377236,1.6212396025692513,1.4001741378008949,0.40534191259173064,-2.9398380549248295,0.89863403899236471,0.54904479202803036,-1.1401827715102923,-0.32642097766060951,-1.7955014059647927,1.3336335362298062,0.029462769197792924,0.092267691916161729,0.17908588987659152,-1.1921044969942884,0.65237434989233978,-0.64750762514055082,-0.0011112440625007699,0.37508929075983455,1.3051265752808208,0.37781184052421196,-1.7472787237808969,-0.77758173791468166,-0.22446701939425195,1.4279401341233524,0.69398173670980112,0.24600100147844084,-0.28701269452974565,-2.1767295866896812,0.25704085526705739,0.22978892815455076,-0.6740635941692501,-1.0932326002890864,-1.4937487896452961,0.92612119512375379,-0.19403413036632211,2.0140210445867348,-0.0053273356889442253,-0.21045664972394809,0.061630175392470725,0.45206548325846274,0.48497232593562511,1.3408045744182189,-0.3685063913366543,0.41172438793779337,-0.53675065961923851,0.58119659408479019,0.52974806828274168,-0.31634149528999189,-0.76022680644802876,1.6654407688110164,1.054935641334271,0.16599592930730839,-0.879379404770815,0.77830842246714405,-0.90517106972688099,-0.20993731463625651,-0.28486229884296865,0.60792629348205185,1.2205507069852977,-0.93940949973112975,-0.1810576863684058,2.6178203844900558,0.43161088816835158,-0.28736517173253201,0.14498072829552544,0.4993107075713904,2.0402490046462005,0.88529695545681419,-0.092397684932825241,1.4463805411422559,-0.90474392541658799,-0.2441053484460575,1.8028284486125732,0.12294526061038702,-0.60988150226441129,-0.010891229712442507,-0.15121002559667257,-0.83820056254151332,0.04497480683770836,1.1034929505301172,-0.3783499748381044,-0.78749106562010251,-0.58216120852393349,-0.59638049092748757],"mode":"markers","marker":{"color":[0.43430981867991236,-0.70776675254847077,0.011992237604026564,-1.6583794001849428,-0.41901779902991104,0.84764540801333021,0.57191877157508253,1.5434364462758716,0.2382088661827283,-1.7873213556779386,0.00035367834056180143,1.7522763769525227,0.80675984357169872,0.50396285592569379,1.4255170433892652,1.347521403377236,1.6212396025692513,1.4001741378008949,0.40534191259173064,-2.9398380549248295,0.89863403899236471,0.54904479202803036,-1.1401827715102923,-0.32642097766060951,-1.7955014059647927,1.3336335362298062,0.029462769197792924,0.092267691916161729,0.17908588987659152,-1.1921044969942884,0.65237434989233978,-0.64750762514055082,-0.0011112440625007699,0.37508929075983455,1.3051265752808208,0.37781184052421196,-1.7472787237808969,-0.77758173791468166,-0.22446701939425195,1.4279401341233524,0.69398173670980112,0.24600100147844084,-0.28701269452974565,-2.1767295866896812,0.25704085526705739,0.22978892815455076,-0.6740635941692501,-1.0932326002890864,-1.4937487896452961,0.92612119512375379,-0.19403413036632211,2.0140210445867348,-0.0053273356889442253,-0.21045664972394809,0.061630175392470725,0.45206548325846274,0.48497232593562511,1.3408045744182189,-0.3685063913366543,0.41172438793779337,-0.53675065961923851,0.58119659408479019,0.52974806828274168,-0.31634149528999189,-0.76022680644802876,1.6654407688110164,1.054935641334271,0.16599592930730839,-0.879379404770815,0.77830842246714405,-0.90517106972688099,-0.20993731463625651,-0.28486229884296865,0.60792629348205185,1.2205507069852977,-0.93940949973112975,-0.1810576863684058,2.6178203844900558,0.43161088816835158,-0.28736517173253201,0.14498072829552544,0.4993107075713904,2.0402490046462005,0.88529695545681419,-0.092397684932825241,1.4463805411422559,-0.90474392541658799,-0.2441053484460575,1.8028284486125732,0.12294526061038702,-0.60988150226441129,-0.010891229712442507,-0.15121002559667257,-0.83820056254151332,0.04497480683770836,1.1034929505301172,-0.3783499748381044,-0.78749106562010251,-0.58216120852393349,-0.59638049092748757],"size":2,"colorscale":"Rainbow","line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f1cb3efcefcec29c8342" style="width:100%;height:650px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f1cb3efcefcec29c8342">{"x":{"visdat":{"4184188b354f":["function () ","plotlyVisDat"]},"cur_data":"4184188b354f","attrs":{"4184188b354f":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":2,"color":{},"colorscale":"Rainbow"},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"width":600,"height":600,"margin":{"b":40,"l":60,"t":25,"r":10},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"rgba(0,0,0,0)","scene":{"bgcolor":"rgba(0,0,0,0)","xaxis":{"title":"PIB"},"yaxis":{"title":"Chomage"},"zaxis":{"title":"Inflation"}},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-0.91300487397775476,-0.12620633137556175,-1.0019527334066285,-0.29544828745653634,1.2933665892654027,0.60770212579577698,-1.6833574012897603,-0.39155093546533765,0.20052064790747406,0.090660127583666678,1.6383808353864344,-1.1051013149224447,-0.77646401804801135,-0.43741988027471118,-0.1146921446929994,-1.0016931875772968,-3.2256940620340164,0.35507493307661453,1.0488627549920495,-0.2158667710834497,0.6890643950768035,-0.45548972957516082,-1.6754572716136078,-0.4399654499756871,-0.18865769638938837,1.0234466325652165,-1.009296662899372,-1.1094415135556657,-1.03677089975202,-0.41313089837591355,0.50058796595532873,-1.0008268540306771,0.39278706274917002,0.18158227824167025,1.6361031253352167,0.34466403076025326,-1.1619602692047255,-0.76140685842958211,0.93252038001604454,0.27658981922977516,1.1991736655561369,0.51973674792000801,0.011232264735506389,1.1423104510611803,0.0012923969034621184,-0.10496985531910481,1.1135734154261467,0.866954537466189,-0.09886917868782033,0.81320544154376029,1.2567594347584374,-0.10584395295736033,0.8095651679941086,0.31661368700360631,0.76716333680168536,-1.6098201559779535,0.90622826278850521,1.8226321201790201,-0.14096134743143937,0.97026121373226559,-0.013902119095670589,-0.48438376824184093,0.095397167769298574,-1.0327748771780505,-1.3274061207928889,-0.26721516096406001,0.78710966408275873,-2.0269223108328909,1.1123740999913014,-1.24751143113445,-0.49907849420708028,0.20559939695859872,0.10883740813541187,-0.89023338594889356,0.044439882798991706,-1.4120632392666321,-0.86423251918349231,-0.079468556679021682,-2.2266360452903684,-0.29913482908750044,-0.93682070248517668,-0.73412230961450498,0.28389511256542366,-0.58651367181317304,1.075203784270087,-0.79440445658587233,-1.0311034796993666,-1.5731802741298797,1.1519256988249971,-1.0293585146560755,-0.35048607675436122,-1.5856807653673028,1.5191609500273027,0.577727575969884,0.034540382240871789,-0.19685090656645796,1.8813002412710806,1.2857049289299149,-1.5810529273936276,2.1893812824914369],"y":[-1.2528284388230635,0.078721970431690644,-0.42665886612067749,1.6017101135822989,-0.70879178217571115,1.6299583442934054,-2.1312256794454334,-1.4965015209070263,-1.0836922965618625,0.71526458145393135,-0.53286264066378453,1.201072533983508,0.36710794366763372,-0.52638778436965539,0.36119937454468953,0.21893861555667798,1.8367958352726621,-1.5364089200279967,-0.65434871299346953,-0.33804068246408175,-1.2586265062910553,-0.20097872926845817,0.18569340795691305,0.79174496150770401,-0.22938734330202237,-0.31612876050879651,-0.097629664747681366,-0.91000379396792563,-0.24389363584058221,-1.3723323601076174,1.6618728158481924,0.3637157650717931,0.10025490701707537,0.44034813807626144,1.7524791068834171,0.42368414452436853,0.10255482939384016,1.6765736886933114,0.59048943285269073,-0.63335560324016626,0.032280295437195544,-1.0277460093451471,0.59037847091741291,-1.680784772601237,0.34200495844892786,-0.72689980692600209,-0.91990486592496834,-0.72882473229489464,1.2031732156567394,-2.030944245298989,0.29257584873929826,0.83927846627997149,-0.14030728671105697,-0.6019958313994993,-0.40647472790742911,-0.3166905954682846,0.64057351185849121,-1.2375116510897666,0.64055994307286834,-0.17889934661244419,-0.48975063579292044,-1.0517484550120504,-0.31640094587142248,0.34507327783689362,0.46408242750139117,-0.18392478069451504,-1.2401367500098173,0.33112239610777944,0.74443034460055024,1.3761616036381925,-0.31638793591733522,-0.038027487458706079,0.9887883420526018,0.92833007684268554,-0.34598430406955127,-0.28008852122569738,0.337471037645794,1.226622620732553,0.17965928613640875,0.14179168976181553,0.30386020056596974,-1.1320442594980127,0.23140164094726798,-0.56341342423791663,0.31778758068127483,0.63319855265729841,-0.3753437755846199,-0.46615710003760891,-1.5256275149767549,0.55749415787609857,-0.62261736364636988,1.0826684405284241,-0.68009010973614137,-0.35531343552091865,-0.67860928715880109,-0.45406115671863728,0.0075879465554715923,-0.021459621478249757,-0.24303089540099398,-0.85754829260908028],"z":[0.63174356124362929,-0.47002838303682237,-0.16189211638039047,1.0196788576684894,-0.49175507983189054,1.8429030492091765,0.53536960241055565,0.59835686785090569,0.10552953917205708,-0.67010022941434089,1.8395303118105488,-0.36998069506258607,0.66449720967718895,1.0155929853971473,-0.48983658475152314,-0.47093174573361157,-0.44029157500575472,-0.58986710243640217,1.4443105052040182,0.065087679699036005,0.93752702304945845,0.11931775194190535,1.121222067811356,-0.095386019359745194,2.3388899635870866,-0.82619093737649951,-1.0655008244283226,0.8655354184390357,-1.0044063155578349,-2.3559190253798588,-0.40854388110912154,-0.44286094648366925,0.19626476598418191,-0.11632462195396541,0.81885266402739987,-0.51361800387480305,-1.3007063695359151,1.5156420017954941,-2.4467185217059573,1.3308696946114413,1.3418368551510764,2.4410653659267711,-0.88951475412520575,-0.80593533869455758,-1.5463320770965028,-0.37512691795314718,-0.96841640183160582,-0.038447610899073253,0.56806189549658292,0.67995849071375647,0.01154720216380746,-0.64461792069683677,-0.31681544579338283,2.3965250060779799,-0.043217041546720118,-0.071390736955374082,-0.9890215020526727,1.7353638904003306,1.4514193470758274,1.3772553399914045,-0.48548860092624013,-0.41320776612777577,1.9248193592004843,1.1212844222267064,1.6279366984230976,1.771322945499624,-0.66749018972028573,-1.019983863577691,-0.88845363234326857,-0.81072610195720907,-0.43747533225523527,-0.27015081895146648,0.019810519462387832,0.66722891579715449,-0.61787759983696688,-0.79849624554970011,-0.73464424484899526,0.48145331118137569,-0.078754685633482577,0.49384442938042872,-0.17398281941102095,-1.096148598219024,0.6244532448502006,0.45823409539726712,1.6063277399875857,-1.1738281750664383,-0.36943806867783024,0.16676536453152369,-0.95663258377168936,0.79090902433257626,-2.013348930336202,0.41130247990730934,0.95598324659938061,0.65161238524073373,1.195564872810233,-0.87232860203928353,-0.46010100750454141,-0.32409184094789795,-0.65910199930771962,1.2165457857499871],"mode":"markers","marker":{"color":[0.63174356124362929,-0.47002838303682237,-0.16189211638039047,1.0196788576684894,-0.49175507983189054,1.8429030492091765,0.53536960241055565,0.59835686785090569,0.10552953917205708,-0.67010022941434089,1.8395303118105488,-0.36998069506258607,0.66449720967718895,1.0155929853971473,-0.48983658475152314,-0.47093174573361157,-0.44029157500575472,-0.58986710243640217,1.4443105052040182,0.065087679699036005,0.93752702304945845,0.11931775194190535,1.121222067811356,-0.095386019359745194,2.3388899635870866,-0.82619093737649951,-1.0655008244283226,0.8655354184390357,-1.0044063155578349,-2.3559190253798588,-0.40854388110912154,-0.44286094648366925,0.19626476598418191,-0.11632462195396541,0.81885266402739987,-0.51361800387480305,-1.3007063695359151,1.5156420017954941,-2.4467185217059573,1.3308696946114413,1.3418368551510764,2.4410653659267711,-0.88951475412520575,-0.80593533869455758,-1.5463320770965028,-0.37512691795314718,-0.96841640183160582,-0.038447610899073253,0.56806189549658292,0.67995849071375647,0.01154720216380746,-0.64461792069683677,-0.31681544579338283,2.3965250060779799,-0.043217041546720118,-0.071390736955374082,-0.9890215020526727,1.7353638904003306,1.4514193470758274,1.3772553399914045,-0.48548860092624013,-0.41320776612777577,1.9248193592004843,1.1212844222267064,1.6279366984230976,1.771322945499624,-0.66749018972028573,-1.019983863577691,-0.88845363234326857,-0.81072610195720907,-0.43747533225523527,-0.27015081895146648,0.019810519462387832,0.66722891579715449,-0.61787759983696688,-0.79849624554970011,-0.73464424484899526,0.48145331118137569,-0.078754685633482577,0.49384442938042872,-0.17398281941102095,-1.096148598219024,0.6244532448502006,0.45823409539726712,1.6063277399875857,-1.1738281750664383,-0.36943806867783024,0.16676536453152369,-0.95663258377168936,0.79090902433257626,-2.013348930336202,0.41130247990730934,0.95598324659938061,0.65161238524073373,1.195564872810233,-0.87232860203928353,-0.46010100750454141,-0.32409184094789795,-0.65910199930771962,1.2165457857499871],"size":2,"colorscale":"Rainbow","line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>C’est précisément le problème que l’ACP se propose de résoudre.</p>
@@ -885,7 +884,7 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exemple : effet de la normalisation
+<span class="screen-reader-only">Astuce</span>Exemple : effet de la normalisation
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -966,7 +965,7 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Théorème 1 — Huygens par rapport à un point
+<span class="screen-reader-only">Avertissement</span>Théorème 1 — Huygens par rapport à un point
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -979,7 +978,7 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Théorème 1
+<span class="screen-reader-only">Mise en garde</span>Preuve du Théorème 1
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1024,7 +1023,7 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Théorème 2 — Huygens par rapport à un sous-espace affine
+<span class="screen-reader-only">Avertissement</span>Théorème 2 — Huygens par rapport à un sous-espace affine
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1046,7 +1045,7 @@ X = \begin{bmatrix} 2 &amp; 3 \\ 1 &amp; 5 \\ 4 &amp; 2 \end{bmatrix}\]</span></
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Théorème 2
+<span class="screen-reader-only">Mise en garde</span>Preuve du Théorème 2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1098,7 +1097,7 @@ I_F &amp;= \sum_{i=1}^n p_i\, d_M^2(F, x_i) \\
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Lemme 1
+<span class="screen-reader-only">Mise en garde</span>Preuve du Lemme 1
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1141,7 +1140,7 @@ I &amp;= \sum_{i=1}^n p_i\, d_M^2(x_i, g) \\
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Lemme 2
+<span class="screen-reader-only">Mise en garde</span>Preuve du Lemme 2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1189,7 +1188,7 @@ I &amp;= \text{tr}\left(\sum_{i=1}^n p_i\, M x_i x_i^\top\right) \\
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Lemme 3
+<span class="screen-reader-only">Mise en garde</span>Preuve du Lemme 3
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1277,7 +1276,7 @@ I_{\Delta_u^\perp} &amp;= \sum_{i=1}^n p_i (x_i^\top M u)^2 \\
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Lemme 4
+<span class="screen-reader-only">Mise en garde</span>Preuve du Lemme 4
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1318,7 +1317,7 @@ I_{E_k} = I_{E_{k-1}} + I_{\Delta_u}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve du Lemme 5
+<span class="screen-reader-only">Mise en garde</span>Preuve du Lemme 5
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1389,7 +1388,7 @@ I_{\Delta_{u_1}^\perp} &amp;= u_1^\top M (VMu_1) \\
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Illustration en dimension 2
+<span class="screen-reader-only">Astuce</span>Illustration en dimension 2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1529,7 +1528,7 @@ u_2^\top M u_1 = 0
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>Preuve de la Proposition 1
+<span class="screen-reader-only">Mise en garde</span>Preuve de la Proposition 1
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1687,7 +1686,7 @@ X_j &amp;= \sum_{k=1}^r C_k u_{kj} \\
 <p>Indicateurs socio-économiques et de fécondité pour 47 provinces francophones de Suisse (1888) (qui est inclu nativement dans R). Le jeu de données contient 6 variables : <code>Fertility</code> (indice de fécondité), <code>Agriculture</code> (% d’hommes travaillant dans l’agriculture), <code>Examination</code> (% de recrues ayant obtenu la meilleure note à l’examen militaire), <code>Education</code> (% de recrues ayant reçu une éducation au-delà de l’école primaire), <code>Catholic</code> (% de catholiques) et <code>Infant.Mortality</code> (mortalité infantile).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(swiss)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(swiss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(swiss)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   47 obs. of  6 variables:
  $ Fertility       : num  80.2 83.1 92.5 85.8 76.9 76.1 83.8 92.4 82.4 82.9 ...
@@ -1703,7 +1702,7 @@ X_j &amp;= \sum_{k=1}^r C_k u_{kj} \\
 <section id="statistiques-descriptives" class="level3">
 <h3 class="anchored" data-anchor-id="statistiques-descriptives">Statistiques descriptives</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swiss)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(swiss)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Fertility      Agriculture     Examination      Education    
  Min.   :35.00   Min.   : 1.20   Min.   : 3.00   Min.   : 1.00  
@@ -1727,7 +1726,7 @@ X_j &amp;= \sum_{k=1}^r C_k u_{kj} \\
 <h3 class="anchored" data-anchor-id="vérifier-les-corrélations-avant-de-faire-une-acp">Vérifier les corrélations avant de faire une ACP</h3>
 <p>Avant de se lancer dans une ACP, il est essentiel de vérifier que les variables sont effectivement corrélées entre elles. Si les variables de départ n’étaient pas corrélées, l’ACP n’aurait aucun intérêt : chaque variable porterait sa propre information indépendante des autres, et il n’y aurait aucune redondance à résumer sur un plus petit nombre d’axes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(swiss), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(swiss), <span class="dv">2</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 Fertility Agriculture Examination Education Catholic
 Fertility             1.00        0.35       -0.65     -0.66     0.46
@@ -1751,7 +1750,7 @@ Infant.Mortality             1.00</code></pre>
 <h3 class="anchored" data-anchor-id="réaliser-lacp-en-r">Réaliser l’ACP en R</h3>
 <p>En R, l’ACP se calcule avec la fonction <code>prcomp()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>acp <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(swiss, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>acp <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(swiss, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>L’argument <code>scale. = TRUE</code> centre <strong>et</strong> réduit les variables avant de calculer l’ACP, ce qui correspond exactement à la métrique normalisée <span class="math inline">\(M = \text{diag}(1/s_j^2)\)</span> vue dans la partie 1 (le centrage, lui, est toujours appliqué par défaut par <code>prcomp()</code>, avec <code>center = TRUE</code>). C’est cet argument qu’il faut utiliser dès que les variables ont des échelles différentes, ce qui est presque toujours le cas en pratique.</p>
 <p>L’objet <code>acp</code> renvoyé par <code>prcomp()</code> contient plusieurs éléments utiles, qui correspondent directement aux notations du cours :</p>
@@ -1765,7 +1764,7 @@ Infant.Mortality             1.00</code></pre>
 <section id="interpréter-les-sorties-numériques" class="level3">
 <h3 class="anchored" data-anchor-id="interpréter-les-sorties-numériques">Interpréter les sorties numériques</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(acp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(acp)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Importance of components:
                           PC1    PC2    PC3     PC4     PC5     PC6
@@ -1785,7 +1784,7 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_eb, <span class="fu">aes</span>(axe, inertie)) <span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2c7fb8"</span>) <span class="sc">+</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Axe factoriel"</span>, <span class="at">y =</span> <span class="st">"% d'inertie expliquée"</span>, <span class="at">title =</span> <span class="st">"Éboulis des valeurs propres"</span>) <span class="sc">+</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1804,7 +1803,7 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#2c7fb8"</span>) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Composante 1"</span>, <span class="at">y =</span> <span class="st">"Composante 2"</span>, <span class="at">title =</span> <span class="st">"Provinces suisses dans le premier plan factoriel"</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1829,7 +1828,7 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> cor_var, <span class="fu">aes</span>(PC1, PC2, <span class="at">label =</span> variable), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Composante 1"</span>, <span class="at">y =</span> <span class="st">"Composante 2"</span>, <span class="at">title =</span> <span class="st">"Cercle des corrélations"</span>) <span class="sc">+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1844,7 +1843,7 @@ Cumulative Proportion  0.5333 0.7313 0.8726 0.94577 0.97986 1.00000</code></pre>
 <h3 class="anchored" data-anchor-id="commandes-pour-interpréter-les-axes">Commandes pour interpréter les axes</h3>
 <p>Pour interpréter précisément le sens de chaque axe, on peut afficher directement les coefficients <span class="math inline">\(u_{kj}\)</span> (les coordonnées de chaque variable dans <code>acp$rotation</code>) et les corrélations <span class="math inline">\(\text{cor}(j,k)\)</span> calculées juste au-dessus.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(acp<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(acp<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   PC1   PC2
 Fertility        -0.46  0.32
@@ -1857,7 +1856,7 @@ Infant.Mortality -0.15  0.81</code></pre>
 </div>
 <p>Cette table donne, pour chaque variable, son poids <span class="math inline">\(u_{kj}\)</span> dans la construction des deux premiers axes. Un coefficient élevé en valeur absolue signifie que la variable contribue fortement à la direction de l’axe.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(swiss, acp<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(swiss, acp<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), <span class="dv">2</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   PC1   PC2
 Fertility        -0.82  0.35
@@ -1903,7 +1902,7 @@ Infant.Mortality -0.27  0.88</code></pre>
 <h3 class="anchored" data-anchor-id="comment-générer-la-vidéo">Comment générer la vidéo</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install manim          <span class="co"># une seule fois — nécessite aussi FFmpeg installé</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> resources/manim</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">manim</span> <span class="at">-pqh</span> acp_projection.py ACPProjection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">manim</span> <span class="at">-pqh</span> acp_projection.py ACPProjection</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Le fichier rendu se trouve dans <code>media/videos/acp_projection/1080p60/ACPProjection.mp4</code> — il suffit de le copier vers <code>resources/manim/acp_projection.mp4</code> pour qu’il s’affiche sur cette page.</p>
 </section>
 </section>
@@ -1920,6 +1919,69 @@ Infant.Mortality -0.27  0.88</code></pre>
 </section>
 
 </main> <!-- /main -->
+<script>
+/* Bouton FR/EN : envoie vers la version équivalente de la page courante.
+   Les pages anglaises sont dans le dossier en/ avec le même nom que la page française.
+   Sur les pages anglaises, le menu est traduit et pointe vers les pages anglaises. */
+(function () {
+  var path = window.location.pathname;
+  if (path.slice(-1) === '/') path += 'index.html';
+  var isEn = path.indexOf('/en/') === 0;
+
+  var labels = {
+    'Accueil': 'Home', 'Cours': 'Courses', 'Projets': 'Projects',
+    'Exposés': 'Talks', 'Datavis': 'Data viz', 'CV': 'CV',
+    'Contact': 'Contact', 'Master thesis': 'Master thesis'
+  };
+
+  // Le bouton de langue : le lien « EN » à droite du menu
+  var toggle = null;
+  document.querySelectorAll('nav a.nav-link').forEach(function (a) {
+    var t = a.querySelector('.menu-text');
+    if (t && t.textContent.trim() === 'EN') toggle = a;
+  });
+
+  if (isEn) {
+    document.documentElement.lang = 'en';
+    var links = document.querySelectorAll('nav a.nav-link, nav a.navbar-brand');
+    links.forEach(function (a) {
+      if (a === toggle) return;
+      var url;
+      try { url = new URL(a.getAttribute('href'), window.location.href); } catch (e) { return; }
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname.indexOf('/en/') !== 0) a.setAttribute('href', '/en' + url.pathname);
+      var span = a.querySelector('.menu-text');
+      if (span) {
+        var t = span.textContent.trim();
+        if (labels[t]) span.textContent = labels[t];
+      }
+    });
+  }
+
+  if (!toggle) return;
+
+  var target = isEn ? path.slice(3) : '/en' + path;
+  // Si la page n'a pas (encore) d'équivalent, on va vers la rubrique ou l'accueil
+  var parts = path.split('/').filter(Boolean);
+  var fallback;
+  if (isEn) {
+    fallback = parts.length > 2 ? '/' + parts[1] + '.html' : '/index.html';
+  } else {
+    fallback = parts.length > 1 ? '/en/' + parts[0] + '.html' : '/en/index.html';
+  }
+
+  var span = toggle.querySelector('.menu-text');
+  if (span) span.textContent = isEn ? 'FR' : 'EN';
+  toggle.setAttribute('href', target);
+
+  toggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    fetch(target, { method: 'HEAD' })
+      .then(function (r) { window.location.href = r.ok ? target : fallback; })
+      .catch(function () { window.location.href = target; });
+  });
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1945,12 +2007,12 @@ Infant.Mortality -0.27  0.88</code></pre>
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copié");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copié");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
