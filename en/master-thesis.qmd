@@ -9,7 +9,7 @@ number-sections: false
 
 ## Introduction
 
-Since the 1950s, the share of bank credit going to mortgages has kept rising. In the Jordà, Schularick and Taylor (JST) data, it goes from 38% to 62% of loans since 1960, while the share of business loans falls from 59% to 38%. The question I ask is whether this shift has durably crowded out credit to small firms, which depend on banks, to the benefit of large firms, which can borrow directly on bond markets.
+Since the 1950s, the share of bank credit going to mortgages has kept rising. In the Jordà, Schularick and Taylor (JST) data, on average across 11 countries, it goes from 38% to 62% of loans between 1960 and 2019, while the share of business loans falls from 59% to 38%. Over a longer period, the authors show that it doubled in a century, from about 30% around 1900 to about 60% today. The question I ask is whether this shift has durably crowded out credit to small firms, which depend on banks, to the benefit of large firms, which can borrow directly on bond markets.
 
 The mechanism I have in mind works as a chain with four links. Easy credit first flows into household demand and pushes up house prices. This makes mortgages more attractive to banks which, with limited capital, then charge firms a higher rate. Small firms, which have no access to markets, invest less or exit. Finally, this could persist over time, even outside booms, if banks keep a structural preference for mortgages.
 

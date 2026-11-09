@@ -9,7 +9,7 @@ number-sections: false
 
 ## Introduction
 
-Depuis les années 1950, la part du crédit bancaire consacrée aux prêts hypothécaires n'a pas cessé de monter. Dans les données de Jordà, Schularick et Taylor (JST), elle passe de 38 % à 62 % des prêts depuis 1960, tandis que la part des prêts aux entreprises tombe de 59 % à 38 %. La question que je me pose est de savoir si ce déplacement a durablement évincé le crédit aux petites firmes, qui dépendent des banques, au profit des grandes, qui peuvent se financer directement sur les marchés obligataires.
+Depuis les années 1950, la part du crédit bancaire consacrée aux prêts hypothécaires n'a pas cessé de monter. Dans les données de Jordà, Schularick et Taylor (JST), en moyenne sur 11 pays, elle passe de 38 % à 62 % des prêts entre 1960 et 2019, tandis que la part des prêts aux entreprises tombe de 59 % à 38 %. Sur plus longue période, les auteurs montrent qu'elle a doublé en un siècle, d'environ 30 % vers 1900 à environ 60 % aujourd'hui. La question que je me pose est de savoir si ce déplacement a durablement évincé le crédit aux petites firmes, qui dépendent des banques, au profit des grandes, qui peuvent se financer directement sur les marchés obligataires.
 
 Le mécanisme que j'envisage se lit comme une chaîne en quatre maillons. Le crédit facile passe d'abord par la demande des ménages et fait monter les prix de l'immobilier. Cette hausse rend l'hypothécaire plus attrayant pour les banques qui, avec un capital limité, demandent alors un taux plus élevé aux firmes. Les petites firmes, qui n'ont pas accès aux marchés, investissent moins ou disparaissent. Enfin, ce mouvement pourrait se maintenir dans la durée, même en dehors des booms, si les banques gardent une préférence structurelle pour l'hypothécaire.
 
