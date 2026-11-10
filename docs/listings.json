@@ -8,7 +8,9 @@
   },
   {
     "listing": "/exposes.html",
-    "items": []
+    "items": [
+      "/exposes/economic-history-2026.html"
+    ]
   },
   {
     "listing": "/en/datavis.html",
@@ -32,7 +34,9 @@
   },
   {
     "listing": "/en/exposes.html",
-    "items": []
+    "items": [
+      "/exposes/economic-history-2026.html"
+    ]
   },
   {
     "listing": "/en/projets.html",

@@ -1,0 +1,14 @@
+---
+title: "Does the Great Mortgaging Crowd Out Small Firms?"
+date: 10/11/2026
+description: "Présentation pour le cours d'Economic History (Sciences Po) : crédit hypothécaire, capital des banques et taille des firmes."
+categories: [economic history, crédit bancaire, master thesis]
+resources:
+  - borrelli_economic_history_2026.pdf
+---
+
+Présentation de 5 minutes donnée le 10 novembre 2026 dans le cours d'Economic History à Sciences Po. Elle présente la question de mon mémoire : le déplacement de long terme du crédit bancaire vers l'hypothécaire a-t-il évincé le crédit aux petites firmes ?
+
+[Télécharger les slides (PDF)](borrelli_economic_history_2026.pdf) · [Lire le projet complet](../master-thesis.qmd)
+
+<iframe src="borrelli_economic_history_2026.pdf" width="100%" height="560" style="border:1px solid #ddd;"></iframe>
