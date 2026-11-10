@@ -8,20 +8,20 @@
   },
   {
     "listing": "/exposes.html",
-    "items": []
-  },
-  {
-    "listing": "/en/datavis.html",
-    "items": []
-  },
-  {
-    "listing": "/en/cours.html",
-    "items": []
-  },
-  {
-    "listing": "/datavis.html",
     "items": [
-      "/datavis/exemple-datavis.html"
+      "/exposes/economic-history-2026.html"
+    ]
+  },
+  {
+    "listing": "/en/projets.html",
+    "items": [
+      "/en/projets/projet-signatures-ctdna.html"
+    ]
+  },
+  {
+    "listing": "/en/exposes.html",
+    "items": [
+      "/exposes/economic-history-2026.html"
     ]
   },
   {
@@ -31,13 +31,17 @@
     ]
   },
   {
-    "listing": "/en/exposes.html",
+    "listing": "/datavis.html",
+    "items": [
+      "/datavis/exemple-datavis.html"
+    ]
+  },
+  {
+    "listing": "/en/cours.html",
     "items": []
   },
   {
-    "listing": "/en/projets.html",
-    "items": [
-      "/en/projets/projet-signatures-ctdna.html"
-    ]
+    "listing": "/en/datavis.html",
+    "items": []
   }
 ]

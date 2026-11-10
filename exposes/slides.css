@@ -1,0 +1,18 @@
+.reveal { font-size: 32px; }
+.reveal h2 { color: #1a5276; font-weight: 700; font-size: 1.5em; }
+.reveal .slide-number { font-size: 14px; }
+.reveal .keybox, .reveal .warmbox, .reveal .plainbox {
+  border-radius: 4px; padding: 0.4em 0.7em; margin: 0.45em 0; font-size: 0.85em;
+}
+.reveal .keybox { background: #e8f0f7; border: 1px solid #1a5276; }
+.reveal .warmbox { background: #faebe8; border: 1px solid #b03a2e; }
+.reveal .plainbox { background: #fff; border: 1px solid #8ca9bd; }
+.reveal .boxtitle { display: block; font-weight: 700; color: #1a5276; margin-bottom: 0.25em; }
+.reveal .warmbox .boxtitle { color: #b03a2e; }
+.reveal .keybox p, .reveal .warmbox p, .reveal .plainbox p { margin: 0.2em 0; }
+.reveal .keybox ul, .reveal .plainbox ul { margin: 0.2em 0 0.2em 1em; }
+.reveal .src { float: right; font-size: 0.7em; color: #666; }
+.reveal .note { font-size: 0.6em; color: #444; }
+.reveal table { font-size: 0.75em; }
+.reveal table th { color: #1a5276; }
+.reveal p img { margin: 0; }
