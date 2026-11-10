@@ -333,7 +333,7 @@
     "href": "exposes/economic-history-2026.html#a-tension-in-the-literature",
     "title": "Does the Great Mortgaging Crowd Out Small Firms?",
     "section": "A tension in the literature",
-    "text": "A tension in the literature\n\n\n\nUS counties: Chakraborty et al. (2019)\n\n1988–2006, banks in strong housing markets\nMore mortgages, less commercial lending\nTheir borrowers invest less, especially constrained firms and banks\n\n\n\n\nSpain: Martín, Moral-Benito, Schmitz (2021)\n\nHousing boom first reduces credit to non-housing firms\nLater stimulates it: the boom raises bank net worth\nCrowding-out large but temporary, absorbed by the end of the boom\n\n\n\n\nSo is crowding-out only a short-run effect? The aggregate effect can fade while its composition does not: who loses credit, and do they come back?"
+    "text": "A tension in the literature\n\n\n\nUS counties: Chakraborty et al. (2018)\n\n1988–2006, banks in strong housing markets\nMore mortgages, less commercial lending\nTheir borrowers invest less, especially constrained firms and banks\n\n\n\n\nSpain: Martín, Moral-Benito, Schmitz (2021)\n\nHousing boom first reduces credit to non-housing firms\nLater stimulates it: the boom raises bank net worth\nCrowding-out large but temporary, absorbed by the end of the boom\n\n\n\n\nSo is crowding-out only a short-run effect? The aggregate effect can fade while its composition does not: who loses credit, and do they come back?"
   },
   {
     "objectID": "exposes/economic-history-2026.html#my-idea-firm-size",
@@ -355,6 +355,13 @@
     "title": "Does the Great Mortgaging Crowd Out Small Firms?",
     "section": "Identification: the Saiz instrument",
     "text": "Identification: the Saiz instrument\n\nPush banks toward mortgages for reasons unrelated to local firms\nHousing booms in the other counties where a bank has branches, predicted by how hard it is to build there (Saiz 2010):\n\\[\\text{Expo}_{c} = \\sum_{\\text{banks } b} \\underbrace{s_{b,c}}_{\\text{share in } c} \\;\\sum_{j\\neq c} \\underbrace{w_{b,j}\\,\\widehat{\\Delta HPI}_{j}}_{\\text{booms elsewhere}}\\]\n\n\n\n\nStep 1: banks\nMore mortgages, fewer small-business loans? Stronger when capital is low?\n\n\n\nStep 2: firms, 1 to 15 years\nSmall vs large establishments in the same county. Does the gap close, as in Spain, or persist?"
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#references",
+    "href": "exposes/economic-history-2026.html#references",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "References",
+    "text": "References\n\nAdelino, M., Schoar, A. & Severino, F. (2013). House Prices, Collateral and Self-Employment. NBER Working Paper 18868.\nChakraborty, I., Goldstein, I. & MacKinlay, A. (2018). Housing Price Booms and Crowding-Out Effects in Bank Lending. Review of Financial Studies, 31(7), 2806–2853.\nJordà, Ò., Schularick, M. & Taylor, A. M. (2016). The Great Mortgaging: Housing Finance, Crises and Business Cycles. Economic Policy, 31(85), 107–152.\nJordà, Ò., Schularick, M. & Taylor, A. M. (2017). Macrofinancial History and the New Business Cycle Facts. NBER Macroeconomics Annual, 31, 213–263. (JST Macrohistory Database)\nMartín, A., Moral-Benito, E. & Schmitz, T. (2021). The Financial Transmission of Housing Booms: Evidence from Spain. American Economic Review, 111(3), 1013–1053.\nMian, A., Sufi, A. & Verner, E. (2017). How Do Credit Supply Shocks Affect the Real Economy? Evidence from the United States in the 1980s. NBER Working Paper 23802.\nSaiz, A. (2010). The Geographic Determinants of Housing Supply. Quarterly Journal of Economics, 125(3), 1253–1296."
   },
   {
     "objectID": "exposes/economic-history-2026.html#backup-the-banks-problem",

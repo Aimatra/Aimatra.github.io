@@ -16,3 +16,5 @@
 .reveal table { font-size: 0.75em; }
 .reveal table th { color: #1a5276; }
 .reveal p img { margin: 0; }
+.reveal .refs ul { font-size: 0.62em; list-style: none; margin-left: 0; }
+.reveal .refs li { margin-bottom: 0.45em; padding-left: 1.2em; text-indent: -1.2em; }
