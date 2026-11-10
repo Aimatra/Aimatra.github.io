@@ -41,7 +41,7 @@ Average of 11 countries, 1960–2019: firms **59% → 38%** of bank credit, mort
 :::: {.columns}
 ::: {.column width="50%"}
 ::: {.plainbox}
-[US counties: Chakraborty et al. (2019)]{.boxtitle}
+[US counties: Chakraborty et al. (2018)]{.boxtitle}
 
 - 1988–2006, banks in strong housing markets
 - **More** mortgages, **less** commercial lending
@@ -138,6 +138,16 @@ Small vs large establishments in the same county. Does the gap close, as in Spai
 :::
 :::
 ::::
+
+## References {.refs}
+
+- Adelino, M., Schoar, A. & Severino, F. (2013). *House Prices, Collateral and Self-Employment*. NBER Working Paper 18868.
+- Chakraborty, I., Goldstein, I. & MacKinlay, A. (2018). Housing Price Booms and Crowding-Out Effects in Bank Lending. *Review of Financial Studies*, 31(7), 2806–2853.
+- Jordà, Ò., Schularick, M. & Taylor, A. M. (2016). The Great Mortgaging: Housing Finance, Crises and Business Cycles. *Economic Policy*, 31(85), 107–152.
+- Jordà, Ò., Schularick, M. & Taylor, A. M. (2017). Macrofinancial History and the New Business Cycle Facts. *NBER Macroeconomics Annual*, 31, 213–263. (JST Macrohistory Database)
+- Martín, A., Moral-Benito, E. & Schmitz, T. (2021). The Financial Transmission of Housing Booms: Evidence from Spain. *American Economic Review*, 111(3), 1013–1053.
+- Mian, A., Sufi, A. & Verner, E. (2017). *How Do Credit Supply Shocks Affect the Real Economy? Evidence from the United States in the 1980s*. NBER Working Paper 23802.
+- Saiz, A. (2010). The Geographic Determinants of Housing Supply. *Quarterly Journal of Economics*, 125(3), 1253–1296.
 
 # Backup {.backup}
 
