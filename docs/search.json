@@ -369,5 +369,61 @@
     "title": "Does the Great Mortgaging Crowd Out Small Firms?",
     "section": "",
     "text": "Présentation de 5 minutes donnée le 10 novembre 2026 dans le cours d’Economic History à Sciences Po. Elle présente la question de mon mémoire : le déplacement de long terme du crédit bancaire vers l’hypothécaire a-t-il évincé le crédit aux petites firmes ?\nTélécharger les slides (PDF) · Lire le projet complet"
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#motivation-the-great-mortgaging",
+    "href": "exposes/economic-history-2026.html#motivation-the-great-mortgaging",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "Motivation: the Great Mortgaging",
+    "text": "Motivation: the Great Mortgaging\n\n\n\n\n\n\n\nAverage of 11 countries, 1960–2019: firms 59% → 38% of bank credit, mortgages 38% → 62%. Over the century: mortgages about 30% around 1900, about 60% today. JST data; Jordà, Schularick & Taylor 2016\n\n\nQuestion: did this shift crowd out lending to small, bank-dependent firms, while large firms turned to bond markets?"
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#a-tension-in-the-literature",
+    "href": "exposes/economic-history-2026.html#a-tension-in-the-literature",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "A tension in the literature",
+    "text": "A tension in the literature\n\n\n\nUS counties: Chakraborty et al. (2019)\n\n1988–2006, banks in strong housing markets\nMore mortgages, less commercial lending\nTheir borrowers invest less, especially constrained firms and banks\n\n\n\n\nSpain: Martín, Moral-Benito, Schmitz (2021)\n\nHousing boom first reduces credit to non-housing firms\nLater stimulates it: the boom raises bank net worth\nCrowding-out large but temporary, absorbed by the end of the boom\n\n\n\n\nSo is crowding-out only a short-run effect? The aggregate effect can fade while its composition does not: who loses credit, and do they come back?"
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#my-idea-firm-size",
+    "href": "exposes/economic-history-2026.html#my-idea-firm-size",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "My idea: firm size",
+    "text": "My idea: firm size\n\n\n\nBank with limited capital\nA euro of capital must earn the same in both uses:\n\\[R^f_t - R^d_t = \\frac{\\omega^f}{\\omega^m}\\,\\big(R^m_t - R^d_t\\big)\\]\nMortgages pay more ⇒ the bank asks more from firms.\n\n\\(R^f, R^m\\): firm and mortgage rates; \\(R^d\\): funding cost; \\(\\omega^f, \\omega^m\\): capital charged per euro lent (Bâle I: 1 and 0.5).\n\n\nShort run (capital fixed)\nFirms pay a higher rate: small firms invest less or exit. Large firms escape through bonds.\n\n\nLong run (capital adjusts)\nCrowding-out in levels fades (as in Spain), but firms stay structurally disadvantaged, and small firms that exited may not come back."
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#usable-data",
+    "href": "exposes/economic-history-2026.html#usable-data",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "Usable data",
+    "text": "Usable data\n\n\n\n\n\n\n\n\nSource\nWhat it gives\nCoverage\n\n\n\n\nCounty Business Patterns\nEstablishments and jobs by size class and sector\nCounty, yearly\n\n\nCRA\nSmall-business loans by bank and county\nFrom 1996\n\n\nHMDA\nMortgage lending by bank\nFrom the 1990s\n\n\nFDIC Summary of Deposits\nWhere each bank has branches\nFrom 1994\n\n\nCall Reports\nBank balance sheets, capital\nQuarterly, long run\n\n\nFHFA + Saiz (2010)\nHouse prices + housing supply elasticity\nCounty / metro\n\n\nJST Macrohistory\nMortgage and non-mortgage credit, 17 countries\nSince 1870\n\n\n\n\nAll public, already collected."
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#identification-the-saiz-instrument",
+    "href": "exposes/economic-history-2026.html#identification-the-saiz-instrument",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "Identification: the Saiz instrument",
+    "text": "Identification: the Saiz instrument\n\nPush banks toward mortgages for reasons unrelated to local firms\nHousing booms in the other counties where a bank has branches, predicted by how hard it is to build there (Saiz 2010):\n\\[\\text{Expo}_{c} = \\sum_{\\text{banks } b} \\underbrace{s_{b,c}}_{\\text{share in } c} \\;\\sum_{j\\neq c} \\underbrace{w_{b,j}\\,\\widehat{\\Delta HPI}_{j}}_{\\text{booms elsewhere}}\\]\n\n\n\n\nStep 1: banks\nMore mortgages, fewer small-business loans? Stronger when capital is low?\n\n\n\nStep 2: firms, 1 to 15 years\nSmall vs large establishments in the same county. Does the gap close, as in Spain, or persist?"
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#backup-the-banks-problem",
+    "href": "exposes/economic-history-2026.html#backup-the-banks-problem",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "Backup: the bank’s problem",
+    "text": "Backup: the bank’s problem\n\\[\\max_{L^m_t,L^f_t,S_t,D_t}\\; R^m_t L^m_t + R^f_t L^f_t + R^s_t S_t - R^d_t D_t\\] \\[\\text{s.t.}\\quad L^m_t + L^f_t + S_t = N_t + D_t,\\qquad \\omega^m L^m_t + \\omega^f L^f_t \\le \\phi N_t\\]\n\\[\\frac{R^m_t - R^d_t}{\\omega^m} = \\lambda_t = \\frac{R^f_t - R^d_t}{\\omega^f}\n\\qquad\\qquad dL^f_t = -\\frac{\\omega^m}{\\omega^f}\\,dL^m_t \\quad (N_t \\text{ fixed})\\]\nLong run (\\(N_t\\) chosen, cost \\(R^e_t\\)):\n\\[\\lambda_t = \\frac{R^e_t - R^d_t}{\\phi} \\quad\\Rightarrow\\quad R^f_t = R^d_t + \\frac{\\omega^f}{\\phi}\\big(R^e_t - R^d_t\\big)\\]\nThe extended version adds default risk, collateral value (house prices) and information costs."
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#backup-step-2-regression",
+    "href": "exposes/economic-history-2026.html#backup-step-2-regression",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "Backup: step 2 regression",
+    "text": "Backup: step 2 regression\n\\[Y_{c,s,k,t+h} - Y_{c,s,k,t-1} = \\beta_h\\,\\text{Expo}_{c,t}\\times\\text{Small}_k + \\theta_h\\,\\Delta HPI_{c,t}\\times\\text{Small}_k + \\delta_{c,t} + \\mu_{s,k,t} + \\varepsilon\\]\n\n\\(c\\) county, \\(s\\) sector, \\(k\\) size class, \\(h = 1,\\dots,15\\) years\nPrediction: \\(\\beta_h &lt; 0\\); persistence tells short run from long run\nLocal house prices control for the home-collateral channel (Adelino, Schoar & Severino 2013)\nRobustness: tradable sectors only (manufacturing)"
+  },
+  {
+    "objectID": "exposes/economic-history-2026.html#backup-larger-project",
+    "href": "exposes/economic-history-2026.html#backup-larger-project",
+    "title": "Does the Great Mortgaging Crowd Out Small Firms?",
+    "section": "Backup: larger project",
+    "text": "Backup: larger project\n\nBâle I (1988): mortgages charged half the capital of firm loans, a historical shock to \\(\\omega^m/\\omega^f\\)\nBack to the long-run trend across JST countries: land vs productive capital\nModel extension: rising cost of capital, or exit with entry costs, to make the effect persist"
   }
 ]
